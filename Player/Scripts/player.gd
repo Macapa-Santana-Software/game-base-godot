@@ -15,7 +15,7 @@ func _ready() -> void:
 
  
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Definindo a direção em que o player está olhando
 	#direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	#direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 	
 	pass
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 
