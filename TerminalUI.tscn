@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://blrfy2xfan345"]
+
+[ext_resource type="Script" uid="uid://dtscg6b34cvjb" path="res://terminalUI.gd" id="1_yvoys"]
+
+[node name="TerminalUI" type="Control" unique_id=1367440969]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvoys")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1890183604]
+layout_mode = 0
+offset_right = 479.0
+offset_bottom = 270.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=127540949]
+layout_mode = 0
+offset_right = 476.0
+offset_bottom = 206.0
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect" unique_id=930968757]
+layout_mode = 0
+offset_top = 212.0
+offset_right = 480.0
+offset_bottom = 270.0

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://gixqsig77qyo"]
+
+[ext_resource type="Script" uid="uid://b4n5dbnjf1gmq" path="res://objetoTerminal.gd" id="1_thrst"]
+[ext_resource type="Texture2D" uid="uid://dcgal8afed0io" path="res://material/treasure-chest.png" id="2_mi4po"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi4po"]
+size = Vector2(32.5, 32)
+
+[node name="ObjetoTerminal" type="Area2D" unique_id=1615496905]
+script = ExtResource("1_thrst")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1223083272]
+modulate = Color(1, 0.4745098, 1, 1)
+texture = ExtResource("2_mi4po")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1611481402]
+position = Vector2(-0.25, 7)
+shape = SubResource("RectangleShape2D_mi4po")
+
+[node name="Label" type="Label" parent="." unique_id=596189503]
+offset_left = -33.0
+offset_top = -44.0
+offset_right = 33.0
+offset_bottom = -21.0
+text = "Aperte T"
