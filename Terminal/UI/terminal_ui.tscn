@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://blrfy2xfan345"]
 
-[ext_resource type="Script" uid="uid://dtscg6b34cvjb" path="res://terminalUI.gd" id="1_yvoys"]
+[ext_resource type="Script" uid="uid://dtscg6b34cvjb" path="res://Terminal/UI/terminal_ui.gd" id="1_yvoys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.0392157, 0.0470588, 0.0588235, 0.96)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gixqsig77qyo"]
 
-[ext_resource type="Script" uid="uid://b4n5dbnjf1gmq" path="res://objetoTerminal.gd" id="1_thrst"]
+[ext_resource type="Script" uid="uid://b4n5dbnjf1gmq" path="res://Terminal/World/objeto_terminal.gd" id="1_thrst"]
 [ext_resource type="Texture2D" uid="uid://dcgal8afed0io" path="res://material/treasure-chest.png" id="2_mi4po"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi4po"]
