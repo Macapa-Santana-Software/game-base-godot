@@ -7,10 +7,15 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $StateMachine
 
+signal DirectionChanged(new_direction : Vector2)
+signal interaction_requested(interactable: Node)
+
+var _nearby_terminal: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
+	$AreaColetora.body_entered.connect(_on_area_coletora_body_entered)
 	pass # Replace with function body.
 
  
@@ -28,6 +33,12 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interagir") and _nearby_terminal != null:
+		interaction_requested.emit(_nearby_terminal)
+		get_viewport().set_input_as_handled()
 	
 
 func SetDirection() -> bool:
@@ -44,6 +55,7 @@ func SetDirection() -> bool:
 		return false
 		
 	cardinal_direction = new_dir
+	DirectionChanged.emit(new_dir)
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 
@@ -59,3 +71,22 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+
+# Função para coletar itens (chamada quando colide com item)
+func _on_item_coletado(nome_item):
+	if get_parent().has_method("_coletar_item"):
+		get_parent()._coletar_item(nome_item)
+
+func _on_area_coletora_body_entered(body):
+	if body is Area2D and body.has_method("get_nome_item"):
+		_on_item_coletado(body.nome_item)
+		body.queue_free()  # Chama no playground.gd
+
+
+func set_nearby_terminal(terminal_node: Node) -> void:
+	_nearby_terminal = terminal_node
+
+
+func clear_nearby_terminal(terminal_node: Node) -> void:
+	if _nearby_terminal == terminal_node:
+		_nearby_terminal = null

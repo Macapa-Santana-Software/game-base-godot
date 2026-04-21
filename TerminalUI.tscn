@@ -2,6 +2,33 @@
 
 [ext_resource type="Script" uid="uid://dtscg6b34cvjb" path="res://terminalUI.gd" id="1_yvoys"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0392157, 0.0470588, 0.0588235, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145098, 0.176471, 0.219608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close"]
+bg_color = Color(0.490196, 0.121569, 0.121569, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.0313726, 0.0352941, 0.0431373, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.145098, 0.176471, 0.219608, 1)
+
 [node name="TerminalUI" type="Control" unique_id=1367440969]
 process_mode = 3
 layout_mode = 3
@@ -10,20 +37,84 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_yvoys")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1890183604]
-layout_mode = 0
-offset_right = 479.0
-offset_bottom = 270.0
+[node name="Overlay" type="ColorRect" parent="." unique_id=1300725642]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=127540949]
-layout_mode = 0
-offset_right = 476.0
-offset_bottom = 206.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1355328931]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LineEdit" type="LineEdit" parent="ColorRect" unique_id=930968757]
-layout_mode = 0
-offset_top = 212.0
-offset_right = 480.0
-offset_bottom = 270.0
+[node name="TerminalPanel" type="Panel" parent="CenterContainer" unique_id=5595131]
+custom_minimum_size = Vector2(640, 380)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TerminalPanel" unique_id=729530047]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/TerminalPanel/MarginContainer" unique_id=153250664]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="CenterContainer/TerminalPanel/MarginContainer/VBoxContainer" unique_id=711128566]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/TerminalPanel/MarginContainer/VBoxContainer/Header" unique_id=1477140671]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.9, 0.94, 1)
+text = "Terminal Git"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/TerminalPanel/MarginContainer/VBoxContainer/Header" unique_id=1109804790]
+custom_minimum_size = Vector2(28, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_close")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_close")
+theme_override_styles/hover = SubResource("StyleBoxFlat_close")
+text = "X"
+
+[node name="Output" type="RichTextLabel" parent="CenterContainer/TerminalPanel/MarginContainer/VBoxContainer" unique_id=45865807]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.92, 0.95, 0.96, 1)
+theme_override_constants/line_separation = 2
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+
+[node name="Input" type="LineEdit" parent="CenterContainer/TerminalPanel/MarginContainer/VBoxContainer" unique_id=1878892162]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.95, 0.96, 1)
+theme_override_colors/caret_color = Color(0.231373, 0.847059, 0.439216, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input")
+placeholder_text = "Digite um comando Git..."

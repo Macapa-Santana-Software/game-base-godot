@@ -1,24 +1,35 @@
 extends Area2D
 
-var player_esta_perto = false
-@onready var label_aviso = $Label # Certifique-se que o nome do nó é Label
+signal terminal_requested(terminal_node: Node)
 
-func _ready():
-	label_aviso.hide() # Garante que comece escondido
+var player_esta_perto: bool = false
+var _player_ref: Player
+@onready var label_aviso: Label = $Label
 
-func _on_body_entered(body):
+func _ready() -> void:
+	label_aviso.hide()
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+
+
+func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		player_esta_perto = true
-		label_aviso.show() # Mostra o texto "Aperte T"
+		_player_ref = body
+		label_aviso.text = "Aperte T"
+		label_aviso.show()
+		body.set_nearby_terminal(self)
 
-func _on_body_exited(body):
+
+func _on_body_exited(body: Node) -> void:
 	if body is Player:
 		player_esta_perto = false
-		label_aviso.hide() # Esconde o texto
+		label_aviso.hide()
+		if body == _player_ref:
+			body.clear_nearby_terminal(self)
+			_player_ref = null
 
-func _process(_delta):
-	if player_esta_perto and Input.is_action_just_pressed("interagir"):
-		var terminal = get_tree().current_scene.find_child("TerminalUI")
-		if terminal:
-			terminal.abrir()
-			label_aviso.hide() # Esconde o aviso enquanto o terminal está aberto
+
+func request_terminal_session() -> void:
+	label_aviso.hide()
+	terminal_requested.emit(self)
