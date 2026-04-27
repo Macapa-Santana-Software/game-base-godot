@@ -6,7 +6,7 @@ func _ready() -> void:
 	area_entered.connect(AreaEntered)
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func AreaEntered(a : Area2D) -> void:
