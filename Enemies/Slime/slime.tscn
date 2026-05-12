@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://dwcmeudwlush3"]
 
 [ext_resource type="Texture2D" uid="uid://cba0wkideyfvf" path="res://Enemies/Slime/Slime.png" id="1_byu67"]
+[ext_resource type="Script" uid="uid://bokddcvw1kwhh" path="res://Enemies/Scripts/enemy.gd" id="1_t8cwk"]
 [ext_resource type="Texture2D" uid="uid://ccjfsv1ps86cj" path="res://Player/Sprites/Shadow.png" id="1_wwfkb"]
+[ext_resource type="Script" uid="uid://pho1qdndvuju" path="res://Enemies/Scripts/enemy_state_machine.gd" id="4_oij8y"]
+[ext_resource type="Script" uid="uid://r6y38eoflfi3" path="res://Enemies/Scripts/states/enemy_state_idle.gd" id="5_q0lue"]
+[ext_resource type="Script" uid="uid://c3wksiee1s0pu" path="res://Enemies/Scripts/states/enemy_state_wander.gd" id="6_pg00x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8cwk"]
 radius = 5.0
@@ -222,6 +226,7 @@ _data = {
 [node name="Slime" type="CharacterBody2D" unique_id=663752233]
 collision_layer = 256
 collision_mask = 16
+script = ExtResource("1_t8cwk")
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="." unique_id=791955596]
 modulate = Color(0.5460356, 0.22034815, 0.000100991034, 1)
@@ -239,3 +244,14 @@ shape = SubResource("CapsuleShape2D_t8cwk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=219615537]
 libraries/ = SubResource("AnimationLibrary_8tnav")
+autoplay = &"idle_down"
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=1546925684]
+script = ExtResource("4_oij8y")
+
+[node name="Idle" type="Node" parent="EnemyStateMachine" unique_id=2004659189 node_paths=PackedStringArray("after_idle_state")]
+script = ExtResource("5_q0lue")
+after_idle_state = NodePath("../Wander")
+
+[node name="Wander" type="Node" parent="EnemyStateMachine" unique_id=419426643]
+script = ExtResource("6_pg00x")

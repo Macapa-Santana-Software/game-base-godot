@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 LevelManager="*uid://dnscifipcwk71"
+PlayerManager="*uid://c2iuvpwubligq"
 
 [display]
 
