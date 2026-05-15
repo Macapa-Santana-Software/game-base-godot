@@ -1,0 +1,118 @@
+Documentação Técnica: Sistema de Hotbar
+1. Visão Geral
+O sistema consiste em uma barra de inventário fixa na tela (HUD) com estilo semelhante à hotbar do Minecraft. Ele possui 3 slots funcionais indexados de 0 a 2. O sistema gerencia de forma automatizada a seleção visual do slot ativo por meio de comandos do teclado e a inserção de itens coletados no mundo 2D.
+
+2. Arquitetura e Estrutura de Cenas
+Para garantir a reutilização do código entre as diferentes fases do jogo, o sistema foi dividido em duas cenas independentes:
+
+A. Cena da Interface (Inventario.tscn)
+Esta cena gerencia o aspecto visual na tela do jogador e a lógica de seleção de slots.
+
+InventarioUI (CanvasLayer) -> Nó raiz que garante que a UI fique fixa na tela.
+
+HBoxContainer -> Organiza os slots horizontalmente de forma automática.
+
+Slot0 / Slot1 / Slot2 (Panel) -> Os quadrados cinzas de fundo.
+
+Highlight (ColorRect) -> Fundo colorido que indica se o slot está selecionado (Invisível por padrão).
+
+Icone (TextureRect) -> Exibe a imagem do item inserido.
+
+B. Cena do Item Coletável (item_teste.tscn)
+O "molde" para qualquer objeto interativo no chão que possa ser coletado.
+
+ItemTeste (Area2D) -> Detecta a aproximação física do jogador.
+
+Sprite2D -> A arte visual do item no chão.
+
+CollisionShape2D -> A área de colisão que ativa a coleta.
+
+3. Lógica e Funcionamento do Código
+Controle de Seleção (Teclado)
+O script escuta as entradas do jogador. Ao pressionar as teclas 1, 2 ou 3, o sistema atualiza a variável current_slot e altera a visibilidade do nó Highlight correspondente, dando o feedback visual de seleção.
+
+Sistema de Coleta Automatizada
+Quando o Player colide com um Area2D de item, o script do objeto busca ativamente pelo nó InventarioUI dentro da árvore da fase atual. Se encontrado, ele envia os dados do item (Nome, Textura e Cor) e se autodestrói (queue_free()), sumindo do mapa.
+
+4. Códigos-Fonte Atuais
+Script do Inventário (inventario.gd)
+GDScript
+extends CanvasLayer
+
+# Armazena as referências dos nós dos painéis
+@onready var slots = [$HBoxContainer/Slot0, $HBoxContainer/Slot1, $HBoxContainer/Slot2]
+var current_slot = 0 
+
+func _ready():
+	selecionar_slot(0) # Inicializa no primeiro slot
+
+func _input(event):
+	if event.is_action_pressed("slot1"):
+		selecionar_slot(0)
+	elif event.is_action_pressed("slot2"):
+		selecionar_slot(1)
+	elif event.is_action_pressed("slot3"):
+		selecionar_slot(2)
+
+func selecionar_slot(indice):
+	current_slot = indice
+	# Apaga o brilho de todos e ativa apenas no selecionado
+	for s in slots:
+		s.get_node("Highlight").visible = false
+	slots[indice].get_node("Highlight").visible = true
+	print("Você selecionou o slot: ", indice + 1)
+
+func adicionar_item(nome, textura, cor):
+	for i in range(slots.size()):
+		var icone_no_slot = slots[i].get_node("Icone")
+		
+		# Procura o primeiro slot vazio (sem textura)
+		if icone_no_slot.texture == null:
+			icone_no_slot.texture = textura
+			icone_no_slot.modulate = cor
+			
+			# Configurações para travar o tamanho da imagem e não quebrar a UI
+			icone_no_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icone_no_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icone_no_slot.size = slots[i].size 
+			
+			print("Item ", nome, " adicionado ao slot ", i)
+			return true
+	return false # Inventário cheio
+Script do Item (item_teste.gd)
+GDScript
+extends Area2D
+
+@export var nome_do_item: String = "Item"
+@export var cor_do_item: Color = Color.WHITE
+
+func _ready():
+	$Sprite2D.modulate = cor_do_item
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body):
+	if body.name == "Player":
+		coletar()
+
+func coletar():
+	var inventario = get_tree().current_scene.find_child("InventarioUI")
+	if inventario:
+		var sucesso = inventario.adicionar_item(nome_do_item, $Sprite2D.texture, cor_do_item)
+		if sucesso:
+			queue_free() # Só some do chão se couber no inventário
+5. Guia de Uso para Outros Desenvolvedores (Como replicar/usar)
+Para que a equipe adicione novos itens ou use o inventário nas fases criadas, basta seguir este padrão:
+
+Inserindo o Inventário na Fase: Abra a cena da fase, clique no ícone de corrente (Instanciar Cena Filha) e escolha Inventario.tscn. Certifique-se de deixá-lo no final da árvore de nós da fase para ficar na frente de tudo.
+
+Configurando as Teclas: Caso baixe o projeto em outra máquina, certifique-se de que em Projeto > Configurações do Projeto > Mapa de Entrada existam as ações slot1 (tecla 1), slot2 (tecla 2) e slot3 (tecla 3).
+
+Criando novos itens customizados: Arraste a cena item_teste.tscn para o seu mapa. Clique nela e vá ao painel Inspetor (à direita). Sem abrir o código, você pode alterar:
+
+nome_do_item: Altere para comandos como "Add", "Commit" ou "Push".
+
+cor_do_item: Escolha uma cor para diferenciar visualmente os comandos no mapa.
+
+Transform > Scale (No Sprite2D): Use para diminuir ou aumentar o item no chão sem que isso afete o tamanho dele quando for para o inventário.
+
+Tratamento de Pixel Art: Para garantir que os ícones não fiquem borrados ao entrar no inventário, a propriedade Texture Filter do nó Icone (TextureRect) deve estar configurada obrigatoriamente como Nearest.

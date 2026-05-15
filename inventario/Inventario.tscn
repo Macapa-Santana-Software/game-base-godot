@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2yvr1a27p5as"]
 
-[ext_resource type="Script" uid="uid://di3j5ftvqt3kd" path="res://inventario.gd" id="1_kubya"]
+[ext_resource type="Script" uid="uid://di3j5ftvqt3kd" path="res://inventario/inventario.gd" id="1_kubya"]
 
 [node name="InventarioUI" type="CanvasLayer" unique_id=945381569]
 script = ExtResource("1_kubya")
@@ -21,40 +21,62 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Slot0" type="Panel" parent="HBoxContainer" unique_id=106203879]
+[node name="Slot0" type="Panel" parent="HBoxContainer" unique_id=1796627001]
 clip_contents = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Icone" type="Sprite2D" parent="HBoxContainer/Slot0" unique_id=1003005190]
+[node name="Icone" type="TextureRect" parent="HBoxContainer/Slot0" unique_id=1143445458]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Highlight" type="ColorRect" parent="HBoxContainer/Slot0" unique_id=488643718]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_right = 33.0
+offset_right = 32.0
 offset_bottom = 32.0
+color = Color(1, 1, 0, 0.19607843)
 
-[node name="Slot1" type="Panel" parent="HBoxContainer" unique_id=1599435065]
+[node name="Slot1" type="Panel" parent="HBoxContainer" unique_id=1242106110]
 clip_contents = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Icone" type="Sprite2D" parent="HBoxContainer/Slot1" unique_id=1316414172]
+[node name="Icone" type="TextureRect" parent="HBoxContainer/Slot1" unique_id=1503709606]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 32.0
+offset_bottom = 32.0
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Highlight" type="ColorRect" parent="HBoxContainer/Slot1" unique_id=341571809]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
+color = Color(1, 1, 0, 0.19607843)
 
-[node name="Slot2" type="Panel" parent="HBoxContainer" unique_id=1909823832]
+[node name="Slot2" type="Panel" parent="HBoxContainer" unique_id=1072513143]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Icone" type="Sprite2D" parent="HBoxContainer/Slot2" unique_id=23665817]
+[node name="Icone" type="TextureRect" parent="HBoxContainer/Slot2" unique_id=1716449879]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Highlight" type="ColorRect" parent="HBoxContainer/Slot2" unique_id=725988679]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
+color = Color(1, 1, 0.011764706, 0.19607843)

@@ -25,3 +25,18 @@ func selecionar_slot(indice):
 	# Agora, liga o brilho apenas no slot que a gente escolheu
 	slots[indice].get_node("Highlight").visible = true
 	print("Você selecionou o slot: ", indice + 1)
+	
+	
+func adicionar_item(nome, textura, cor):
+	for i in range(slots.size()):
+		var icone_no_slot = slots[i].get_node("Icone")
+		
+		if icone_no_slot.texture == null:
+			icone_no_slot.texture = textura
+			icone_no_slot.modulate = cor
+			# Garante que o ícone preencha o espaço corretamente via código (opcional)
+			icone_no_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icone_no_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			
+			print("Item ", nome, " adicionado ao slot ", i)
+			return

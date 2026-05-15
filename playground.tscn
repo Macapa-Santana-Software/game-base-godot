@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="1_rupst"]
 [ext_resource type="PackedScene" uid="uid://ddxgtffn8ak1h" path="res://Tile Maps/grass-01.tscn" id="2_wt17y"]
 [ext_resource type="PackedScene" uid="uid://chntkicbg3en1" path="res://Props/Plants/plant.tscn" id="3_m8u5f"]
-[ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://Inventario.tscn" id="4_is3ju"]
+[ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://inventario/Inventario.tscn" id="4_is3ju"]
+[ext_resource type="PackedScene" uid="uid://tle3bcbcts7b" path="res://itens/item_teste.tscn" id="5_o00ia"]
 
 [node name="Playground" type="Node2D" unique_id=1807389439]
 y_sort_enabled = true
@@ -27,3 +28,18 @@ position = Vector2(74, 171)
 position = Vector2(145, 219)
 
 [node name="InventarioUI" parent="." unique_id=945381569 instance=ExtResource("4_is3ju")]
+
+[node name="ItemTeste" parent="." unique_id=748302536 instance=ExtResource("5_o00ia")]
+position = Vector2(184, -7)
+nome_do_item = "Add"
+cor_do_item = Color(0, 1, 0.11372549, 1)
+
+[node name="ItemTeste2" parent="." unique_id=795833248 instance=ExtResource("5_o00ia")]
+position = Vector2(245, -54)
+nome_do_item = "Commit"
+cor_do_item = Color(0.1254902, 0.13333334, 1, 1)
+
+[node name="ItemTeste3" parent="." unique_id=422855685 instance=ExtResource("5_o00ia")]
+position = Vector2(119, -54)
+nome_do_item = "Push"
+cor_do_item = Color(1, 0.08627451, 0.047058824, 1)
