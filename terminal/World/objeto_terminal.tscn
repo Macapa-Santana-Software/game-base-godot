@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://gixqsig77qyo"]
+
+[ext_resource type="Script" uid="uid://b4n5dbnjf1gmq" path="res://terminal/World/objeto_terminal.gd" id="1_thrst"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi4po"]
+size = Vector2(52, 40)
+
+[node name="ObjetoTerminal" type="Area2D" unique_id=1615496905]
+script = ExtResource("1_thrst")
+
+[node name="Base" type="Polygon2D" parent="." unique_id=1048039122]
+color = Color(0.11, 0.16, 0.21, 1)
+polygon = PackedVector2Array(-24, -14, 24, -14, 24, 10, -24, 10)
+
+[node name="Screen" type="Polygon2D" parent="." unique_id=1146939854]
+color = Color(0.19, 0.93, 0.72, 0.85)
+polygon = PackedVector2Array(-20, -10, 20, -10, 20, 6, -20, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1611481402]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_mi4po")
+
+[node name="LabelBalao" type="Label" parent="." unique_id=1941034551]
+light_mask = 63
+visibility_layer = 63
+offset_left = -95.0
+offset_top = -44.0
+offset_right = 95.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 13
+text = "Pressione T para acessar terminal"
+horizontal_alignment = 1
