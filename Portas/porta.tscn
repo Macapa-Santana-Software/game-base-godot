@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://djbpbs2gdsmlg"]
+
+[ext_resource type="Texture2D" uid="uid://wktaxehwlynv" path="res://icon.svg" id="1_kcud3"]
+[ext_resource type="Script" uid="uid://btqe1iwmbynv" path="res://Portas/porta.gd" id="1_porta"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0b5e"]
+size = Vector2(126, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcud3"]
+size = Vector2(133, 83)
+
+[node name="Porta" type="Node2D" unique_id=2127741543]
+script = ExtResource("1_porta")
+
+[node name="CorpoFisico" type="StaticBody2D" parent="." unique_id=1781585194]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="CorpoFisico" unique_id=699209858]
+scale = Vector2(0.6640625, 0.25)
+texture = ExtResource("1_kcud3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CorpoFisico" unique_id=1323186953]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_d0b5e")
+
+[node name="AreaDeteccao" type="Area2D" parent="." unique_id=642971884]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDeteccao" unique_id=1823782951]
+shape = SubResource("RectangleShape2D_kcud3")
