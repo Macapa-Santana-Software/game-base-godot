@@ -1,4 +1,4 @@
-extends "res://Terminal/Commands/git_command.gd"
+class_name GitCommand_Commit extends GitCommand
 
 func execute(args: Array[String], _raw_input: String) -> String:
 	# Como o seu tokenizador separa por espaços, se o comando for: git commit -m "minha mensagem"

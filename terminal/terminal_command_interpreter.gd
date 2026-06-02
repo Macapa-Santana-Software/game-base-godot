@@ -1,5 +1,4 @@
-extends Node
-class_name TerminalCommandInterpreter
+class_name TerminalCommandInterpreter extends Node
 
 var _handlers: Dictionary = {}
 var _foco_fase: Array[String] = ["init", "add", "commit", "status"]
@@ -7,10 +6,10 @@ var _foco_fase: Array[String] = ["init", "add", "commit", "status"]
 func _ready() -> void:
 	# Carrega os comandos diretamente pelos arquivos, evitando o cache problemático do Godot
 	_handlers = {
-		"init": preload("res://Terminal/Commands/git_init_command.gd").new(),
-		"add": preload("res://Terminal/Commands/git_add_command.gd").new(),
-		"commit": preload("res://Terminal/Commands/git_commit_command.gd").new(),
-		"status": preload("res://Terminal/Commands/git_status_command.gd").new()
+		"init": GitCommand_Init.new(),
+		"add": GitCommand_Add.new(),
+		"commit": GitCommand_Commit.new(),
+		"status": GitCommand_Status.new()
 	}
 
 func execute_command(raw_input: String) -> String:

@@ -1,4 +1,4 @@
-extends "res://Terminal/Commands/git_command.gd"
+class_name GitCommand_Add extends GitCommand
 
 func execute(args: Array[String], _raw_input: String) -> String:
 	if args.is_empty():
