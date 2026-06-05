@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://gixqsig77qyo"]
 
 [ext_resource type="Script" uid="uid://b4n5dbnjf1gmq" path="res://terminal/World/objeto_terminal.gd" id="1_thrst"]
+[ext_resource type="Texture2D" uid="uid://cm7jq1o6n5r73" path="res://terminal/Sprites/terminal.png" id="2_sajq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi4po"]
 size = Vector2(52, 40)
@@ -30,3 +31,8 @@ offset_bottom = -18.0
 theme_override_font_sizes/font_size = 13
 text = "Pressione T para acessar terminal"
 horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=457303610]
+position = Vector2(3.516674e-06, -2.0000002)
+scale = Vector2(6.5000005, 3.333333)
+texture = ExtResource("2_sajq6")

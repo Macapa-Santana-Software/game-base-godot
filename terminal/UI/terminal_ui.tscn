@@ -63,7 +63,7 @@ color = Color(0, 0, 0, 0.45)
 [node name="PainelCentralizador" type="Control" parent="." unique_id=2137439702]
 layout_mode = 3
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.9851852
 offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -75,8 +75,8 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.9850001
+anchor_right = 1.4945834
+anchor_bottom = 1.5182742
 offset_right = -237.4
 offset_bottom = -139.93402
 size_flags_horizontal = 4
@@ -92,7 +92,7 @@ anchor_bottom = 1.0
 offset_left = -1.0
 offset_top = 3.0
 offset_right = -1.0
-offset_bottom = 3.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 14
@@ -120,7 +120,7 @@ theme_override_font_sizes/font_size = 12
 text = "TERMINAL GIT :: DATACENTER/DEV"
 
 [node name="CloseButton" type="Button" parent="PainelCentralizador/TerminalPanel/MarginContainer/VBoxContainer/Header" unique_id=1109804790]
-custom_minimum_size = Vector2(36, 30)
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_mono")

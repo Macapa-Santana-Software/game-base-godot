@@ -18,6 +18,7 @@ const NOME_AREA_DETECCAO := "AreaDeteccao"
 
 @onready var corpo_fisico: StaticBody2D = $CorpoFisico
 @onready var area_deteccao: Area2D = $AreaDeteccao
+@onready var balao_aviso_portao: Label = $Label
 
 var _player_perto: bool = false
 var _porta_aberta: bool = false
@@ -26,6 +27,7 @@ var _textura_chave: Texture2D
 
 
 func _ready() -> void:
+	balao_aviso_portao.visible = false
 	_configurar_textura_chave()
 	_configurar_colisoes()
 	_conectar_sinais_area()
@@ -180,3 +182,15 @@ func _abrir_porta() -> void:
 
 	area_deteccao.monitoring = false
 	set_process(false)
+	
+	
+	
+func _on_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		balao_aviso_portao.visible = true
+		_player_perto = true
+
+func _on_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		balao_aviso_portao.visible = false
+		_player_perto = false

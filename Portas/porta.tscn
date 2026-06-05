@@ -1,30 +1,40 @@
 [gd_scene format=3 uid="uid://djbpbs2gdsmlg"]
 
-[ext_resource type="Texture2D" uid="uid://wktaxehwlynv" path="res://icon.svg" id="1_kcud3"]
 [ext_resource type="Script" uid="uid://btqe1iwmbynv" path="res://Portas/porta.gd" id="1_porta"]
+[ext_resource type="Texture2D" uid="uid://cmv8wp60mf1i5" path="res://Portas/Sprites/portao.png" id="2_8gktq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0b5e"]
-size = Vector2(126, 35)
+size = Vector2(126, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcud3"]
-size = Vector2(133, 83)
+size = Vector2(133, 116.5)
 
 [node name="Porta" type="Node2D" unique_id=2127741543]
 script = ExtResource("1_porta")
+
+[node name="Label" type="Label" parent="." unique_id=2119369658]
+offset_left = -97.0
+offset_top = -56.0
+offset_right = 102.0
+offset_bottom = -33.0
+theme_override_font_sizes/font_size = 10
+text = "Tenha a chave e aperte Enter para entrar"
 
 [node name="CorpoFisico" type="StaticBody2D" parent="." unique_id=1781585194]
 collision_layer = 16
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="CorpoFisico" unique_id=699209858]
-scale = Vector2(0.6640625, 0.25)
-texture = ExtResource("1_kcud3")
+position = Vector2(-2.026558e-06, 0.9999993)
+scale = Vector2(1.3265306, 1.25)
+texture = ExtResource("2_8gktq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CorpoFisico" unique_id=1323186953]
-position = Vector2(0, -0.5)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_d0b5e")
 
 [node name="AreaDeteccao" type="Area2D" parent="." unique_id=642971884]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDeteccao" unique_id=1823782951]
+position = Vector2(0, -16.75)
 shape = SubResource("RectangleShape2D_kcud3")
