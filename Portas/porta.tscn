@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djbpbs2gdsmlg"]
 
 [ext_resource type="Script" uid="uid://btqe1iwmbynv" path="res://Portas/porta.gd" id="1_porta"]
-[ext_resource type="Texture2D" uid="uid://cmv8wp60mf1i5" path="res://Portas/Sprites/portao.png" id="2_8gktq"]
+[ext_resource type="Texture2D" uid="uid://4envewbhcis1" path="res://Portas/Sprites/ChatGPT Image 5 de jun. de 2026, 20_04_35.png" id="2_8gktq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0b5e"]
 size = Vector2(126, 40)
@@ -25,8 +25,8 @@ collision_layer = 16
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="CorpoFisico" unique_id=699209858]
-position = Vector2(-2.026558e-06, 0.9999993)
-scale = Vector2(1.3265306, 1.25)
+position = Vector2(-1.1368684e-13, 2.1093745)
+scale = Vector2(0.06654512, 0.07221931)
 texture = ExtResource("2_8gktq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CorpoFisico" unique_id=1323186953]

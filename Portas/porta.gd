@@ -55,32 +55,36 @@ func _conectar_sinais_area() -> void:
 	if not area_deteccao.body_exited.is_connected(_on_area_body_exited):
 		area_deteccao.body_exited.connect(_on_area_body_exited)
 
-
 func _process(_delta: float) -> void:
 	if _porta_aberta or not _player_perto:
 		return
-
 	_atualizar_feedback_proximo()
-
-	if Input.is_action_just_pressed("ui_accept"):
+	# ALTERADO AQUI: Agora ele escuta apenas o Enter que configuramos!
+	if Input.is_action_just_pressed("interagir_porta"):
 		_tentar_abrir_porta()
-
+		
 
 func _on_area_body_entered(body: Node2D) -> void:
 	if body.name != NOME_PLAYER:
 		return
-
 	_player_perto = true
 	_ultimo_estado_feedback = -1
 	_atualizar_feedback_proximo()
+	
+	if body.name == "Player":
+		balao_aviso_portao.visible = true
+		_player_perto = true
 
 
 func _on_area_body_exited(body: Node2D) -> void:
 	if body.name != NOME_PLAYER:
 		return
-
 	_player_perto = false
 	_ultimo_estado_feedback = -1
+	
+	if body.name == "Player":
+		balao_aviso_portao.visible = false
+		_player_perto = false
 
 
 func _atualizar_feedback_proximo() -> void:
@@ -183,14 +187,3 @@ func _abrir_porta() -> void:
 	area_deteccao.monitoring = false
 	set_process(false)
 	
-	
-	
-func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		balao_aviso_portao.visible = true
-		_player_perto = true
-
-func _on_body_exited(body: Node2D) -> void:
-	if body.name == "Player":
-		balao_aviso_portao.visible = false
-		_player_perto = false
