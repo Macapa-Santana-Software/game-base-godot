@@ -10,6 +10,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if player_perto and Input.is_action_just_pressed("interagir_terminal"):
+		GameState.sincronizar_inventario_com_git()
+		
 		var ui = get_tree().get_first_node_in_group("terminal_ui")
 		if ui:
 			ui.abrir()

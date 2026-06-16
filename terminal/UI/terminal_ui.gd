@@ -19,15 +19,19 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	
+
 	campo_texto.text_submitted.connect(_ao_digitar)
 	close_button.pressed.connect(fechar)
 	campo_texto.placeholder_text = "Digite um comando Git..."
-	
-	# Instancia o interpretador limpo
+
 	_interpreter = TerminalCommandInterpreter.new()
 	add_child(_interpreter)
 	
+	# --- AJUSTE DA FASE 1 ---
+	# Aqui definimos os únicos comandos válidos agora. Nas próximas fases você mudará essa lista!
+	var comandos_fase_atual: Array[String] = ["init", "add", "commit", "status"]
+	_interpreter.configurar_comandos(comandos_fase_atual)
+
 	escrever_no_terminal(
 		"SISTEMA CENTRAL DE TERMINAL - FASE 1\n"
 		+ "Mecânicas de foco: git init, git status, git add e git commit.\n"

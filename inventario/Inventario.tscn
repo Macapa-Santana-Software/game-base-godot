@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di3j5ftvqt3kd" path="res://inventario/inventario.gd" id="1_kubya"]
 
-[node name="InventarioUI" type="CanvasLayer" unique_id=945381569]
+[node name="InventarioUI" type="CanvasLayer" unique_id=945381569 groups=["inventario_ui"]]
 script = ExtResource("1_kubya")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1658949022]

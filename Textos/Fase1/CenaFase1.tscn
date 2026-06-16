@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://65qg8f2dtf2g"]
+
+[ext_resource type="Script" uid="uid://72v8kfcq0p4r" path="res://Textos/Fase1/fase_1_dialogos.gd" id="1_todyc"]
+[ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Textos/CaixaDialogo.tscn" id="2_hale7"]
+
+[node name="CenaPrologo" type="CanvasLayer" unique_id=1974379811]
+script = ExtResource("1_todyc")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2129327597]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0, 0, 0, 1)
+
+[node name="CaixaDialogo" parent="." unique_id=4954288 instance=ExtResource("2_hale7")]
+offset_top = -62.0
+offset_right = -26.0
+offset_bottom = -15.0

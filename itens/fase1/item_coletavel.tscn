@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://8631oj4tqjyc"]
+
+[ext_resource type="Script" uid="uid://ciw16it3sdo81" path="res://itens/fase1/item_coletavel.gd" id="1_1dn2f"]
+[ext_resource type="Texture2D" uid="uid://wktaxehwlynv" path="res://icon.svg" id="2_xj0ym"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sfbo4"]
+size = Vector2(30, 32)
+
+[node name="ItemColetavel" type="Area2D" unique_id=1533553919]
+script = ExtResource("1_1dn2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=766100985]
+position = Vector2(1.4603138e-06, 0)
+scale = Vector2(0.234375, 0.24999999)
+texture = ExtResource("2_xj0ym")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=537425253]
+shape = SubResource("RectangleShape2D_sfbo4")
