@@ -1,6 +1,6 @@
 extends Area2D
 
-# Configurado no Inspetor de cada cópia: "main.gd" ou "player.gd"
+# Configurado no Inspetor de cada cópia: "main.gd" ou "setup.gd"
 @export var nome_do_item: String = "main.gd"
 @export var cor_do_item: Color = Color.AQUAMARINE
 

@@ -37,6 +37,9 @@ func adicionar_item(nome, textura, cor):
 			# Garante que o ícone preencha o espaço corretamente via código (opcional)
 			icone_no_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			icone_no_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			
+			slots[i].set_meta("nome_do_item", nome)
+			
 			GameState.coletar_arquivo_no_mapa(nome)
 			
 			print("Item ", nome, " adicionado ao slot ", i)

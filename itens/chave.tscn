@@ -8,7 +8,7 @@ size = Vector2(24, 23)
 
 [node name="Chave" type="Area2D" unique_id=748302536]
 script = ExtResource("1_d3ffo")
-nome_do_item = "Item"
+nome_do_item = "chave_fase_1"
 cor_do_item = Color(1, 1, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=617291135]

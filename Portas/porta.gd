@@ -135,8 +135,14 @@ func _slot_ativo_tem_chave() -> bool:
 
 	var icone := slot.get_node_or_null("Icone") as TextureRect
 	if icone == null or icone.texture == null:
-		# Removido o print repetitivo daqui para não poluir o console a cada frame
 		return false
+
+	if slot.has_meta("nome_do_item"):
+		var nome_item = str(slot.get_meta("nome_do_item")).to_lower()
+		if "chave" in nome_item or "key" in nome_item:
+			return true
+		else:
+			return false
 
 	return _textura_e_chave(icone.texture)
 
@@ -172,6 +178,9 @@ func _consumir_chave_do_slot_ativo() -> void:
 	var icone := slot.get_node("Icone") as TextureRect
 	icone.texture = null
 	icone.modulate = Color.WHITE
+	
+	if slot.has_meta("nome_do_item"):
+		slot.remove_meta("nome_do_item")
 
 
 func _abrir_porta() -> void:
