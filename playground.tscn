@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="8_pi42a"]
 [ext_resource type="PackedScene" uid="uid://gixqsig77qyo" path="res://terminal/World/objeto_terminal.tscn" id="9_h1jm5"]
 [ext_resource type="PackedScene" uid="uid://8631oj4tqjyc" path="res://itens/fase1/item_coletavel.tscn" id="10_h1jm5"]
+[ext_resource type="Script" path="res://playground.gd" id="1_playground_script"]
 
 [node name="Playground" type="Node2D" unique_id=1807389439]
+script = ExtResource("1_playground_script")
 y_sort_enabled = true
 
 [node name="Player" parent="." unique_id=960722692 instance=ExtResource("1_rupst")]

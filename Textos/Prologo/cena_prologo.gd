@@ -29,6 +29,6 @@ func _ready() -> void:
 	caixa_dialogo.iniciar_dialogo(texto_do_prologo)
 
 func _on_prologo_terminou() -> void:
-	print("O prólogo acabou! Aqui você muda para o menu ou para a primeira fase.")
+	# print("O prólogo acabou! Aqui você muda para o menu ou para a primeira fase.")
 	# Exemplo de transição de cena:
-	# get_tree().change_scene_to_file("res://cenas/Fase1.tscn")
+	get_tree().change_scene_to_file("res://playground.tscn")
