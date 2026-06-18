@@ -1,9 +1,27 @@
 [gd_scene format=3 uid="uid://2yvr1a27p5as"]
 
 [ext_resource type="Script" uid="uid://di3j5ftvqt3kd" path="res://inventario/inventario.gd" id="1_kubya"]
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Textos/MonospacePixel.ttf" id="2_wmale"]
 
 [node name="InventarioUI" type="CanvasLayer" unique_id=945381569 groups=["inventario_ui"]]
 script = ExtResource("1_kubya")
+
+[node name="NomeItemLabel" type="Label" parent="." unique_id=1418266091]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -63.0
+offset_right = 58.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_wmale")
+theme_override_font_sizes/font_size = 5
+text = "teste"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1658949022]
 custom_minimum_size = Vector2(32, 32)

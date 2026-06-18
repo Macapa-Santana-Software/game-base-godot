@@ -2,6 +2,7 @@ extends CanvasLayer
 
 # Pegamos os slots para o código conseguir "conversar" com eles
 @onready var slots = [$HBoxContainer/Slot0, $HBoxContainer/Slot1, $HBoxContainer/Slot2]
+@onready var nome_item_label = $NomeItemLabel
 
 func _ready():
 	selecionar_slot(0) # Começa com o primeiro selecionado
@@ -26,6 +27,11 @@ func selecionar_slot(indice):
 	slots[indice].get_node("Highlight").visible = true
 	print("Você selecionou o slot: ", indice + 1)
 	
+	if slots[indice].has_meta("nome_do_item"):
+		nome_item_label.text = slots[indice].get_meta("nome_do_item")
+	else:
+		nome_item_label.text = ""
+	
 	
 func adicionar_item(nome, textura, cor):
 	for i in range(slots.size()):
@@ -39,6 +45,9 @@ func adicionar_item(nome, textura, cor):
 			icone_no_slot.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			
 			slots[i].set_meta("nome_do_item", nome)
+			
+			if slots[i].get_node("Highlight").visible:
+				nome_item_label.text = nome
 			
 			GameState.coletar_arquivo_no_mapa(nome)
 			
