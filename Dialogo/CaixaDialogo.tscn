@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2u31t7ogjuew"]
 
-[ext_resource type="Script" uid="uid://cewa1a3glv82a" path="res://Textos/CaixaDialogo.gd" id="1_mr47i"]
-[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Textos/MonospacePixel.ttf" id="2_6cv68"]
+[ext_resource type="Script" uid="uid://cewa1a3glv82a" path="res://Dialogo/CaixaDialogo.gd" id="1_mr47i"]
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="2_6cv68"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ynji"]
 bg_color = Color(0, 0, 0, 1)

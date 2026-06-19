@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://btp4slsouuu3s"
-path="res://.godot/imported/MonospacePixel.ttf-485540d5440c43e446dc2e96e9a98401.fontdata"
+path="res://.godot/imported/MonospacePixel.ttf-a0a320236998777f916803a94548aa59.fontdata"
 
 [deps]
 
-source_file="res://Textos/MonospacePixel.ttf"
-dest_files=["res://.godot/imported/MonospacePixel.ttf-485540d5440c43e446dc2e96e9a98401.fontdata"]
+source_file="res://Dialogo/MonospacePixel.ttf"
+dest_files=["res://.godot/imported/MonospacePixel.ttf-a0a320236998777f916803a94548aa59.fontdata"]
 
 [params]
 

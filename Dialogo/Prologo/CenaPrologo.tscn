@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://gyso5k7qmy54"]
 
-[ext_resource type="Script" uid="uid://df1prkdmw2n6p" path="res://Textos/Prologo/cena_prologo.gd" id="1_jojb3"]
-[ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Textos/CaixaDialogo.tscn" id="1_ng5bu"]
+[ext_resource type="Script" uid="uid://df1prkdmw2n6p" path="res://Dialogo/Prologo/cena_prologo.gd" id="1_jojb3"]
+[ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Dialogo/CaixaDialogo.tscn" id="1_ng5bu"]
 
 [node name="CenaPrologo" type="CanvasLayer" unique_id=1974379811]
 script = ExtResource("1_jojb3")

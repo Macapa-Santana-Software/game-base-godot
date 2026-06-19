@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2yvr1a27p5as"]
 
 [ext_resource type="Script" uid="uid://di3j5ftvqt3kd" path="res://inventario/inventario.gd" id="1_kubya"]
-[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Textos/MonospacePixel.ttf" id="2_wmale"]
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="2_wmale"]
 
 [node name="InventarioUI" type="CanvasLayer" unique_id=945381569 groups=["inventario_ui"]]
 script = ExtResource("1_kubya")

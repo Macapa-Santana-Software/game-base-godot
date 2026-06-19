@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlp8m8w1c2k3j"]
+[gd_scene format=3 uid="uid://65qg8f2dtf2g"]
 
-[ext_resource type="Script" uid="uid://72v8kfcq0p4r" path="res://Textos/Fase1/fase_1_dialogos.gd" id="1_dialog"]
-[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Textos/MonospacePixel.ttf" id="2_font"]
+[ext_resource type="Script" uid="uid://72v8kfcq0p4r" path="res://Dialogo/Fase1/fase_1_dialogos.gd" id="1_todyc"]
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0, 0, 0, 1)
@@ -16,11 +16,11 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 anti_aliasing = false
 
-[node name="DialogoFase1" type="CanvasLayer"]
+[node name="CenaFase1" type="CanvasLayer" unique_id=1504326116]
 process_mode = 3
-script = ExtResource("1_dialog")
+script = ExtResource("1_todyc")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=434038267]
 visible = false
 anchors_preset = 12
 anchor_top = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=286503228]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +46,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer" unique_id=1328938085]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_font")
 theme_override_font_sizes/normal_font_size = 10
@@ -56,6 +56,6 @@ theme_override_font_sizes/italics_font_size = 10
 theme_override_font_sizes/mono_font_size = 10
 bbcode_enabled = true
 
-[node name="TimerTexto" type="Timer" parent="Panel"]
+[node name="TimerTexto" type="Timer" parent="Panel" unique_id=169922404]
 process_mode = 3
 one_shot = true
