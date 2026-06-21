@@ -47,7 +47,7 @@ func _configurar_colisoes() -> void:
 	area_deteccao.collision_mask = LAYER_PLAYER_BIT
 	area_deteccao.collision_layer = 0
 	area_deteccao.monitoring = true
-
+ 
 
 func _conectar_sinais_area() -> void:
 	if not area_deteccao.body_entered.is_connected(_on_area_body_entered):

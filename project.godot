@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="BranchSkipper"
-run/main_scene="uid://gyso5k7qmy54"
+run/main_scene="uid://cgd6chm6rts4n"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -48,16 +48,17 @@ position = Vector2(913, 307)
 position = Vector2(1082, -172)
 nome_do_item = "chave"
 
-[node name="TerminalUI" parent="." unique_id=795464509 instance=ExtResource("8_pi42a")]
-
 [node name="ObjetoTerminal" parent="." unique_id=1615496905 instance=ExtResource("9_h1jm5")]
 position = Vector2(-76, 181)
 
 [node name="ItemColetavel" parent="." unique_id=1533553919 instance=ExtResource("10_h1jm5")]
 position = Vector2(612, 632)
+nome_do_item = "main.gd"
 
 [node name="ItemColetavel2" parent="." unique_id=838663506 instance=ExtResource("10_h1jm5")]
 position = Vector2(1136, 510)
 nome_do_item = "setup.gd"
 
 [node name="PainelObjetivos" parent="." unique_id=920433276 instance=ExtResource("11_painel_obj")]
+
+[node name="TerminalUI" parent="." unique_id=795464509 instance=ExtResource("8_pi42a")]
