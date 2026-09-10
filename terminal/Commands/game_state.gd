@@ -11,6 +11,11 @@ var commits: Array[Dictionary] = []
 # Lista que guarda fisicamente o que o jogador pegou no mapa
 var inventario_player: Array[String] = []
 
+# Arquivos que podem existir no inventário, mas não fazem parte do repositório
+var arquivos_ignorados: Array[String] = [
+	"Chave"
+]
+
 func _ready() -> void:
 	inventario_player = []
 	working_directory = []
@@ -22,7 +27,13 @@ func coletar_arquivo_no_mapa(nome_arquivo: String) -> void:
 
 # Sincroniza o inventário do jogador com o Git ao entrar no computador
 func sincronizar_inventario_com_git() -> void:
-	working_directory = inventario_player.duplicate()
+	working_directory = []
+
+	for arquivo in inventario_player:
+		if arquivo not in arquivos_ignorados:
+			working_directory.append(arquivo)
+			
+	# working_directory = inventario_player.duplicate()
 
 func inicializar_repositorio() -> String:
 	if git_inicializado:

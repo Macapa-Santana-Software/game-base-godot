@@ -21,12 +21,17 @@ func init() -> void:
 ## What happens when the player enters this State?
 func enter() -> void:
 	_time = randf_range(state_cycles_min, state_cycles_max) * state_animation_duration
-	var rand = randf_range(0, 3)
+	
+	#var rand = randf_range(0, 3)
+	#_direction = enemy.DIR_4[rand]
+	
+	var rand := randi_range(0, enemy.DIR_4.size() - 1)
 	_direction = enemy.DIR_4[rand]
+	
 	enemy.velocity = _direction * wander_speed
 	enemy.set_direction(_direction)
 	enemy.update_animation(anim_name)
-	pass
+	#pass
 
 
 ## What happens when the player exits this State?

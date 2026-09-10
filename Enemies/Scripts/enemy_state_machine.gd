@@ -4,13 +4,10 @@ var states : Array[EnemyState]
 var prev_state : EnemyState
 var current_state : EnemyState
 
-
-
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	
 	pass
-
 
 func _process(_delta: float) -> void:
 	change_state(current_state.process(_delta))
@@ -19,7 +16,8 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	change_state(current_state.physics(_delta))
 
-func initialize(_enemy = Enemy) -> void:
+#func initialize(_enemy = Enemy) -> void:
+func initialize(_enemy: Enemy) -> void:
 	states = []
 	
 	for c in get_children():
@@ -34,7 +32,6 @@ func initialize(_enemy = Enemy) -> void:
 	if states.size() > 0:
 		change_state(states[0])
 		process_mode = Node.PROCESS_MODE_INHERIT
-
 
 func change_state(new_state : EnemyState) -> void:
 	if new_state == null || new_state == current_state:

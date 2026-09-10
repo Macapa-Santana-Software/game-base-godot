@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://pho1qdndvuju" path="res://Enemies/Scripts/enemy_state_machine.gd" id="4_oij8y"]
 [ext_resource type="Script" uid="uid://r6y38eoflfi3" path="res://Enemies/Scripts/states/enemy_state_idle.gd" id="5_q0lue"]
 [ext_resource type="Script" uid="uid://c3wksiee1s0pu" path="res://Enemies/Scripts/states/enemy_state_wander.gd" id="6_pg00x"]
+[ext_resource type="Script" uid="uid://cq7dnfhbjc4hi" path="res://Enemies/Scripts/states/enemy_state_chase.gd" id="7_jlwhn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8cwk"]
 radius = 5.0
@@ -223,6 +224,9 @@ _data = {
 &"walk_up": SubResource("Animation_n8fnr")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 224.0201
+
 [node name="Slime" type="CharacterBody2D" unique_id=663752233]
 collision_layer = 256
 collision_mask = 16
@@ -255,3 +259,16 @@ after_idle_state = NodePath("../Wander")
 
 [node name="Wander" type="Node" parent="EnemyStateMachine" unique_id=419426643]
 script = ExtResource("6_pg00x")
+
+[node name="EnemyStateChase" type="Node" parent="EnemyStateMachine" unique_id=1246642995]
+script = ExtResource("7_jlwhn")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1061659807]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1145020087]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

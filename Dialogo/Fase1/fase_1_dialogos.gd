@@ -10,10 +10,10 @@ var text_timer: Timer
 
 var falas_fase_1: Array[String] = [
 	"🤖 [color=#51CF66][IA]:[/color] Bip... bop... Conexão estabelecida!",
-	"🤖 [color=#51CF66][IA]:[/color] Alguém aí? Ah, oi, Walker! Sou a IA assistente deste fragmento... ou o que sobrou de mim.",
-	"🤖 [color=#51CF66][IA]:[/color] O sistema central entrou em colapso total. Tá uma bagunça completa por aqui.",
-	"🤖 [color=#51CF66][IA]:[/color] Eu vi alguns pedaços de código importantes jogados pelo chão da sala (`main.gd` e `player.gd`).",
-	"🤖 [color=#51CF66][IA]:[/color] Pegue eles no chão do mapa e depois interaja com o Terminal Central para começarmos a arrumar isso!"
+	#"🤖 [color=#51CF66][IA]:[/color] Alguém aí? Ah, oi, Walker! Sou a IA assistente deste fragmento... ou o que sobrou de mim.",
+	#"🤖 [color=#51CF66][IA]:[/color] O sistema central entrou em colapso total. Tá uma bagunça completa por aqui.",
+	#"🤖 [color=#51CF66][IA]:[/color] Eu vi alguns pedaços de código importantes jogados pelo chão da sala (`main.gd` e `player.gd`).",
+	#"🤖 [color=#51CF66][IA]:[/color] Pegue eles no chão do mapa e depois interaja com o Terminal Central para começarmos a arrumar isso!"
 ]
 
 var indice_atual: int = 0

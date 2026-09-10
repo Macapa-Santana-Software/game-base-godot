@@ -11,13 +11,15 @@ var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
 var player : Player
 var invulnerable : bool = false
+var player_detected: bool = false
 
+@onready var detection_area: Area2D = $DetectionArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 #@onready var hit_box : HitBox = $HitBox
 @onready var state_machine : EnemyStateMachine = $EnemyStateMachine
-
-
+@onready var chase_state: EnemyStateChase = $EnemyStateMachine/EnemyStateChase
+@onready var wander_state: EnemyStateWander = $EnemyStateMachine/EnemyStateWander
 
 func _ready() -> void:
 	state_machine.initialize(self)
@@ -57,3 +59,21 @@ func anim_direction() -> String:
 		return "up"
 	else:
 		return "side"
+
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body is Player:
+		print("PLAYER DETECTADO!")
+		print("CHASE STATE: ", chase_state)
+		print("CURRENT STATE ANTES: ", state_machine.current_state)
+		
+		player_detected = true
+		state_machine.change_state(chase_state)
+		
+		print("CURRENT STATE DEPOIS: ", state_machine.current_state)
+
+
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body is Player:
+		print("PLAYER PERDEU!")
+		player_detected = false
+		state_machine.change_state(wander_state)
