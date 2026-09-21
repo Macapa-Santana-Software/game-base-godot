@@ -6,9 +6,6 @@ func _ready() -> void:
 	UpdateLimits(LevelManager.current_tilemap_bounds)
 	pass
 
-
-
-
 func UpdateLimits(bounds : Array[Vector2]) -> void:
 	if bounds == []:
 		return

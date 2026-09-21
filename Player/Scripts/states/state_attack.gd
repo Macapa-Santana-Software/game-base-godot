@@ -27,7 +27,8 @@ func Enter() -> void:
 	audio.play()
 	
 	attacking = true
-	
+	print("[Ataque] Player atacou (direcao: %s)" % player.anim_direction())
+
 	await get_tree().create_timer(0.075).timeout
 	hurt_box.monitoring = true
 	pass

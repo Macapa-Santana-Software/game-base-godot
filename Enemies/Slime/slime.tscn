@@ -7,6 +7,10 @@
 [ext_resource type="Script" uid="uid://r6y38eoflfi3" path="res://Enemies/Scripts/states/enemy_state_idle.gd" id="5_q0lue"]
 [ext_resource type="Script" uid="uid://c3wksiee1s0pu" path="res://Enemies/Scripts/states/enemy_state_wander.gd" id="6_pg00x"]
 [ext_resource type="Script" uid="uid://cq7dnfhbjc4hi" path="res://Enemies/Scripts/states/enemy_state_chase.gd" id="7_jlwhn"]
+[ext_resource type="Script" uid="uid://chds22duj5txi" path="res://Enemies/Scripts/states/enemy_state_attack.gd" id="8_n8fnr"]
+[ext_resource type="PackedScene" uid="uid://bkxptt3oo2gy3" path="res://GeneralNodes/HitBox/hit_box.tscn" id="9_hitbox"]
+[ext_resource type="Script" uid="uid://q824jtga4d4t" path="res://GeneralNodes/Health/health_component.gd" id="10_health"]
+[ext_resource type="PackedScene" uid="uid://bko4su45qfv03" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="11_hurt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8cwk"]
 radius = 5.0
@@ -224,8 +228,14 @@ _data = {
 &"walk_up": SubResource("Animation_n8fnr")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 224.0201
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8fnr"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qn7y"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hurt"]
+radius = 22.0
 
 [node name="Slime" type="CharacterBody2D" unique_id=663752233]
 collision_layer = 256
@@ -255,20 +265,42 @@ script = ExtResource("4_oij8y")
 
 [node name="Idle" type="Node" parent="EnemyStateMachine" unique_id=2004659189 node_paths=PackedStringArray("after_idle_state")]
 script = ExtResource("5_q0lue")
-after_idle_state = NodePath("../Wander")
+after_idle_state = NodePath("../EnemyStateWander")
 
-[node name="Wander" type="Node" parent="EnemyStateMachine" unique_id=419426643]
+[node name="EnemyStateWander" type="Node" parent="EnemyStateMachine" unique_id=419426643]
 script = ExtResource("6_pg00x")
 
-[node name="EnemyStateChase" type="Node" parent="EnemyStateMachine" unique_id=1246642995]
+[node name="EnemyStateChase" type="Node" parent="EnemyStateMachine" unique_id=1246642995 node_paths=PackedStringArray("attack_state")]
 script = ExtResource("7_jlwhn")
+attack_state = NodePath("../EnemyStateAttack")
+
+[node name="EnemyStateAttack" type="Node" parent="EnemyStateMachine" unique_id=2132847222]
+script = ExtResource("8_n8fnr")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1061659807]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=1145020087]
 position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_g4v7s")
+shape = SubResource("CircleShape2D_n8fnr")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1414005112]
+script = ExtResource("10_health")
+
+[node name="HitBox" parent="." unique_id=1913371747 node_paths=PackedStringArray("health_component") instance=ExtResource("9_hitbox")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=512997589]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_2qn7y")
+
+[node name="AttackHurtBox" parent="." unique_id=46772055 instance=ExtResource("11_hurt")]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHurtBox" unique_id=152275954]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_hurt")
+debug_color = Color(1, 0, 0, 0.3372549)
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

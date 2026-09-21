@@ -4,15 +4,19 @@ var cardinal_direction : Vector2 = Vector2.DOWN
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 var direction : Vector2 = Vector2.ZERO
 
+@export var max_health : int = 10
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $StateMachine
+@onready var health_component: HealthComponent = $HealthComponent
 
 signal direction_changed(new_direction : Vector2)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerManager.player = self
+	health_component.initialize(max_health)
 	state_machine.initialize(self)
 	pass # Replace with function body.
 

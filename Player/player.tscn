@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://ph66pua5rinb" path="res://Player/Scripts/player_interactions_host.gd" id="10_apopc"]
 [ext_resource type="PackedScene" uid="uid://bko4su45qfv03" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="10_x3vf3"]
 [ext_resource type="Script" uid="uid://3rgvvhcat0ti" path="res://Player/Scripts/player_camera.gd" id="11_5htga"]
+[ext_resource type="Script" uid="uid://q824jtga4d4t" path="res://GeneralNodes/Health/health_component.gd" id="12_health"]
+[ext_resource type="PackedScene" uid="uid://bkxptt3oo2gy3" path="res://GeneralNodes/HitBox/hit_box.tscn" id="13_hitbox"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edjgo"]
 
@@ -249,6 +251,9 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_apopc"]
 radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hitbox"]
+radius = 10.0
 
 [sub_resource type="Animation" id="Animation_btcbx"]
 length = 0.001
@@ -544,3 +549,14 @@ max_polyphony = 4
 
 [node name="Interactions" type="Node2D" parent="." unique_id=546991261]
 script = ExtResource("10_apopc")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("12_health")
+
+[node name="HitBox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("13_hitbox")]
+collision_layer = 2
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_hitbox")

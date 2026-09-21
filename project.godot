@@ -24,6 +24,11 @@ config/icon="res://icon.svg"
 LevelManager="*uid://dnscifipcwk71"
 PlayerManager="*uid://c2iuvpwubligq"
 GameState="*uid://cx1cabpv1mkvn"
+OutputCapture="*uid://7juyt005yc6v"
+
+[claudot]
+
+first_run_shown=true
 
 [display]
 
@@ -32,6 +37,10 @@ window/size/viewport_height=270
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/claudot/plugin.cfg")
 
 [input]
 
