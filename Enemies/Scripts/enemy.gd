@@ -23,10 +23,14 @@ var is_dead : bool = false
 @onready var chase_state: EnemyStateChase = $EnemyStateMachine/EnemyStateChase
 @onready var wander_state: EnemyStateWander = $EnemyStateMachine/EnemyStateWander
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 
 func _ready() -> void:
 	health_component.initialize(max_health)
 	health_component.died.connect(_on_died)
+	knockback_component.setup(self)
+	knockback_component.knockback_started.connect(_on_knockback_started)
+	knockback_component.knockback_ended.connect(_on_knockback_ended)
 	state_machine.initialize(self)
 	player = PlayerManager.player
 	pass
@@ -35,6 +39,8 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
+	if knockback_component.is_active():
+		knockback_component.physics_tick(_delta)
 	move_and_slide()
 
 func set_direction(_new_direction : Vector2) -> bool:
@@ -56,6 +62,25 @@ func set_direction(_new_direction : Vector2) -> bool:
 func update_animation(state : String) -> void:
 	animation_player.play(state + "_" + anim_direction())
 	pass
+
+## Enquanto o knockback empurra o Enemy, a EnemyStateMachine fica pausada:
+## Chase/Wander/Attack nao sobrescrevem a velocity do empurrao. Se havia um
+## ataque em andamento, a janela de dano dele e fechada — decisao simples para
+## nao deixar o AttackHurtBox "preso" ligado durante a pausa (sem precisar de
+## animacao de interrupcao, que fica fora de escopo por enquanto).
+func _on_knockback_started() -> void:
+	if is_dead:
+		return
+	attack_hurt_box.deactivate()
+	state_machine.process_mode = Node.PROCESS_MODE_DISABLED
+
+## Ao terminar o knockback, o Enemy nao retoma o estado onde parou: decide de
+## novo com base na DetectionArea (ainda ve o Player -> Chase, senao -> Wander).
+func _on_knockback_ended() -> void:
+	if is_dead:
+		return
+	state_machine.process_mode = Node.PROCESS_MODE_INHERIT
+	state_machine.change_state(chase_state if player_detected else wander_state)
 
 func anim_direction() -> String:
 	if cardinal_direction == Vector2.DOWN:

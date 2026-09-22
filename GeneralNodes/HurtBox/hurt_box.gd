@@ -1,6 +1,12 @@
 class_name HurtBox extends Area2D
 
 @export var damage : int = 1
+## Forca do empurrao que este ataque aplica em quem for atingido.
+@export var knockback_force : float = 100.0
+## Corpo de quem ataca, usado como origem da direcao do knockback (o alvo e
+## empurrado para longe deste ponto). Se vazio, usa o proprio parent do HurtBox
+## — o que ja funciona quando o HurtBox e filho direto do corpo do atacante.
+@export var source : Node2D
 
 var _hit_targets : Array[Area2D] = []
 var _once_per_activation : bool = false
@@ -32,5 +38,8 @@ func AreaEntered(a : Area2D) -> void:
 			return
 		_hit_targets.append(a)
 	if a is HitBox:
-		a.TakeDamage(damage)
+		var target : Node2D = a.get_parent() as Node2D
+		var origin : Vector2 = source.global_position if source else (get_parent() as Node2D).global_position
+		var direction : Vector2 = target.global_position - origin if target else Vector2.ZERO
+		a.TakeDamage(damage, direction, knockback_force)
 	pass

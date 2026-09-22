@@ -6,6 +6,9 @@ class_name HitBox extends Area2D
 signal Damaged(damage : int)
 
 @export var health_component : HealthComponent
+## Opcional: se a entidade dona tiver um KnockbackComponent, o golpe tambem
+## empurra. Sem sistema de knockback, TakeDamage continua funcionando so com dano.
+@export var knockback_component : KnockbackComponent
 
 var _disabled : bool = false
 
@@ -17,10 +20,15 @@ func disable() -> void:
 	set_deferred("monitorable", false)
 	set_deferred("collision_layer", 0)
 
-func TakeDamage(damage: int) -> void:
+func TakeDamage(damage: int, knockback_direction: Vector2 = Vector2.ZERO, knockback_force: float = 0.0) -> void:
 	if _disabled:
 		return
 	print("[HitBox] %s recebeu golpe de %d (HealthComponent ligado: %s)" % [get_parent().name, damage, health_component != null])
 	if health_component:
 		health_component.take_damage(damage)
+	# Golpe fatal: quem morreu ja se desligou (died()) e zerou a propria
+	# velocity — nao aplica knockback por cima disso.
+	var just_died : bool = health_component != null and health_component.is_dead()
+	if knockback_component and not just_died:
+		knockback_component.apply(knockback_direction, knockback_force)
 	Damaged.emit(damage)

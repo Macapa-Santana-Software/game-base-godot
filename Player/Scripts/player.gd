@@ -10,6 +10,7 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var knockback_component: KnockbackComponent = $KnockbackComponent
 
 signal direction_changed(new_direction : Vector2)
 
@@ -17,6 +18,9 @@ signal direction_changed(new_direction : Vector2)
 func _ready() -> void:
 	PlayerManager.player = self
 	health_component.initialize(max_health)
+	knockback_component.setup(self)
+	knockback_component.knockback_started.connect(_on_knockback_started)
+	knockback_component.knockback_ended.connect(_on_knockback_ended)
 	state_machine.initialize(self)
 	pass # Replace with function body.
 
@@ -34,8 +38,19 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(_delta: float) -> void:
+	if knockback_component.is_active():
+		knockback_component.physics_tick(_delta)
 	move_and_slide()
-	
+
+## Enquanto o knockback empurra o Player, a StateMachine fica pausada: assim
+## nenhuma State (Idle/Walk/Attack) sobrescreve a velocity do empurrao nem o
+## input cancela o movimento instantaneamente.
+func _on_knockback_started() -> void:
+	state_machine.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _on_knockback_ended() -> void:
+	state_machine.process_mode = Node.PROCESS_MODE_INHERIT
+
 
 func set_direction() -> bool:
 	if direction == Vector2.ZERO:

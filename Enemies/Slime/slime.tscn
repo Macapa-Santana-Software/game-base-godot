@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bkxptt3oo2gy3" path="res://GeneralNodes/HitBox/hit_box.tscn" id="9_hitbox"]
 [ext_resource type="Script" uid="uid://q824jtga4d4t" path="res://GeneralNodes/Health/health_component.gd" id="10_health"]
 [ext_resource type="PackedScene" uid="uid://bko4su45qfv03" path="res://GeneralNodes/HurtBox/hurt_box.tscn" id="11_hurt"]
+[ext_resource type="Script" path="res://GeneralNodes/Health/enemy_health_bar.gd" id="12_healthbar"]
+[ext_resource type="Script" path="res://GeneralNodes/Knockback/knockback_component.gd" id="13_knockback"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8cwk"]
 radius = 5.0
@@ -287,8 +289,12 @@ shape = SubResource("CircleShape2D_n8fnr")
 [node name="HealthComponent" type="Node" parent="." unique_id=1414005112]
 script = ExtResource("10_health")
 
-[node name="HitBox" parent="." unique_id=1913371747 node_paths=PackedStringArray("health_component") instance=ExtResource("9_hitbox")]
+[node name="KnockbackComponent" type="Node" parent="."]
+script = ExtResource("13_knockback")
+
+[node name="HitBox" parent="." unique_id=1913371747 node_paths=PackedStringArray("health_component", "knockback_component") instance=ExtResource("9_hitbox")]
 health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=512997589]
 position = Vector2(0, -5)
@@ -296,11 +302,15 @@ shape = SubResource("CircleShape2D_2qn7y")
 
 [node name="AttackHurtBox" parent="." unique_id=46772055 instance=ExtResource("11_hurt")]
 monitoring = false
+knockback_force = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHurtBox" unique_id=152275954]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_hurt")
 debug_color = Color(1, 0, 0, 0.3372549)
+
+[node name="HealthBar" type="Node2D" parent="."]
+script = ExtResource("12_healthbar")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
