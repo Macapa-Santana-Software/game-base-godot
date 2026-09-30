@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://GeneralNodes/Health/player_health_bar.gd" id="1"]
 
 [node name="PlayerHealthUI" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1")
 
 [node name="Hearts" type="HBoxContainer" parent="."]

@@ -14,10 +14,13 @@ var direction : Vector2 = Vector2.ZERO
 
 signal direction_changed(new_direction : Vector2)
 
+var is_dead : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerManager.player = self
 	health_component.initialize(max_health)
+	health_component.died.connect(_on_died)
 	knockback_component.setup(self)
 	knockback_component.knockback_started.connect(_on_knockback_started)
 	knockback_component.knockback_ended.connect(_on_knockback_ended)
@@ -50,6 +53,22 @@ func _on_knockback_started() -> void:
 
 func _on_knockback_ended() -> void:
 	state_machine.process_mode = Node.PROCESS_MODE_INHERIT
+
+## Reacao ao died() do HealthComponent. Trava o Player (para movimento, ataque
+## e qualquer state ativo) e mostra a tela de derrota, pausando o jogo em seguida.
+func _on_died() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	state_machine.process_mode = Node.PROCESS_MODE_DISABLED
+	velocity = Vector2.ZERO
+	set_physics_process(false)
+
+	var tela_derrota := get_tree().get_first_node_in_group("defeat_screen")
+	if tela_derrota:
+		tela_derrota.mostrar()
+	else:
+		get_tree().paused = true
 
 
 func set_direction() -> bool:

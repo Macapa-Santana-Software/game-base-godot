@@ -50,6 +50,7 @@ func adicionar_ao_stage(arquivo: String) -> String:
 		return "O arquivo '%s' já está na Staging Area." % arquivo
 
 	staging_area.append(arquivo)
+	working_directory.erase(arquivo)
 	return "[color=#3DFF9B]Adicionado '%s' à Staging Area (Pronto para Commit).[/color]" % arquivo
 
 func criar_commit(mensagem: String) -> String:

@@ -10,6 +10,9 @@ class_name EnemyStateWander extends EnemyState
 @export var state_cycles_max : int = 3
 @export var next_state : EnemyState
 
+@export_category("Obstacle Avoidance")
+@export var wall_avoid_distance : float = 24.0
+
 var _time : float = 0.0
 var _direction : Vector2
 
@@ -49,4 +52,23 @@ func process(_delta : float ) -> EnemyState:
 
 ## What happens during the _physics_process update in this State?
 func physics(_delta : float) -> EnemyState:
+	if _is_blocked_ahead(_direction):
+		_direction = -_direction
+		enemy.velocity = _direction * wander_speed
+		enemy.set_direction(_direction)
 	return null
+
+
+## Verifica com um raycast se ha um obstaculo (parede) a frente, dentro de
+## wall_avoid_distance, antes que o inimigo realmente colida com ele.
+func _is_blocked_ahead(_dir : Vector2) -> bool:
+	if _dir == Vector2.ZERO:
+		return false
+	var space_state := enemy.get_world_2d().direct_space_state
+	var query := PhysicsRayQueryParameters2D.create(
+		enemy.global_position,
+		enemy.global_position + _dir * wall_avoid_distance,
+		enemy.collision_mask,
+		[enemy.get_rid()]
+	)
+	return not space_state.intersect_ray(query).is_empty()

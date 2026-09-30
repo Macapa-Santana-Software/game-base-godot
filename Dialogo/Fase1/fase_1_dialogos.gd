@@ -18,13 +18,15 @@ var falas_fase_1: Array[String] = [
 
 var indice_atual: int = 0
 var texto_completo: bool = false
+var _bloqueado_pelo_menu_pausa: bool = false
 
 func _ready() -> void:
 	print("[SISTEMA] Script 'fase_1_dialogos.gd' FOI CARREGADO com sucesso!")
-	
+
 	# Configuração do modo de processamento global da UI
 	process_mode = PROCESS_MODE_ALWAYS
-	
+	add_to_group("sistema_pausavel")
+
 	# Vinculação segura dos nós para descobrir se o Claude Code mudou os nomes deles
 	panel = find_child("Panel", true, false) as Panel
 	text_label = find_child("RichTextLabel", true, false) as RichTextLabel
@@ -77,7 +79,22 @@ func exibir_linha() -> void:
 	text_label.visible_characters = 0
 	text_timer.start()
 
+func pausar() -> void:
+	if not panel or not panel.visible:
+		return
+	_bloqueado_pelo_menu_pausa = true
+	text_timer.stop()
+
+func despausar() -> void:
+	if not _bloqueado_pelo_menu_pausa:
+		return
+	_bloqueado_pelo_menu_pausa = false
+	if not texto_completo:
+		text_timer.start()
+
 func _input(event: InputEvent) -> void:
+	if _bloqueado_pelo_menu_pausa:
+		return
 	if event.is_action_pressed("ui_accept") and panel and panel.visible:
 		get_viewport().set_input_as_handled()
 		if not texto_completo:

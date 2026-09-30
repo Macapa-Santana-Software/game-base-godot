@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://8631oj4tqjyc" path="res://itens/fase1/item_coletavel.tscn" id="10_h1jm5"]
 [ext_resource type="PackedScene" uid="uid://bqx384klj0w1s" path="res://Dialogo/Fase1/Objetivos/painel_objetivos.tscn" id="11_painel_obj"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="12_playerhealthui"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="13_pausemenu"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="14_defeatscreen"]
 
 [node name="Playground" type="Node2D" unique_id=1807389439]
 y_sort_enabled = true
@@ -88,3 +90,7 @@ nome_do_item = "setup.gd"
 visible = false
 
 [node name="PlayerHealthUI" parent="." unique_id=1474653418 instance=ExtResource("12_playerhealthui")]
+
+[node name="PauseMenu" parent="." unique_id=1174086905 instance=ExtResource("13_pausemenu")]
+
+[node name="DefeatScreen" parent="." instance=ExtResource("14_defeatscreen")]
