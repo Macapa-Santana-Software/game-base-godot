@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="12_playerhealthui"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="13_pausemenu"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="14_defeatscreen"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/exit_area.tscn" id="15_exitarea"]
 
 [node name="Playground" type="Node2D" unique_id=1807389439]
 y_sort_enabled = true
@@ -69,6 +70,9 @@ position = Vector2(1093, 46)
 [node name="Porta" parent="." unique_id=2127741543 instance=ExtResource("6_ynsuh")]
 position = Vector2(913, 307)
 
+[node name="ExitArea" parent="." unique_id=528540219 instance=ExtResource("15_exitarea")]
+position = Vector2(16, -182)
+
 [node name="Chave" parent="." unique_id=748302536 instance=ExtResource("7_v7dth")]
 position = Vector2(1082, -172)
 nome_do_item = "chave"
@@ -93,4 +97,4 @@ visible = false
 
 [node name="PauseMenu" parent="." unique_id=1174086905 instance=ExtResource("13_pausemenu")]
 
-[node name="DefeatScreen" parent="." instance=ExtResource("14_defeatscreen")]
+[node name="DefeatScreen" parent="." unique_id=1690747553 instance=ExtResource("14_defeatscreen")]

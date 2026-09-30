@@ -67,8 +67,9 @@ func _ao_digitar(texto: String) -> void:
 	var output := _interpreter.execute_command(clean_text)
 	if not output.is_empty():
 		escrever_no_terminal(output)
-		
+
 	campo_texto.clear()
+	campo_texto.grab_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible: return

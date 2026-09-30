@@ -3,6 +3,9 @@ extends Node
 # Sinal que avisa os scripts de fase quando um commit foi concluído
 signal commit_realizado(commit_info: Dictionary)
 
+# Sinal que avisa quando o jogador coleta um arquivo no mapa (ex.: objetivos)
+signal arquivo_coletado(nome_arquivo: String)
+
 var git_inicializado: bool = false
 var working_directory: Array[String] = [] 
 var staging_area: Array[String] = []      
@@ -24,6 +27,7 @@ func _ready() -> void:
 func coletar_arquivo_no_mapa(nome_arquivo: String) -> void:
 	if not nome_arquivo in inventario_player:
 		inventario_player.append(nome_arquivo)
+		arquivo_coletado.emit(nome_arquivo)
 
 # Sincroniza o inventário do jogador com o Git ao entrar no computador
 func sincronizar_inventario_com_git() -> void:
