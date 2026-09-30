@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cgd6chm6rts4n"]
 
-[ext_resource type="Script" uid="uid://dpv8gyuo5frk8" path="res://playground.gd" id="1_playground_script"]
+[ext_resource type="Script" uid="uid://dpv8gyuo5frk8" path="res://fases/fase_1/fase_1.gd" id="1_playground_script"]
 [ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="1_rupst"]
 [ext_resource type="PackedScene" uid="uid://ddxgtffn8ak1h" path="res://Tile Maps/grass-01.tscn" id="2_wt17y"]
 [ext_resource type="PackedScene" uid="uid://chntkicbg3en1" path="res://Props/Plants/plant.tscn" id="3_m8u5f"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="12_playerhealthui"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="13_pausemenu"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="14_defeatscreen"]
-[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/exit_area.tscn" id="15_exitarea"]
+[ext_resource type="PackedScene" uid="uid://jwu5fnkeyepk" path="res://GeneralNodes/ExitArea/exit_area.tscn" id="15_exitarea"]
 
 [node name="Playground" type="Node2D" unique_id=1807389439]
 y_sort_enabled = true

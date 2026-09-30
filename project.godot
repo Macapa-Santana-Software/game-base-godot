@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="BranchSkipper"
-run/main_scene="uid://cgd6chm6rts4n"
+run/main_scene="uid://gyso5k7qmy54"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 LevelManager="*uid://dnscifipcwk71"
 PlayerManager="*uid://c2iuvpwubligq"
 GameState="*uid://cx1cabpv1mkvn"
+FaseManager="*res://00_Globals/global_fase_manager.gd"
 OutputCapture="*uid://7juyt005yc6v"
 
 [claudot]

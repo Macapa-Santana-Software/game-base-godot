@@ -96,7 +96,7 @@ res://
 - Tile Maps/
 - addons/
 - docs/
-- fases/
+- fases/ (fase_1/fase_1.tscn)
 - inventario/
 - itens/
 - material/
@@ -104,8 +104,5 @@ res://
 - icon.svg
 - icon.svg.import
 - info-inventario.txt
-- playground.gd
-- playground.gd.uid
-- playground.tscn
 - project.godot
 ```

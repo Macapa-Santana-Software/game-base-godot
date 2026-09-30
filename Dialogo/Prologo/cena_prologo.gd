@@ -31,4 +31,4 @@ func _ready() -> void:
 func _on_prologo_terminou() -> void:
 	# print("O prólogo acabou! Aqui você muda para o menu ou para a primeira fase.")
 	# Exemplo de transição de cena:
-	get_tree().change_scene_to_file("res://playground.tscn")
+	get_tree().change_scene_to_file("res://fases/fase_1/fase_1.tscn")

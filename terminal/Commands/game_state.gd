@@ -81,6 +81,15 @@ func criar_commit(mensagem: String) -> String:
 
 	return "[color=#3DFF9B][master (root-commit) %s] %s\n Comitados com sucesso![/color]" % [novo_commit.id, novo_commit.mensagem]
 
+# Limpa todo o estado da fase atual (usado futuramente ao trocar de fase).
+# Nao emite sinais e nao e chamado automaticamente.
+func reset_fase() -> void:
+	git_inicializado = false
+	working_directory.clear()
+	staging_area.clear()
+	commits.clear()
+	inventario_player.clear()
+
 func obter_status() -> String:
 	if not git_inicializado:
 		return "[color=#FF6B6B]fatal: not a git repository (or any of the parent directories): .git[/color]\nDigite 'git init' para começar."

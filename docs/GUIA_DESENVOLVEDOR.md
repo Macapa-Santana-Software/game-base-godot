@@ -30,7 +30,7 @@ O jogo mistura exploração 2D com duas UIs em `CanvasLayer`:
 | **Inventário** | `inventario/` | Hotbar fixa com 3 slots; seleção por teclas 1–3; itens do mapa vão para o primeiro slot vazio. |
 | **Terminal** | `terminal/` | Janela modal ao interagir com um computador no mapa; comandos `git` simulados; pausa o jogo enquanto aberto. |
 
-**Referência de fase:** `playground.tscn` instancia os dois sistemas assim:
+**Referência de fase:** `fases/fase_1/fase_1.tscn` instancia os dois sistemas assim:
 
 - `InventarioUI` → `res://inventario/Inventario.tscn`
 - `ObjetoTerminal` → `res://terminal/World/objeto_terminal.tscn`
@@ -48,7 +48,7 @@ O inventário e o `GameState` **não estão ligados por código hoje**: coletar 
 
 ### Checklist
 
-1. Abra a cena da fase (ex.: duplicar `playground.tscn`).
+1. Abra a cena da fase (ex.: duplicar `fases/fase_1/fase_1.tscn`).
 2. **Instanciar inventário:** *Cena → Instanciar Cena Filha* → `inventario/Inventario.tscn`. O nó raiz deve se chamar **`InventarioUI`** (nome da cena) para a coleta funcionar.
 3. **Instanciar terminal no mundo:** `terminal/World/objeto_terminal.tscn` — posicione onde o jogador deve interagir.
 4. **Instanciar UI do terminal:** `terminal/UI/terminal_ui.tscn` — deixe como último filho da árvore (fica por cima). Pode marcar `visible = false` na cena da fase; o script também começa escondido.
@@ -500,6 +500,6 @@ Ao clonar o projeto, confira em **Projeto → Configurações do Projeto → Map
 ## Histórico deste documento
 
 - Criado para onboarding de desenvolvedores nos sistemas **Inventário** e **Terminal**.
-- Baseado no estado do repositório em maio/2026 (`playground.tscn` como exemplo de integração).
+- Baseado no estado do repositório em maio/2026 (`fases/fase_1/fase_1.tscn` como exemplo de integração).
 
 Para dúvidas sobre apenas a hotbar, consulte também `info-inventario.txt` na raiz (referência antiga; em caso de conflito, priorize este guia e os arquivos `.gd`).
