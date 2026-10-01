@@ -32,13 +32,13 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -142.0
-offset_bottom = 80.0
+offset_left = -110.0
+offset_bottom = 60.0
 grow_horizontal = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer" unique_id=1693032897]
 layout_mode = 2
@@ -46,19 +46,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer" unique_id=1674030890]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer" unique_id=1820038048]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 3
 
 [node name="Titulo" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1288969411]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 5
 text = "OBJETIVOS"
 horizontal_alignment = 1
 

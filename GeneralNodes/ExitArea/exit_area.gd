@@ -24,4 +24,5 @@ func _on_body_entered(body: Node2D) -> void:
 ## Chamada futuramente quando o commit correto acontecer nesta fase.
 func unlock() -> void:
 	locked = false
+	$Visual.color = Color(0.2, 0.9, 0.3, 0.6)
 	print("[Saída] Saída desbloqueada.")

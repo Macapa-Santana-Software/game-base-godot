@@ -12,3 +12,11 @@ script = ExtResource("1_exit_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983895284]
 shape = SubResource("RectangleShape2D_exit")
 debug_color = Color(0.9254902, 0, 0.6745098, 1)
+
+[node name="Visual" type="ColorRect" parent="."]
+mouse_filter = 2
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.85, 0.2, 0.2, 0.6)

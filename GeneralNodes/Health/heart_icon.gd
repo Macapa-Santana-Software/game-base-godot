@@ -11,7 +11,7 @@ const PIXELS : Array[String] = [
 	"0001000",
 ]
 
-@export var pixel_size : float = 3.0
+@export var pixel_size : float = 2.0
 @export var full_color : Color = Color(0.85, 0.16, 0.16)
 @export var empty_color : Color = Color(0.32, 0.32, 0.32)
 

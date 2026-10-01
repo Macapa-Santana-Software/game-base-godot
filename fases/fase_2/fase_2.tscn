@@ -1,10 +1,9 @@
-[gd_scene format=4 uid="uid://cgd6chm6rts4n"]
+[gd_scene format=4]
 
-[ext_resource type="Script" uid="uid://dpv8gyuo5frk8" path="res://fases/fase_1/fase_1.gd" id="1_playground_script"]
+[ext_resource type="Script" path="res://fases/fase_2/fase_2.gd" id="1_playground_script"]
 [ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="1_rupst"]
 [ext_resource type="PackedScene" uid="uid://ddxgtffn8ak1h" path="res://Tile Maps/grass-01.tscn" id="2_wt17y"]
 [ext_resource type="PackedScene" uid="uid://chntkicbg3en1" path="res://Props/Plants/plant.tscn" id="3_m8u5f"]
-[ext_resource type="PackedScene" uid="uid://dwcmeudwlush3" path="res://Enemies/Slime/slime.tscn" id="4_is3ju"]
 [ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://inventario/Inventario.tscn" id="6_4bqqs"]
 [ext_resource type="PackedScene" uid="uid://djbpbs2gdsmlg" path="res://Portas/porta.tscn" id="6_ynsuh"]
 [ext_resource type="PackedScene" uid="uid://bbjvw7322t74b" path="res://itens/chave.tscn" id="7_v7dth"]
@@ -44,27 +43,6 @@ position = Vector2(74, 171)
 [node name="Plant4" parent="." unique_id=1926646882 instance=ExtResource("3_m8u5f")]
 visible = false
 position = Vector2(145, 219)
-
-[node name="Slime" parent="." unique_id=663752233 instance=ExtResource("4_is3ju")]
-position = Vector2(698, 37)
-
-[node name="Slime2" parent="." unique_id=2100358508 instance=ExtResource("4_is3ju")]
-position = Vector2(625, 455)
-
-[node name="Slime3" parent="." unique_id=498577366 instance=ExtResource("4_is3ju")]
-position = Vector2(767, 639)
-
-[node name="Slime4" parent="." unique_id=1076810471 instance=ExtResource("4_is3ju")]
-position = Vector2(900, 464)
-
-[node name="Slime5" parent="." unique_id=1360254256 instance=ExtResource("4_is3ju")]
-position = Vector2(907, -159)
-
-[node name="Slime6" parent="." unique_id=1867257400 instance=ExtResource("4_is3ju")]
-position = Vector2(1093, 46)
-
-[node name="Slime7" parent="." unique_id=1419021627 instance=ExtResource("4_is3ju")]
-position = Vector2(1093, 46)
 
 [node name="InventarioUI" parent="." unique_id=945381569 instance=ExtResource("6_4bqqs")]
 

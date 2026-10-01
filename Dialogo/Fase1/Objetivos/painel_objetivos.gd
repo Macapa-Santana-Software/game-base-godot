@@ -27,7 +27,7 @@ func _adicionar_objetivo(texto: String):
 	label.fit_content = true
 	label.scroll_active = false
 	label.add_theme_font_override("normal_font", font_file)
-	label.add_theme_font_size_override("normal_font_size", 8)
+	label.add_theme_font_size_override("normal_font_size", 6)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.set_meta("texto_original", "- " + texto)
 	label.text = label.get_meta("texto_original")

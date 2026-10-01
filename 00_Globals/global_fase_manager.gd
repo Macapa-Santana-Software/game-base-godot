@@ -7,7 +7,7 @@ extends Node
 ## Fase 1 = res://fases/fase_1/fase_1.tscn (antigo playground.tscn).
 const FASES: Array[String] = [
 	"res://fases/fase_1/fase_1.tscn",  # indice 0 -> Fase 1
-	# "res://fases/fase_2/fase_2.tscn",  # indice 1 -> Fase 2 (futuro)
+	"res://fases/fase_2/fase_2.tscn",  # indice 1 -> Fase 2
 ]
 
 ## Indice da fase atual dentro de FASES (0 = Fase 1).
@@ -30,3 +30,12 @@ func get_next_phase() -> String:
 	if not has_next_phase():
 		return ""
 	return FASES[current_level_index + 1]
+
+## Avanca para a proxima fase, se existir. Retorna false quando nao ha proxima.
+func advance_to_next_phase() -> bool:
+	if not has_next_phase():
+		return false
+	current_level_index += 1
+	get_tree().paused = false
+	get_tree().change_scene_to_file(FASES[current_level_index])
+	return true
