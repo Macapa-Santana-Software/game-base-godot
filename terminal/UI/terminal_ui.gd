@@ -29,13 +29,12 @@ func _ready() -> void:
 	
 	# --- AJUSTE DA FASE 1 ---
 	# Aqui definimos os únicos comandos válidos agora. Nas próximas fases você mudará essa lista!
-	var comandos_fase_atual: Array[String] = ["init", "add", "commit", "status"]
+	var comandos_fase_atual: Array[String] = ["init", "add", "commit", "status", "help"]
 	_interpreter.configurar_comandos(comandos_fase_atual)
 
 	escrever_no_terminal(
 		"SISTEMA CENTRAL DE TERMINAL - FASE 1\n"
-		+ "Mecânicas de foco: git init, git status, git add e git commit.\n"
-		+ "Digite 'git status' para analisar o ambiente."
+		+ "A IA vai te orientar por aqui. Em dúvida, digite 'git help'."
 	)
 
 func abrir() -> void:
@@ -46,10 +45,12 @@ func abrir() -> void:
 	_play_open_fx()
 	campo_texto.grab_focus()
 	campo_texto.clear()
+	GameState.terminal_aberto.emit()
 
 func fechar() -> void:
 	hide()
 	get_tree().paused = false
+	GameState.terminal_fechado.emit()
 
 func _ao_digitar(texto: String) -> void:
 	var clean_text := texto.strip_edges()

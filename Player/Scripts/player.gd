@@ -4,7 +4,7 @@ var cardinal_direction : Vector2 = Vector2.DOWN
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 var direction : Vector2 = Vector2.ZERO
 
-@export var max_health : int = 10
+@export var max_health : int = 5
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D

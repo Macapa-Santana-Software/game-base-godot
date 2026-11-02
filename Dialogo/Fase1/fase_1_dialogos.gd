@@ -8,13 +8,37 @@ var text_timer: Timer
 @export var velocidade_normal: float = 0.03
 @export var velocidade_rapida: float = 0.005
 
-var falas_fase_1: Array[String] = [
-	"🤖 [color=#51CF66][IA]:[/color] Bip... bop... Conexão estabelecida!",
-	"🤖 [color=#51CF66][IA]:[/color] Alguém aí? Ah, oi, Walker! Sou a IA assistente deste fragmento... ou o que sobrou de mim.",
-	"🤖 [color=#51CF66][IA]:[/color] O sistema central entrou em colapso total. Tá uma bagunça completa por aqui.",
-	"🤖 [color=#51CF66][IA]:[/color] Eu vi alguns pedaços de código importantes jogados pelo chão da sala (`main.gd` e `player.gd`).",
-	"🤖 [color=#51CF66][IA]:[/color] Pegue eles no chão do mapa e depois interaja com o Terminal Central para começarmos a arrumar isso!"
-]
+const PREFIXO_IA := "🤖 [color=#51CF66][IA]:[/color] "
+
+# Os nomes dos arquivos NÃO ficam aqui: vêm dos itens colocados no mapa (grupo
+# "arquivo_coletavel"), para a fala da IA nunca divergir do que existe na fase.
+var falas_fase_1: Array[String] = []
+
+func _montar_falas() -> Array[String]:
+	var nomes: Array[String] = []
+	for item in get_tree().get_nodes_in_group(ItemColetavel.GRUPO_ARQUIVOS):
+		nomes.append("`%s`" % item.nome_do_item)
+
+	var fala_arquivos := PREFIXO_IA + "Eu vi alguns pedaços de código importantes jogados pelo chão da sala"
+	if nomes.is_empty():
+		fala_arquivos += "."
+	else:
+		fala_arquivos += " (%s)." % _juntar_com_e(nomes)
+
+	return [
+		PREFIXO_IA + "Bip... bop... Conexão estabelecida!",
+		PREFIXO_IA + "Alguém aí? Ah, oi, Walker! Sou a IA assistente deste fragmento... ou o que sobrou de mim.",
+		PREFIXO_IA + "O sistema central entrou em colapso total. Tá uma bagunça completa por aqui, e nada está registrado.",
+		fala_arquivos,
+		PREFIXO_IA + "Vamos usar o Git: ele tira \"fotos\" (save points) do projeto. Pegue os arquivos e aperte T no Terminal. Eu explico cada passo e anoto o próximo no quadro."
+	]
+
+# ["a", "b", "c"] -> "a, b e c"
+func _juntar_com_e(itens: Array[String]) -> String:
+	if itens.size() <= 1:
+		return "".join(itens)
+	var inicio := ", ".join(itens.slice(0, itens.size() - 1))
+	return "%s e %s" % [inicio, itens[itens.size() - 1]]
 
 var indice_atual: int = 0
 var texto_completo: bool = false
@@ -67,6 +91,7 @@ func _on_start_dialog_timeout() -> void:
 
 func iniciar_dialogo() -> void:
 	indice_atual = 0
+	falas_fase_1 = _montar_falas()
 	panel.show()
 	get_tree().paused = true # Congela o resto do jogo
 	exibir_linha()

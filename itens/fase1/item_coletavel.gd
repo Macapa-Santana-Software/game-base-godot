@@ -1,6 +1,11 @@
 class_name ItemColetavel extends ItemBase
 
+## Grupo usado por diálogos e objetivos para descobrir, a partir do próprio mapa,
+## quais arquivos existem na fase (fonte única de verdade: o nome_do_item do nó).
+const GRUPO_ARQUIVOS := "arquivo_coletavel"
+
 func _ready():
+	add_to_group(GRUPO_ARQUIVOS)
 	super._ready()
 
 func _on_body_entered(body):

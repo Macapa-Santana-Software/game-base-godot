@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dwcmeudwlush3"]
 
-[ext_resource type="Texture2D" uid="uid://cba0wkideyfvf" path="res://Enemies/Slime/Slime.png" id="1_byu67"]
+[ext_resource type="Texture2D" path="res://Enemies/Slime/virus_corrompido_sheet.png" id="1_byu67"]
 [ext_resource type="Script" uid="uid://bokddcvw1kwhh" path="res://Enemies/Scripts/enemy.gd" id="1_t8cwk"]
 [ext_resource type="Texture2D" uid="uid://ccjfsv1ps86cj" path="res://Player/Sprites/Shadow.png" id="1_wwfkb"]
 [ext_resource type="Script" uid="uid://pho1qdndvuju" path="res://Enemies/Scripts/enemy_state_machine.gd" id="4_oij8y"]

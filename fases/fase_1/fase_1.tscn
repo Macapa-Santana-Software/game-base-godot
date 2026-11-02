@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="8_pi42a"]
 [ext_resource type="PackedScene" uid="uid://gixqsig77qyo" path="res://terminal/World/objeto_terminal.tscn" id="9_h1jm5"]
 [ext_resource type="PackedScene" uid="uid://8631oj4tqjyc" path="res://itens/fase1/item_coletavel.tscn" id="10_h1jm5"]
-[ext_resource type="PackedScene" uid="uid://bqx384klj0w1s" path="res://Dialogo/Fase1/Objetivos/painel_objetivos.tscn" id="11_painel_obj"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="12_playerhealthui"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="13_pausemenu"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="14_defeatscreen"]
@@ -21,7 +20,7 @@
 [node name="Playground" type="Node2D" unique_id=1807389439]
 y_sort_enabled = true
 script = ExtResource("1_playground_script")
-metadata/objetivos = PackedStringArray("Coletar o arquivo: main.gd", "Coletar o arquivo: setup.gd", "Fazer o commit")
+metadata/objetivos = PackedStringArray("Fazer o commit")
 
 [node name="Player" parent="." unique_id=960722692 instance=ExtResource("1_rupst")]
 position = Vector2(241, 138)
@@ -88,8 +87,6 @@ nome_do_item = "main.gd"
 [node name="ItemColetavel2" parent="." unique_id=838663506 instance=ExtResource("10_h1jm5")]
 position = Vector2(-229, 182)
 nome_do_item = "setup.gd"
-
-[node name="PainelObjetivos" parent="." unique_id=920433276 instance=ExtResource("11_painel_obj")]
 
 [node name="TerminalUI" parent="." unique_id=795464509 instance=ExtResource("8_pi42a")]
 visible = false

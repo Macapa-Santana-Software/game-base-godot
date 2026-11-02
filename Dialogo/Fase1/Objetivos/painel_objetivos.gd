@@ -15,6 +15,11 @@ func _ready():
 	_aplicar_estado_ja_existente()
 
 func _carregar_objetivos_da_fase():
+	# Objetivos de coleta vêm dos próprios itens do mapa (mesma fonte usada pela IA)
+	for item in get_tree().get_nodes_in_group(ItemColetavel.GRUPO_ARQUIVOS):
+		_adicionar_objetivo(PREFIXO_COLETAR + item.nome_do_item)
+
+	# Demais objetivos (ex.: "Fazer o commit") continuam no metadado da fase
 	var root_node = get_tree().current_scene
 	if root_node and root_node.has_meta("objetivos"):
 		var objetivos = root_node.get_meta("objetivos")

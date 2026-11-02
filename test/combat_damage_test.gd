@@ -53,7 +53,7 @@ func _run() -> void:
 	await get_tree().create_timer(1.5).timeout
 	var dist : float = slime_a.global_position.distance_to(player.global_position)
 	_check("Enemy parou na distancia definida (<= 17), dist=%.1f" % dist, dist <= 17.0 and slime_a.velocity == Vector2.ZERO)
-	_check("Nenhum dano durante a deteccao/chase (Player 10, Enemy 3)", player.health_component.current_health == 10 and slime_a.health_component.current_health == 3)
+	_check("Nenhum dano durante a deteccao/chase (Player 5, Enemy 3)", player.health_component.current_health == 5 and slime_a.health_component.current_health == 3)
 	player.global_position = slime_a.global_position + Vector2(600, 0)
 	await _frames(5)
 	_check("Player saiu da DetectionArea", not slime_a.player_detected)
@@ -79,7 +79,7 @@ func _run() -> void:
 	_check("Enemy comeca com 3 HP", b_health.current_health == 3)
 	_check("Enemy vivo: IA ligada e is_dead falso", not slime_b.is_dead and slime_b.state_machine.can_process())
 	await _frames(20)
-	_check("HitBox sobreposto a HitBox nao causa dano (Player 10, Enemy 3)", player.health_component.current_health == 10 and b_health.current_health == 3)
+	_check("HitBox sobreposto a HitBox nao causa dano (Player 5, Enemy 3)", player.health_component.current_health == 5 and b_health.current_health == 3)
 
 	await _attack()
 	_check("ataque 1: Enemy 3 -> 2, 1 golpe no HitBox, 1 no componente", b_health.current_health == 2 and _hitbox_hits == 1 and _health_hits == 1)
@@ -99,7 +99,7 @@ func _run() -> void:
 	await _attack()
 	await _attack()
 	_check("ataques 4 e 5 (Enemy morto): nenhum toque, golpe, dano ou died novo", _attack_touches == 3 and _hitbox_hits == 3 and _health_hits == 3 and _died_count == 1)
-	_check("Player nao tomou dano do proprio ataque (10 HP)", player.health_component.current_health == 10)
+	_check("Player nao tomou dano do proprio ataque (5 HP)", player.health_component.current_health == 5)
 	_check("Player continua funcionando (state machine ativa)", player.state_machine.can_process() and player.state_machine.current_state != null)
 
 	# ---------- ENEMY -> PLAYER (infraestrutura; ataque forcado) ----------
@@ -111,7 +111,7 @@ func _run() -> void:
 	c_hurt.monitoring = true
 	await _frames(15)
 	c_hurt.monitoring = false
-	_check("Enemy HurtBox -> Player HitBox: Player 10 -> 9, um unico golpe", player.health_component.current_health == 9 and player_hits[0] == 1)
+	_check("Enemy HurtBox -> Player HitBox: Player 5 -> 4, um unico golpe", player.health_component.current_health == 4 and player_hits[0] == 1)
 	_check("Enemy nao tomou dano do proprio ataque (3 HP)", slime_c.health_component.current_health == 3)
 
 	# ---------- Regressao: Plant continua usando HitBox ----------

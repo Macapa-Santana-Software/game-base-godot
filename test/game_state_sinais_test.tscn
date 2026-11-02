@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bww23t77dr1qo"]
+
+[ext_resource type="Script" uid="uid://dn54odj7rx4kj" path="res://test/game_state_sinais_test.gd" id="1"]
+
+[node name="GameStateSinaisTest" type="Node" unique_id=1892861405]
+script = ExtResource("1")

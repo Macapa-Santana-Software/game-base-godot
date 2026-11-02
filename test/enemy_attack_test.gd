@@ -58,7 +58,7 @@ func _run() -> void:
 	hurt.area_entered.connect(func(_a: Area2D) -> void: _attack_touches += 1)
 
 	# ---------- Estado inicial e configuracao ----------
-	_check("Player comeca com 10 HP", p_health.current_health == 10)
+	_check("Player comeca com 5 HP", p_health.current_health == 5)
 	_check("Enemy comeca com 3 HP", s_health.current_health == 3)
 	_check("Chase tem attack_state ligado ao EnemyStateAttack", slime.chase_state.attack_state is EnemyStateAttack)
 	_check("AttackHurtBox: layer 0 / mask 2 / nao detectavel / desligado / dano 1", hurt.collision_layer == 0 and hurt.collision_mask == 2 and not hurt.monitorable and not hurt.monitoring and hurt.damage == 1)
@@ -74,14 +74,14 @@ func _run() -> void:
 	await _wait_until(func() -> bool: return _windows.size() >= 1 and _windows[0]["close"] > 0.0, 3.0)
 	_check("Ataque 1: janela abriu e fechou", _windows.size() >= 1 and _windows[0]["close"] > 0.0)
 	await _frames(10)
-	_check("Ataque 1: Player 10 -> 9 (1 de dano)", p_health.current_health == 9)
+	_check("Ataque 1: Player 5 -> 4 (1 de dano)", p_health.current_health == 4)
 	_check("Ataque 1: apenas 1 dano nessa janela", _windows.size() >= 1 and _player_hits == 1)
 	_check("Ataque 1: janela ~0.2 s (medido %.2f)" % _window_len(0), absf(_window_len(0) - 0.2) < 0.1)
 
 	# ---------- Ataque 2, depois do cooldown ----------
 	await _wait_until(func() -> bool: return _windows.size() >= 2 and _windows[1]["close"] > 0.0, 5.0)
 	await _frames(10)
-	_check("Ataque 2 (apos cooldown): Player 9 -> 8", p_health.current_health == 8)
+	_check("Ataque 2 (apos cooldown): Player 4 -> 3", p_health.current_health == 3)
 	_check("Ataque 2: apenas 1 dano nessa janela", _windows.size() >= 2 and _player_hits == 2)
 	if _windows.size() >= 2:
 		var gap : float = _windows[1]["open"] - _windows[0]["open"]

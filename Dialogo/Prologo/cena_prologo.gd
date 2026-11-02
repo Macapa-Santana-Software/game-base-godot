@@ -22,11 +22,15 @@ var texto_do_prologo: Array[String] = [
 ]
 
 func _ready() -> void:
-	# Conecta o sinal para saber quando o prólogo terminou
-	caixa_dialogo.dialogo_finalizado.connect(_on_prologo_terminou)
-	
-	# Inicia o diálogo passando o texto do prólogo
-	caixa_dialogo.iniciar_dialogo(texto_do_prologo)
+	# PRÓLOGO DESATIVADO TEMPORARIAMENTE (testes da Fase 1).
+	# Para reativar: apague a linha terminada em "# TEMP" e descomente o bloco original abaixo.
+	_on_prologo_terminou.call_deferred() # TEMP
+
+	## Conecta o sinal para saber quando o prólogo terminou
+	#caixa_dialogo.dialogo_finalizado.connect(_on_prologo_terminou)
+	#
+	## Inicia o diálogo passando o texto do prólogo
+	#caixa_dialogo.iniciar_dialogo(texto_do_prologo)
 
 func _on_prologo_terminou() -> void:
 	# print("O prólogo acabou! Aqui você muda para o menu ou para a primeira fase.")

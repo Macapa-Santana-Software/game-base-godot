@@ -16,16 +16,16 @@ func _ready() -> void:
 		_finish()
 		return
 	_check("player.health_component aponta para o mesmo no", player.health_component == health)
-	_check("max_health do componente = max_health do Player (10)", health.max_health == player.max_health and health.max_health == 10)
+	_check("max_health do componente = max_health do Player (5)", health.max_health == player.max_health and health.max_health == 5)
 	_check("current_health comeca igual a max_health", health.current_health == health.max_health)
 
 	_check("dano direto de 4 aplica 4", health.take_damage(4) == 4)
-	_check("vida = 6", health.current_health == 6)
+	_check("vida = 1", health.current_health == 1)
 	_check("cura de 2 recupera 2", health.heal(2) == 2)
-	_check("vida = 8", health.current_health == 8)
+	_check("vida = 3", health.current_health == 3)
 	_check("cura de 100 recupera so 2", health.heal(100) == 2)
-	_check("vida nao ultrapassa o maximo", health.current_health == 10)
-	_check("dano de 999 aplica so 10", health.take_damage(999) == 10)
+	_check("vida nao ultrapassa o maximo", health.current_health == 5)
+	_check("dano de 999 aplica so 5", health.take_damage(999) == 5)
 	_check("vida nao fica abaixo de 0", health.current_health == 0)
 	_check("is_dead() verdadeiro", health.is_dead())
 
