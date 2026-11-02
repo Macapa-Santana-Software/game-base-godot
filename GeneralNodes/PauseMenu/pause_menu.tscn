@@ -1,54 +1,97 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://GeneralNodes/PauseMenu/pause_menu.gd" id="1_pause_script"]
+[ext_resource type="Theme" path="res://GeneralNodes/UI/tema_santuario.tres" id="2_tema"]
+
+[sub_resource type="StyleBoxFlat" id="Estilo_cabecalho"]
+bg_color = Color(0.11, 0.153, 0.259, 1)
+border_width_bottom = 2
+border_color = Color(0.21, 0.84, 0.91, 1)
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_pause_script")
 
 [node name="Control" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_tema")
 
 [node name="Overlay" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.55)
+color = Color(0.027, 0.043, 0.086, 0.82)
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/CenterContainer"]
+[node name="Painel" type="PanelContainer" parent="Control/CenterContainer"]
+custom_minimum_size = Vector2(210, 0)
 layout_mode = 2
-custom_minimum_size = Vector2(180, 110)
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/CenterContainer/PanelContainer"]
+[node name="Margem" type="MarginContainer" parent="Control/CenterContainer/Painel"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="Control/CenterContainer/Painel/Margem"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
-[node name="TituloLabel" type="Label" parent="Control/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Cabecalho" type="PanelContainer" parent="Control/CenterContainer/Painel/Margem/VBox"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("Estilo_cabecalho")
+
+[node name="TituloLabel" type="Label" parent="Control/CenterContainer/Painel/Margem/VBox/Cabecalho"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.21, 0.84, 0.91, 1)
+theme_override_font_sizes/font_size = 16
+text = "PAUSA"
 horizontal_alignment = 1
-text = "Jogo Pausado"
 
-[node name="ContinuarButton" type="Button" parent="Control/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SubtituloLabel" type="Label" parent="Control/CenterContainer/Painel/Margem/VBox"]
 layout_mode = 2
-text = "Continuar"
+theme_override_colors/font_color = Color(0.537, 0.392, 0.847, 1)
+theme_override_font_sizes/font_size = 8
+text = "O tempo para dentro do santuário."
+horizontal_alignment = 1
 
-[node name="SairButton" type="Button" parent="Control/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Separador" type="HSeparator" parent="Control/CenterContainer/Painel/Margem/VBox"]
 layout_mode = 2
-text = "Sair"
+
+[node name="ContinuarButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CONTINUAR"
+
+[node name="SairButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SAIR DO JOGO"
+
+[node name="DicaLabel" type="Label" parent="Control/CenterContainer/Painel/Margem/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.357, 0.408, 0.498, 1)
+theme_override_font_sizes/font_size = 8
+text = "Esc para continuar"
+horizontal_alignment = 1

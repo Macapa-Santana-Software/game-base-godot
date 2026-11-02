@@ -5,8 +5,11 @@ signal quit_requested
 
 const GRUPO_SISTEMAS_PAUSAVEIS := "sistema_pausavel"
 
-@onready var continuar_button: Button = $Control/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContinuarButton
-@onready var sair_button: Button = $Control/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SairButton
+const DURACAO_FADE := 0.15
+
+@onready var raiz: Control = %Control
+@onready var continuar_button: Button = %ContinuarButton
+@onready var sair_button: Button = %SairButton
 
 var _pausado_por_outro_sistema: bool = false
 
@@ -30,6 +33,10 @@ func abrir() -> void:
 	_avisar_sistemas_pausaveis(true)
 	show()
 	get_tree().paused = true
+	# Entrada suave e foco no primeiro botão (navegação por teclado/Enter)
+	raiz.modulate.a = 0.0
+	create_tween().tween_property(raiz, "modulate:a", 1.0, DURACAO_FADE)
+	continuar_button.grab_focus()
 
 func continuar() -> void:
 	hide()

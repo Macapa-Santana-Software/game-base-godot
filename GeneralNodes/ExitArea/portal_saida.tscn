@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/exit_area.tscn" id="1_base"]
+[ext_resource type="Script" path="res://GeneralNodes/ExitArea/portal_saida.gd" id="2_scr"]
+[ext_resource type="Texture2D" path="res://GeneralNodes/ExitArea/portal_saida.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://fases/fase_1/fundo/luz_128.png" id="4_luz"]
+
+[sub_resource type="Animation" id="Anim_apagado"]
+resource_name = "apagado"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Anim_ativo"]
+resource_name = "ativo"
+length = 0.8
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Portal:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="Lib_portal"]
+_data = {
+&"apagado": SubResource("Anim_apagado"),
+&"ativo": SubResource("Anim_ativo")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(36, 44)
+
+[node name="ExitArea" instance=ExtResource("1_base")]
+script = ExtResource("2_scr")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="Visual" parent="." index="1"]
+visible = false
+
+[node name="Portal" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("3_tex")
+hframes = 5
+
+[node name="Luz" type="PointLight2D" parent="."]
+color = Color(0.851, 0.298, 0.569, 1)
+energy = 0.0
+texture = ExtResource("4_luz")
+texture_scale = 1.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("Lib_portal")
+}
+autoplay = "apagado"

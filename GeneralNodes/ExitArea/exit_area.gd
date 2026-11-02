@@ -4,6 +4,9 @@ class_name ExitArea extends Area2D
 ## sera usado nas proximas etapas (tela de vitoria, troca de fase).
 signal unlocked_entered
 
+## Emitido quando a saída é liberada (cenas com arte própria animam o portal ouvindo este sinal).
+signal desbloqueada
+
 var locked : bool = true
 
 func _ready() -> void:
@@ -24,5 +27,8 @@ func _on_body_entered(body: Node2D) -> void:
 ## Chamada futuramente quando o commit correto acontecer nesta fase.
 func unlock() -> void:
 	locked = false
-	$Visual.color = Color(0.2, 0.9, 0.3, 0.6)
+	var visual := get_node_or_null("Visual") as ColorRect
+	if visual:
+		visual.color = Color(0.2, 0.9, 0.3, 0.6)
 	print("[Saída] Saída desbloqueada.")
+	desbloqueada.emit()

@@ -24,6 +24,9 @@ signal terminal_fechado
 # Emitido por `git help`: o jogador pediu ajuda (a tutora conta como dica usada).
 signal ajuda_pedida
 
+## Emitido quando a lista de comandos liberados muda (ouvido pelo Manual do Sistema).
+signal comandos_atualizados
+
 const FALHA_SEM_REPOSITORIO := "sem_repositorio"
 const FALHA_ARQUIVO_INEXISTENTE := "arquivo_inexistente"
 const FALHA_JA_NA_STAGING := "ja_na_staging"

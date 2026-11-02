@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://terminal/World/objeto_terminal.tscn" id="1_base"]
+[ext_resource type="Texture2D" path="res://terminal/Sprites/plataforma_terminal.png" id="2_plat"]
+[ext_resource type="Texture2D" path="res://fases/fase_1/fundo/luz_128.png" id="3_luz"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(30, 12)
+
+[node name="ObjetoTerminal" instance=ExtResource("1_base")]
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_base")
+
+[node name="Plataforma" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 4)
+texture = ExtResource("2_plat")
+hframes = 2
+
+[node name="Luz" type="PointLight2D" parent="."]
+position = Vector2(0, -12)
+color = Color(0.211, 0.839, 0.914, 1)
+energy = 0.35
+texture = ExtResource("3_luz")
+texture_scale = 1.3

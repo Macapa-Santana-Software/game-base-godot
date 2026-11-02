@@ -6,6 +6,8 @@ signal enemy_damaged()
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 
 @export var max_health : int = 3
+## Raio (em px) em que o inimigo percebe o Player e parte para atacar.
+@export var detection_radius : float = 72.0
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
@@ -33,7 +35,15 @@ func _ready() -> void:
 	knockback_component.knockback_ended.connect(_on_knockback_ended)
 	state_machine.initialize(self)
 	player = PlayerManager.player
+	_aplicar_raio_de_deteccao()
 	pass
+
+## Cada inimigo usa uma copia da forma, para o raio ser ajustavel por instancia.
+func _aplicar_raio_de_deteccao() -> void:
+	var forma := detection_area.get_node("CollisionShape2D") as CollisionShape2D
+	var circulo := forma.shape.duplicate() as CircleShape2D
+	circulo.radius = detection_radius
+	forma.shape = circulo
 
 func _process(_delta: float) -> void:
 	pass
@@ -111,6 +121,9 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	if is_dead:
 		return
 	if body is Player:
+		# O Player pode nascer depois do inimigo na cena (PlayerManager ainda vazio no _ready):
+		# a referencia e garantida aqui, no momento da deteccao.
+		player = body
 		print("PLAYER DETECTADO!")
 		print("CHASE STATE: ", chase_state)
 		print("CURRENT STATE ANTES: ", state_machine.current_state)

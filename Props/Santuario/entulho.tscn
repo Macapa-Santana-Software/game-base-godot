@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://Props/Sprites/Santuario/entulho.png" id="1_tex"]
+
+[node name="Entulho" type="Sprite2D"]
+z_index = -1
+position = Vector2(0, -12)
+texture = ExtResource("1_tex")
+hframes = 3

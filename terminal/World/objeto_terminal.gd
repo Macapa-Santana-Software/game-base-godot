@@ -8,12 +8,23 @@ extends Area2D
 @export var textura_ativa: Texture2D
 
 var player_perto: bool = false
+var _terminal_aberto: bool = false
 
 func _ready() -> void:
 	balao_aviso.visible = false
 	_atualizar_visual()
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	GameState.terminal_aberto.connect(_on_terminal_aberto)
+	GameState.terminal_fechado.connect(_on_terminal_fechado)
+
+func _on_terminal_aberto() -> void:
+	_terminal_aberto = true
+	_atualizar_visual()
+
+func _on_terminal_fechado() -> void:
+	_terminal_aberto = false
+	_atualizar_visual()
 
 func _process(_delta: float) -> void:
 	if player_perto and Input.is_action_just_pressed("interagir_terminal"):
@@ -36,6 +47,14 @@ func _on_body_exited(body: Node2D) -> void:
 		_atualizar_visual()
 
 func _atualizar_visual() -> void:
-	var textura := textura_ativa if player_perto else textura_inativa
+	var ativo := player_perto or _terminal_aberto
+	var textura := textura_ativa if ativo else textura_inativa
 	if textura:
 		sprite.texture = textura
+	# Elementos opcionais da cena do Santuário (plataforma de runas e luz); a Fase 2 não os tem.
+	var plataforma := get_node_or_null("Plataforma") as Sprite2D
+	if plataforma:
+		plataforma.frame = 1 if ativo else 0
+	var luz := get_node_or_null("Luz") as PointLight2D
+	if luz:
+		luz.energy = 1.0 if ativo else 0.35

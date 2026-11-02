@@ -189,6 +189,12 @@ func _abrir_porta() -> void:
 
 	_porta_aberta = true
 	print("Porta aberta com sucesso!")
+	balao_aviso_portao.visible = false
+
+	# Cenas com arte própria (ex.: Portão de Runas) animam a abertura; sem AnimationPlayer, nada muda.
+	var animador := get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if animador and animador.has_animation("abrir"):
+		animador.play("abrir")
 
 	if is_instance_valid(corpo_fisico):
 		corpo_fisico.queue_free()

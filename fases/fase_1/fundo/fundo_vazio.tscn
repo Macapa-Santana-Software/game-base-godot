@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://fases/fase_1/fundo/vazio_base.png" id="1_base"]
+[ext_resource type="Texture2D" path="res://fases/fase_1/fundo/vazio_estrelas.png" id="2_estrelas"]
+
+[node name="FundoVazio" type="Node2D"]
+z_index = -10
+
+[node name="Base" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(-256, -256)
+texture = ExtResource("1_base")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2304, 1792)
+
+[node name="Estrelas" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(-256, -256)
+texture = ExtResource("2_estrelas")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2304, 1792)

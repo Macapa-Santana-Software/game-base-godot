@@ -1,0 +1,87 @@
+[gd_resource type="Theme" format=3 uid="uid://up5fpcae88u5"]
+
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="1_fonte"]
+
+[sub_resource type="StyleBoxFlat" id="Estilo_botao_desabilitado"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.07, 0.09, 0.14, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16, 0.2, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="Estilo_botao_hover"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.125, 0.173, 0.282, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21, 0.84, 0.91, 1)
+shadow_color = Color(0.21, 0.84, 0.91, 0.22)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="Estilo_botao"]
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+bg_color = Color(0.094, 0.133, 0.227, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.227, 0.29, 0.439, 1)
+
+[sub_resource type="StyleBoxFlat" id="Estilo_botao_pressed"]
+content_margin_left = 12.0
+content_margin_top = 7.0
+content_margin_right = 12.0
+content_margin_bottom = 5.0
+bg_color = Color(0.2, 0.16, 0.37, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.537, 0.392, 0.847, 1)
+
+[sub_resource type="StyleBoxLine" id="Estilo_linha"]
+color = Color(0.086, 0.29, 0.36, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="Estilo_painel"]
+bg_color = Color(0.059, 0.086, 0.149, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.122, 0.478, 0.561, 1)
+shadow_color = Color(0.21, 0.84, 0.91, 0.16)
+shadow_size = 10
+
+[resource]
+default_font = ExtResource("1_fonte")
+default_font_size = 10
+Button/colors/font_color = Color(0.894, 0.949, 0.961, 1)
+Button/colors/font_disabled_color = Color(0.36, 0.4, 0.5, 1)
+Button/colors/font_focus_color = Color(0.21, 0.84, 0.91, 1)
+Button/colors/font_hover_color = Color(0.21, 0.84, 0.91, 1)
+Button/colors/font_pressed_color = Color(0.894, 0.949, 0.961, 1)
+Button/font_sizes/font_size = 10
+Button/styles/disabled = SubResource("Estilo_botao_desabilitado")
+Button/styles/focus = SubResource("Estilo_botao_hover")
+Button/styles/hover = SubResource("Estilo_botao_hover")
+Button/styles/normal = SubResource("Estilo_botao")
+Button/styles/pressed = SubResource("Estilo_botao_pressed")
+HSeparator/constants/separation = 6
+HSeparator/styles/separator = SubResource("Estilo_linha")
+Label/colors/font_color = Color(0.894, 0.949, 0.961, 1)
+Label/font_sizes/font_size = 10
+PanelContainer/styles/panel = SubResource("Estilo_painel")

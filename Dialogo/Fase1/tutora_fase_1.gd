@@ -120,8 +120,11 @@ func _sincronizar_comandos() -> void:
 		liberados.append("add")
 	if tem_staging or tem_commit:
 		liberados.append("commit")
+	var mudou := not GameState.liberacao_progressiva or liberados != GameState.comandos_liberados
 	GameState.liberacao_progressiva = true
 	GameState.comandos_liberados = liberados
+	if mudou:
+		GameState.comandos_atualizados.emit()
 
 # true só na primeira vez que a chave é consultada (marca como explicada)
 func _primeira_vez(chave: String) -> bool:
@@ -188,7 +191,7 @@ func _proximo_passo_terminal(estado: String, forcar_comando: bool = false) -> St
 				return "Há arquivos novos na sala. Você já sabe o que fazer: separe-os na caixa e registre. (Em dúvida, %s.)" % _cmd("git help")
 			return "Há arquivos novos na sala. Repita o ciclo: %s e depois %s." % [_cmd("git add ."), _cmd("git commit -m \"mensagem\"")]
 		"concluido":
-			return "Tudo registrado! Saia do terminal (Esc) e vá até a saída verde."
+			return "Tudo registrado! Saia do terminal e vá até o portal de saída (ele acendeu)."
 	return ""
 
 # ---------------------------------------------------------------------------
@@ -204,7 +207,7 @@ func _on_arquivo_coletado(nome: String) -> void:
 	var faltam := _faltam_coletar()
 	if faltam.is_empty():
 		if GameState.commits.is_empty():
-			_dizer("Achou todos os arquivos! Agora vá até o computador e aperte T.")
+			_dizer("Achou todos os arquivos! Agora vá até o Obelisco de Dados e aperte T.")
 		else:
 			_dizer("Achou o %s! Leve-o ao terminal (T) para registrá-lo." % _cmd(nome))
 	else:
@@ -457,8 +460,8 @@ func _texto_balao_para(estado: String) -> String:
 		"coletar_resto":
 			return "Faltam arquivos: %s. Pegue-os no mapa." % _lista(_faltam_coletar())
 		"concluido":
-			return "Saída liberada! Vá até a área verde."
-	return "O próximo passo está no quadro. Volte ao computador (T) quando quiser."
+			return "Saída liberada! Vá até o portal de saída, que acendeu."
+	return "O próximo passo está no quadro. Volte ao Obelisco (T) quando quiser."
 
 func _criar_titulo(texto: String) -> Label:
 	var titulo := Label.new()
@@ -513,7 +516,7 @@ func _texto_do_quadro(estado: String) -> String:
 	var pendentes := GameState.arquivos_pendentes(arquivos_requeridos)
 	match estado:
 		"coletar":
-			return "Colete os arquivos soltos pela sala:\n%s\nDepois aperte T perto do computador." % _lista(faltam)
+			return "Colete os arquivos soltos pela sala:\n%s\nDepois aperte T perto do Obelisco de Dados." % _lista(faltam)
 		"init":
 			var texto := "Vá ao terminal (T) e digite:\n%s\nEle abre o caderno de registros." % _cmd("git init")
 			if not faltam.is_empty():
@@ -536,7 +539,7 @@ func _texto_do_quadro(estado: String) -> String:
 				return "Há arquivos novos: %s\nRegistre-os no terminal. (git help ajuda)" % _lista(pendentes)
 			return "Há arquivos novos: %s\nNo terminal: %s e %s." % [_lista(pendentes), _cmd("git add ."), _cmd("git commit")]
 		"concluido":
-			return "Tudo registrado!\nVá até a saída verde."
+			return "Tudo registrado!\nVá até o portal de saída, que acendeu."
 	return ""
 
 # Cola dos comandos: só os que já foram liberados (menos para memorizar)

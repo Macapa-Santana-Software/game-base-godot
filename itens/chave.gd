@@ -1,9 +1,12 @@
 class_name Chave extends ItemBase
 
+## Fase 1 (Santuário) usa arte própria colorida: desliga o tingimento aquamarine do ícone.
+@export var tingir_sprite: bool = true
+
 func _ready():
 	# Muda a cor do ícone para podermos diferenciar os itens visualmente
 	nome_do_item = "Chave"
-	cor_do_item = Color.AQUAMARINE
+	cor_do_item = Color.AQUAMARINE if tingir_sprite else Color.WHITE
 	super._ready()  # chama o _ready() da base
 
 func _on_body_entered(body):
