@@ -1,7 +1,10 @@
 extends CanvasLayer
 
-const PROMPT := "[color=#3DFF9B]dev@central:~$[/color] "
+## Configuração da fase (título, comandos, textos). Sem ela, usa a da Fase 1 (a original).
+## Cada fase instancia este mesmo terminal e atribui o seu `ConfiguracaoTerminal`.
+@export var config: ConfiguracaoTerminal
 
+@onready var titulo_label: Label = $PainelCentralizador/TerminalPanel/MarginContainer/VBoxContainer/Header/TitleLabel
 @onready var painel_centralizador: Control = $PainelCentralizador
 @onready var historico: RichTextLabel = $PainelCentralizador/TerminalPanel/MarginContainer/VBoxContainer/Output
 @onready var campo_texto: LineEdit = $PainelCentralizador/TerminalPanel/MarginContainer/VBoxContainer/Input
@@ -22,20 +25,24 @@ func _ready() -> void:
 
 	campo_texto.text_submitted.connect(_ao_digitar)
 	close_button.pressed.connect(fechar)
-	campo_texto.placeholder_text = "Digite um comando Git..."
+
+	if config == null:
+		config = ConfiguracaoTerminal.padrao_fase_1()
+	campo_texto.placeholder_text = config.texto_do_campo
+	titulo_label.text = config.titulo
 
 	_interpreter = TerminalCommandInterpreter.new()
 	add_child(_interpreter)
-	
-	# --- AJUSTE DA FASE 1 ---
-	# Aqui definimos os únicos comandos válidos agora. Nas próximas fases você mudará essa lista!
-	var comandos_fase_atual: Array[String] = ["init", "add", "commit", "status", "help"]
+	if not config.mensagem_comando_bloqueado.is_empty():
+		_interpreter.mensagem_bloqueado = config.mensagem_comando_bloqueado
+
+	# Os únicos comandos válidos são os que a fase declarou na configuração.
+	var comandos_fase_atual: Array[String] = []
+	for comando in config.comandos:
+		comandos_fase_atual.append(comando)
 	_interpreter.configurar_comandos(comandos_fase_atual)
 
-	escrever_no_terminal(
-		"SISTEMA CENTRAL DE TERMINAL - FASE 1\n"
-		+ "A IA vai te orientar por aqui. Em dúvida, digite 'git help'."
-	)
+	escrever_no_terminal(config.mensagem_boas_vindas)
 
 func abrir() -> void:
 	show()
@@ -58,7 +65,7 @@ func _ao_digitar(texto: String) -> void:
 
 	_command_history.append(clean_text)
 	_history_index = _command_history.size()
-	historico.append_text("\n%s%s" % [PROMPT, clean_text])
+	historico.append_text("\n%s%s" % [config.prompt_formatado(), clean_text])
 
 	if clean_text == "exit":
 		fechar()
@@ -72,11 +79,18 @@ func _ao_digitar(texto: String) -> void:
 	campo_texto.clear()
 	campo_texto.grab_focus()
 
-func _unhandled_input(event: InputEvent) -> void:
+# `_input` (e não `_unhandled_input`): o campo de texto (LineEdit) consome o PRIMEIRO ESC para sair
+# do modo de edição, e o terminal só fechava no segundo. Tratando aqui, ESC fecha na primeira vez.
+func _input(event: InputEvent) -> void:
 	if not visible: return
 	if event.is_action_pressed("ui_cancel"):
 		fechar()
 		get_viewport().set_input_as_handled()
+
+## Último comando digitado (já limpo), "" se nenhum. Permite a quem escuta um sinal de falha
+## saber QUAL nome o jogador digitou (o sinal só traz o comando e o motivo).
+func ultimo_comando() -> String:
+	return _command_history.back() if not _command_history.is_empty() else ""
 
 func escrever_no_terminal(mensagem: String) -> void:
 	historico.append_text("\n" + mensagem)

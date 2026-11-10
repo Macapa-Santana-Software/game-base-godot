@@ -1,0 +1,619 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase_2/areas/area_fase_2.gd" id="r1"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/conexao_fase_2.gd" id="r2"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/fissura.tscn" id="r3"]
+[ext_resource type="PackedScene" path="res://terminal/World/objeto_terminal.tscn" id="r4"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/parede.tscn" id="r5"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/prop_fase_2.tscn" id="r6"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/zona_interacao.tscn" id="r7"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/fragmento_memoria.gd" id="r8"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/barreira.tscn" id="r9"]
+
+[node name="Area3_Vida" type="Node2D"]
+script = ExtResource("r1")
+y_sort_enabled = true
+id_area = &"vida"
+nome_exibicao = "Mundo Alternativo — vida-alternativa"
+realidade = "vida-alternativa"
+retangulo_tiles = Rect2i(0, 0, 24, 22)
+retangulos_extras = Array[Rect2i]([Rect2i(-2, -6, 7, 3), Rect2i(2, -3, 3, 3), Rect2i(-4, 17, 4, 3)])
+
+[node name="Piso" type="Node2D" parent="."]
+z_index = -2
+
+[node name="Paredes" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Decor" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Objetos" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Interacoes" type="Node2D" parent="."]
+
+[node name="Conexoes" type="Node2D" parent="."]
+
+[node name="Iluminacao" type="Node2D" parent="."]
+
+[node name="Entrada_Ramificacao" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(112, 16)
+tipo = "entrada"
+
+[node name="PontoDebug" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(112, 96)
+tipo = "debug"
+
+[node name="Saida_Convergencia" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(-16, 592)
+tipo = "saida"
+
+[node name="Fissura_Ponte" parent="Interacoes" instance=ExtResource("r3")]
+position = Vector2(400, 464)
+tamanho = Vector2(64, 64)
+id_par = &"fissura_ponte"
+flags_requeridas = PackedStringArray("branch_criada")
+mensagem = "A fissura vibra: é um ponto de ancoragem entre as realidades. Um 'git switch' feito aqui leva você à posição equivalente."
+
+[node name="Fissura_Espinheiro" parent="Interacoes" instance=ExtResource("r3")]
+position = Vector2(656, 528)
+tamanho = Vector2(64, 64)
+id_par = &"fissura_espinheiro"
+flags_requeridas = PackedStringArray("branch_criada")
+mensagem = "A fissura vibra: é um ponto de ancoragem entre as realidades. Um 'git switch' feito aqui leva você à posição equivalente."
+
+[node name="Terminal_Espinheiro" parent="Objetos" instance=ExtResource("r4")]
+position = Vector2(617.6, 528)
+
+[node name="Terminal_Ponte" parent="Objetos" instance=ExtResource("r4")]
+position = Vector2(361.6, 464)
+
+[node name="Faixa_Transicao" type="ColorRect" parent="Decor"]
+mouse_filter = 2
+offset_left = 64
+offset_top = -96
+offset_right = 160
+offset_bottom = 96
+color = Color(0.3216, 0.8784, 0.5412, 0.3)
+
+[node name="Abismo_Oeste" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(0, 288)
+tamanho = Vector2(320, 128)
+cor = Color(0.0157, 0.0627, 0.0392, 1)
+
+[node name="Abismo_Leste" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(448, 288)
+tamanho = Vector2(320, 128)
+cor = Color(0.0157, 0.0627, 0.0392, 1)
+
+[node name="Ponte_Raizes" type="ColorRect" parent="Decor"]
+mouse_filter = 2
+offset_left = 320
+offset_top = 288
+offset_right = 448
+offset_bottom = 416
+color = Color(0.4196, 0.2902, 0.1647, 1)
+
+[node name="Ponte_Raizes_Veio" type="ColorRect" parent="Decor"]
+mouse_filter = 2
+offset_left = 368
+offset_top = 288
+offset_right = 400
+offset_bottom = 416
+color = Color(0.2392, 0.6314, 0.3529, 0.6)
+
+[node name="Espinheiro" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(512, 416)
+tamanho = Vector2(64, 288)
+cor = Color(0.4157, 0.6039, 0.1412, 1)
+
+[node name="Arvore_1" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(224, 51.2)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_2" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(32, 134.4)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_3" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(240, 140.8)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_4" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(160, 224)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_5" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(262.4, 179.2)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_6" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(428.8, 153.6)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_7" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(416, 83.2)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_8" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(544, 70.4)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_9" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(608, 160)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_10" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(64, 537.6)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_11" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(192, 665.6)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_12" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(96, 684.8)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_13" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(256, 467.2)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_14" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(464, 556.8)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_15" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(608, 454.4)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_16" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(736, 460.8)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arvore_17" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(656, 678.4)
+tamanho_visual = Vector2(44, 84)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.1843, 0.5608, 0.3059, 1)
+
+[node name="Arbusto_1" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(96, 76.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_2" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(304, 108.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_3" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(518.4, 108.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_4" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(134.4, 204.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_5" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(371.2, 236.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_6" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(288, 588.8)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_7" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(384, 627.2)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_8" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(697.6, 505.6)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Arbusto_9" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(723.2, 576)
+tamanho_visual = Vector2(28, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.2392, 0.6314, 0.3529, 1)
+
+[node name="Cristal_1" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(176, 198.4)
+tamanho_visual = Vector2(10, 22)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.6078, 1.0000, 0.8157, 0.85)
+
+[node name="Cristal_2" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(480, 268.8)
+tamanho_visual = Vector2(10, 22)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.6078, 1.0000, 0.8157, 0.85)
+
+[node name="Cristal_3" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(352, 524.8)
+tamanho_visual = Vector2(10, 22)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.6078, 1.0000, 0.8157, 0.85)
+
+[node name="Cristal_4" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(684.8, 563.2)
+tamanho_visual = Vector2(10, 22)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.6078, 1.0000, 0.8157, 0.85)
+
+[node name="Cristal_Pedestal_Eco_Vida" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(720, 665.6)
+tamanho_visual = Vector2(22, 18)
+tamanho_colisao = Vector2(20, 8)
+cor = Color(0.4196, 0.2902, 0.1647, 1)
+
+[node name="Eco_Vida" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(720, 633.6)
+tamanho_visual = Vector2(14, 14)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.7137, 1.0000, 0.8510, 0.95)
+
+[node name="Coleta_Eco_Vida" parent="Interacoes" instance=ExtResource("r7")]
+position = Vector2(720, 630.4)
+tamanho = Vector2(64, 64)
+texto_prompt = "Recolher o eco de vida-alternativa"
+arquivo_que_coleta = "eco_vida.eco"
+flag_que_define = &"eco_vida"
+mensagem = "[Eco da realidade orgânica] Assinatura de um arquivista: \"preservada de propósito\". Novo arquivo: eco_vida.eco (git add e git commit)."
+esconder_ao_usar = NodePath("../../Objetos/Eco_Vida")
+
+[node name="Frag_V1_Brilho" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(160, 73.6)
+tamanho_visual = Vector2(10, 16)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.7137, 1.0000, 0.8510, 0.9)
+
+[node name="Frag_V1" parent="Interacoes" instance=ExtResource("r7")]
+script = ExtResource("r8")
+position = Vector2(160, 64)
+tamanho = Vector2(56, 56)
+texto_prompt = "Examinar fragmento"
+mensagem = "Cada raiz traz uma etiqueta: catalogada, não esquecida. Alguém cuidou desta realidade."
+uma_vez = false
+id_fragmento = &"frag_v1"
+visual = NodePath("../../Objetos/Frag_V1_Brilho")
+
+[node name="Frag_V2_Brilho" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(409.6, 262.4)
+tamanho_visual = Vector2(10, 16)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.7137, 1.0000, 0.8510, 0.9)
+
+[node name="Frag_V2" parent="Interacoes" instance=ExtResource("r7")]
+script = ExtResource("r8")
+position = Vector2(409.6, 252.8)
+tamanho = Vector2(56, 56)
+texto_prompt = "Examinar fragmento"
+mensagem = "Diário de campo: \"Mesma sala, dois ramos. Num a ponte ruiu; no outro, raízes a sustentam. Catalogar ambos.\""
+uma_vez = false
+id_fragmento = &"frag_v2"
+visual = NodePath("../../Objetos/Frag_V2_Brilho")
+
+[node name="Frag_V3_Brilho" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(748.8, 534.4)
+tamanho_visual = Vector2(10, 16)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(0.7137, 1.0000, 0.8510, 0.9)
+
+[node name="Frag_V3" parent="Interacoes" instance=ExtResource("r7")]
+script = ExtResource("r8")
+position = Vector2(748.8, 524.8)
+tamanho = Vector2(56, 56)
+texto_prompt = "Examinar fragmento"
+mensagem = "Integração experimental nº 2: concluída em escala reduzida. Ampliar? Parecer pendente."
+uma_vez = false
+id_fragmento = &"frag_v3"
+visual = NodePath("../../Objetos/Frag_V3_Brilho")
+
+[node name="Cristal_Saida_1" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(19.2, 544)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.6078, 1.0000, 0.8157, 1)
+
+[node name="Cristal_Saida_2" parent="Objetos" instance=ExtResource("r6")]
+position = Vector2(19.2, 640)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.6078, 1.0000, 0.8157, 1)
+
+[node name="Barreira_Limiar" parent="Paredes" instance=ExtResource("r9")]
+position = Vector2(0, -192)
+tamanho = Vector2(64, 96)
+cor = Color(0.3216, 0.8784, 0.5412, 0.85)
+texto_bloqueada = "Esta realidade está adormecida. Troque para a branch 'vida-alternativa' para atravessar."
+branch_requerida = &"vida-alternativa"
+
+[node name="SlotLuz_1" type="Marker2D" parent="Iluminacao"]
+position = Vector2(160, 96)
+
+[node name="SlotLuz_2" type="Marker2D" parent="Iluminacao"]
+position = Vector2(384, 512)
+
+[node name="SlotLuz_3" type="Marker2D" parent="Iluminacao"]
+position = Vector2(672, 608)
+
+[node name="Piso_1" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 256
+offset_bottom = 160
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_2" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 128
+offset_top = 128
+offset_right = 448
+offset_bottom = 288
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_3" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 352
+offset_top = 32
+offset_right = 640
+offset_bottom = 192
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_4" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 0
+offset_top = 288
+offset_right = 768
+offset_bottom = 416
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_5" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 0
+offset_top = 480
+offset_right = 320
+offset_bottom = 704
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_6" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 192
+offset_top = 416
+offset_right = 768
+offset_bottom = 640
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_7" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 448
+offset_top = 608
+offset_right = 768
+offset_bottom = 704
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_8" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = -64
+offset_top = -192
+offset_right = 160
+offset_bottom = -96
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_9" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = 64
+offset_top = -96
+offset_right = 160
+offset_bottom = 0
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Piso_10" type="ColorRect" parent="Piso"]
+mouse_filter = 2
+offset_left = -128
+offset_top = 544
+offset_right = 0
+offset_bottom = 640
+color = Color(0.0627, 0.1882, 0.1176, 1)
+
+[node name="Muro_1" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, -224)
+tamanho = Vector2(224, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_2" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, -96)
+tamanho = Vector2(96, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_3" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(32, -64)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_4" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(160, -192)
+tamanho = Vector2(32, 160)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_5" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, -32)
+tamanho = Vector2(96, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_6" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(160, -32)
+tamanho = Vector2(128, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_7" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(320, 0)
+tamanho = Vector2(352, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_8" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(320, 32)
+tamanho = Vector2(32, 64)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_9" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(256, 0)
+tamanho = Vector2(32, 96)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_10" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(256, 96)
+tamanho = Vector2(96, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_11" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 0)
+tamanho = Vector2(32, 160)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_12" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(640, 32)
+tamanho = Vector2(32, 160)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_13" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 160)
+tamanho = Vector2(160, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_14" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(448, 192)
+tamanho = Vector2(224, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_15" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(448, 224)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_16" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(96, 192)
+tamanho = Vector2(32, 64)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_17" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(448, 256)
+tamanho = Vector2(352, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_18" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 256)
+tamanho = Vector2(160, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_19" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 288)
+tamanho = Vector2(32, 128)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_20" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 416)
+tamanho = Vector2(224, 64)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_21" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 480)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_22" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-128, 512)
+tamanho = Vector2(128, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_23" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(320, 640)
+tamanho = Vector2(128, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_24" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-128, 640)
+tamanho = Vector2(128, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_25" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 672)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_26" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(416, 672)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_27" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(320, 672)
+tamanho = Vector2(32, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_28" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(768, 288)
+tamanho = Vector2(32, 416)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_29" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 704)
+tamanho = Vector2(384, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)
+
+[node name="Muro_30" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(416, 704)
+tamanho = Vector2(384, 32)
+cor = Color(0.1098, 0.3529, 0.2039, 1)

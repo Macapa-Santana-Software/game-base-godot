@@ -106,6 +106,7 @@ func _ready() -> void:
 	_check("reset desliga a liberação progressiva", not GameState.liberacao_progressiva and GameState.comandos_liberados.is_empty())
 	_check("progresso começa sem erros consecutivos", GameState.progresso_tutoria["erros_consecutivos"] == 0)
 
+	GameState.resetar_repositorio()  # reset_fase() agora preserva o repositório
 	print("RESULTADO: ", "OK" if _failures == 0 else "%d FALHA(S)" % _failures)
 
 func _mesmos_itens(a: Array, b: Array) -> bool:

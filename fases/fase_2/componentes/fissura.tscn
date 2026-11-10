@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase_2/componentes/fissura.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/compartilhado/fissura_main.png" id="2_textura"]
+
+[node name="Fissura" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("1_script")
+texto_prompt = "Atravessar a fissura"
+uma_vez = false
+
+[node name="Forma" type="CollisionShape2D" parent="."]
+debug_color = Color(0.2, 0.9, 0.9, 0.3)
+
+[node name="Visual" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_textura")

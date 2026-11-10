@@ -7,19 +7,28 @@ var _todos_os_comandos: Dictionary = {
 	"add": GitCommand_Add,
 	"commit": GitCommand_Commit,
 	"status": GitCommand_Status,
-	"help": GitCommand_Help
+	"help": GitCommand_Help,
+	"log": GitCommand_Log,
+	"branch": GitCommand_Branch,
+	"switch": GitCommand_Switch,
+	"merge": GitCommand_Merge
 }
 
 # Comandos reais do Git que ainda não foram implementados no jogo
 # (para não chamá-los de "inexistentes" quando o jogador tentar usá-los).
 const COMANDOS_GIT_CONHECIDOS: Array[String] = [
-	"log", "diff", "branch", "checkout", "switch", "merge", "rebase", "clone",
+	"diff", "checkout", "rebase", "clone",
 	"fetch", "pull", "push", "remote", "reset", "restore", "rm", "mv", "stash",
 	"tag", "config", "show", "revert", "cherry-pick"
 ]
 
 # Máximo de edições para ainda sugerir "Você quis dizer ...?"
 const DISTANCIA_MAXIMA_SUGESTAO := 2
+
+# Texto quando um comando da fase ainda não foi liberado (`%s` = nome do comando).
+# Cada fase pode trocá-lo pela sua própria narrativa (ver ConfiguracaoTerminal).
+const MENSAGEM_BLOQUEADO_PADRAO := "[color=#FFCC00]git: o comando '%s' ainda não foi apresentado. Vamos um de cada vez; siga o passo da IA.[/color]"
+var mensagem_bloqueado: String = MENSAGEM_BLOQUEADO_PADRAO
 
 # Guarda apenas os comandos instanciados e liberados para a fase atual
 var _handlers: Dictionary = {}
@@ -54,7 +63,7 @@ func execute_command(raw_input: String) -> String:
 	# Liberação progressiva: o comando é da fase, mas a IA ainda não o apresentou
 	if not GameState.comando_liberado(command_name):
 		return GameState.registrar_falha(command_name, GameState.FALHA_COMANDO_BLOQUEADO,
-			"[color=#FFCC00]git: o comando '%s' ainda não foi apresentado. Vamos um de cada vez; siga o passo da IA.[/color]" % command_name)
+			mensagem_bloqueado % command_name)
 
 	var args: Array[String] = parsed.get("args", [])
 	var handler = _handlers[command_name]

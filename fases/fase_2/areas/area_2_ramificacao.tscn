@@ -1,0 +1,311 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/fase_2/areas/area_2_ramificacao.gd" id="r1"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/conexao_fase_2.gd" id="r2"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/prop_fase_2.tscn" id="r3"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/zona_interacao.tscn" id="r4"]
+[ext_resource type="PackedScene" path="res://fases/fase_2/componentes/parede.tscn" id="r5"]
+[ext_resource type="TileSet" path="res://fases/fase_2/arte/tilesets/tileset_fase_2.tres" id="r6"]
+[ext_resource type="TileSet" path="res://fases/fase_2/arte/tilesets/tileset_paredes_fase_2.tres" id="r7"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/no_origem.png" id="tx_no_origem"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/pilar_fino.png" id="tx_pilar"]
+
+[node name="Area2_Ramificacao" type="Node2D"]
+script = ExtResource("r1")
+y_sort_enabled = true
+id_area = &"ramificacao"
+nome_exibicao = "Câmara da Ramificação"
+realidade = "neutra"
+retangulo_tiles = Rect2i(0, 0, 18, 20)
+
+[node name="Piso" type="Node2D" parent="."]
+z_index = -2
+
+[node name="Paredes" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Decor" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Objetos" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Interacoes" type="Node2D" parent="."]
+
+[node name="Conexoes" type="Node2D" parent="."]
+
+[node name="Iluminacao" type="Node2D" parent="."]
+
+[node name="PontoDebug" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(304, 448)
+tipo = "debug"
+
+[node name="Porta_Oeste_Arquivo" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(16, 80)
+tipo = "saida"
+
+[node name="Porta_Leste_Registro" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(560, 80)
+tipo = "saida"
+
+[node name="Porta_Sudoeste_Main" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(16, 560)
+tipo = "saida"
+
+[node name="Porta_Sudeste_Vida" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(560, 560)
+tipo = "saida"
+
+[node name="Porta_Sul_Convergencia" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(304, 624)
+tipo = "saida"
+
+[node name="Porta_Norte_Tech" type="Marker2D" parent="Conexoes"]
+script = ExtResource("r2")
+position = Vector2(304, 16)
+tipo = "saida"
+
+[node name="Trilha_Main" type="Line2D" parent="Decor"]
+points = PackedVector2Array(304, 320, 16, 560)
+width = 10
+default_color = Color(0.4784, 0.3451, 0.8392, 0.6)
+
+[node name="Trilha_Vida" type="Line2D" parent="Decor"]
+points = PackedVector2Array(304, 320, 560, 560)
+width = 10
+default_color = Color(0.3216, 0.8784, 0.5412, 0.6)
+
+[node name="Trilha_Tech_Ciano" type="Line2D" parent="Decor"]
+points = PackedVector2Array(291.2, 320, 291.2, 48)
+width = 4
+default_color = Color(0.0980, 0.9020, 1.0000, 0.8)
+
+[node name="Trilha_Tech_Magenta" type="Line2D" parent="Decor"]
+points = PackedVector2Array(316.8, 320, 316.8, 48)
+width = 4
+default_color = Color(1.0000, 0.1686, 0.8392, 0.8)
+
+[node name="Trilha_Convergencia_Main" type="Line2D" parent="Decor"]
+points = PackedVector2Array(291.2, 320, 291.2, 624)
+width = 4
+default_color = Color(0.4784, 0.3451, 0.8392, 0.8)
+
+[node name="Trilha_Convergencia_Vida" type="Line2D" parent="Decor"]
+points = PackedVector2Array(316.8, 320, 316.8, 624)
+width = 4
+default_color = Color(0.3216, 0.8784, 0.5412, 0.8)
+
+[node name="Anel_Origem" type="ColorRect" parent="Decor"]
+mouse_filter = 2
+offset_left = 240
+offset_top = 262.4
+offset_right = 368
+offset_bottom = 390.4
+color = Color(0.4784, 0.3451, 0.8392, 0.22)
+
+[node name="No_Origem" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(304, 364.8)
+tamanho_visual = Vector2(56, 78)
+tamanho_colisao = Vector2(44, 14)
+cor = Color(0.4784, 0.3451, 0.8392, 1)
+textura = ExtResource("tx_no_origem")
+
+[node name="Porta_Tech" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(304, 32)
+tamanho_visual = Vector2(96, 60)
+tamanho_colisao = Vector2(96, 12)
+cor = Color(0.0980, 0.9020, 1.0000, 0.45)
+
+[node name="Neon_Porta_Esq" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(256, 32)
+tamanho_visual = Vector2(4, 56)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(1.0000, 0.1686, 0.8392, 0.8)
+
+[node name="Neon_Porta_Dir" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(352, 32)
+tamanho_visual = Vector2(4, 56)
+tamanho_colisao = Vector2(0, 0)
+cor = Color(1.0000, 0.1686, 0.8392, 0.8)
+
+[node name="Visao_Porta_Tech" parent="Interacoes" instance=ExtResource("r4")]
+position = Vector2(304, 70.4)
+tamanho = Vector2(160, 64)
+texto_prompt = "Observar a porta de vidro"
+mensagem = "[Visão] Atrás do vidro: máquinas, circuitos e neon. Esta porta ainda não pode ser atravessada."
+uma_vez = false
+
+[node name="Pilar_Porta_1" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(19.2, 512)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4784, 0.3451, 0.8392, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_2" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(19.2, 608)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4784, 0.3451, 0.8392, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_3" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(556.8, 512)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.3216, 0.8784, 0.5412, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_4" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(556.8, 608)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.3216, 0.8784, 0.5412, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_5" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(19.2, 32)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_6" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(19.2, 128)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_7" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(556.8, 32)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_8" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(556.8, 128)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_9" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(256, 640)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="Pilar_Porta_10" parent="Objetos" instance=ExtResource("r3")]
+position = Vector2(352, 640)
+tamanho_visual = Vector2(14, 52)
+tamanho_colisao = Vector2(12, 8)
+cor = Color(0.4196, 0.3725, 0.6588, 1)
+textura = ExtResource("tx_pilar")
+
+[node name="SlotLuz_1" type="Marker2D" parent="Iluminacao"]
+position = Vector2(304, 160)
+
+[node name="SlotLuz_2" type="Marker2D" parent="Iluminacao"]
+position = Vector2(304, 480)
+
+[node name="SlotLuz_3" type="Marker2D" parent="Iluminacao"]
+position = Vector2(128, 320)
+
+[node name="SlotLuz_4" type="Marker2D" parent="Iluminacao"]
+position = Vector2(480, 320)
+
+[node name="PisoTiles" type="TileMapLayer" parent="Piso"]
+tile_set = ExtResource("r6")
+rendering_quadrant_size = 32
+collision_enabled = false
+navigation_enabled = false
+tile_map_data = PackedByteArray("AAAAAAAAAAAKAAEAAAAAAAEAAAABAAAAAAAAAAIAAAAKAAEAAAAAAAMAAAABAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAABAAAAAAAAAAYAAAADAAAAAAAAAAcAAAAJAAEAAAAAAAgAAAAAAAAAAAAAAAkAAAABAAAAAAAAAAoAAAADAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA0AAAALAAEAAAAAAA4AAAACAAAAAAAAAA8AAAAAAAAAAAAAABAAAAAIAAEAAAAAABEAAAAAAAAAAAAAABIAAAAAAAAAAAAAABMAAAABAAAAAAABAAAAAAAAAAAAAAABAAEAAAAJAAEAAAABAAIAAAAKAAEAAAABAAMAAAAJAAEAAAABAAQAAAAAAAAAAAABAAUAAAALAAEAAAABAAYAAAAAAAAAAAABAAcAAAAIAAEAAAABAAgAAAADAAAAAAABAAkAAAAKAAEAAAABAAoAAAAIAAEAAAABAAsAAAADAAAAAAABAAwAAAAAAAAAAAABAA0AAAADAAAAAAABAA4AAAAKAAEAAAABAA8AAAAKAAEAAAABABAAAAAAAAAAAAABABEAAAADAAAAAAABABIAAAAAAAAAAAABABMAAAABAAAAAAACAAAAAAAKAAEAAAACAAEAAAAKAAEAAAACAAIAAAALAAEAAAACAAMAAAALAAEAAAACAAQAAAAJAAEAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAACAAAAAAACAAgAAAALAAEAAAACAAkAAAAIAAEAAAACAAoAAAAKAAEAAAACAAsAAAAJAAEAAAACAAwAAAALAAEAAAACAA0AAAABAAAAAAACAA4AAAALAAEAAAACAA8AAAADAAAAAAACABAAAAAAAAAAAAACABEAAAADAAAAAAACABIAAAAIAAEAAAACABMAAAAIAAEAAAADAAAAAAALAAEAAAADAAEAAAACAAAAAAADAAIAAAACAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAABAAAAAAADAAYAAAAKAAEAAAADAAcAAAABAAAAAAADAAgAAAAIAAEAAAADAAkAAAAIAAEAAAADAAoAAAABAAAAAAADAAsAAAALAAEAAAADAAwAAAABAAAAAAADAA0AAAAAAAAAAAADAA4AAAAAAAAAAAADAA8AAAAJAAEAAAADABAAAAAIAAEAAAADABEAAAAAAAAAAAADABIAAAAAAAAAAAADABMAAAABAAAAAAAEAAAAAAALAAEAAAAEAAEAAAACAAAAAAAEAAIAAAAKAAEAAAAEAAMAAAAAAAAAAAAEAAQAAAAKAAEAAAAEAAUAAAAAAAAAAAAEAAYAAAAJAAEAAAAEAAcAAAACAAAAAAAEAAgAAAABAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAsAAAAIAAEAAAAEAAwAAAAAAAAAAAAEAA0AAAABAAAAAAAEAA4AAAAAAAAAAAAEAA8AAAABAAAAAAAEABAAAAAJAAEAAAAEABEAAAALAAEAAAAEABIAAAABAAAAAAAEABMAAAAAAAAAAAAFAAAAAAALAAEAAAAFAAEAAAABAAAAAAAFAAIAAAAIAAEAAAAFAAMAAAAAAAAAAAAFAAQAAAAJAAEAAAAFAAUAAAAJAAEAAAAFAAYAAAAIAAEAAAAFAAcAAAABAAAAAAAFAAgAAAAKAAEAAAAFAAkAAAAAAAAAAAAFAAoAAAAIAAEAAAAFAAsAAAALAAEAAAAFAAwAAAADAAAAAAAFAA0AAAAAAAAAAAAFAA4AAAAJAAEAAAAFAA8AAAACAAAAAAAFABAAAAAIAAEAAAAFABEAAAAAAAAAAAAFABIAAAABAAAAAAAFABMAAAAJAAEAAAAGAAAAAAAAAAAAAAAGAAEAAAADAAAAAAAGAAIAAAAJAAEAAAAGAAMAAAALAAEAAAAGAAQAAAAAAAAAAAAGAAUAAAACAAAAAAAGAAYAAAADAAAAAAAGAAcAAAADAAAAAAAGAAgAAAALAAEAAAAGAAkAAAABAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAAJAAEAAAAGAAwAAAAAAAAAAAAGAA0AAAAIAAEAAAAGAA4AAAACAAAAAAAGAA8AAAAAAAAAAAAGABAAAAAKAAEAAAAGABEAAAALAAEAAAAGABIAAAAAAAAAAAAGABMAAAAAAAAAAAAHAAAAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAIAAAAIAAEAAAAHAAMAAAAIAAEAAAAHAAQAAAAAAAAAAAAHAAUAAAADAAAAAAAHAAYAAAAJAAEAAAAHAAcAAAAIAAEAAAAHAAgAAAAAAAAAAAAHAAkAAAAJAAEAAAAHAAoAAAAKAAEAAAAHAAsAAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA0AAAABAAAAAAAHAA4AAAAAAAAAAAAHAA8AAAALAAEAAAAHABAAAAAAAAAAAAAHABEAAAABAAAAAAAHABIAAAACAAAAAAAHABMAAAACAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAALAAEAAAAIAAIAAAACAAAAAAAIAAMAAAALAAEAAAAIAAQAAAACAAAAAAAIAAUAAAADAAAAAAAIAAYAAAAKAAEAAAAIAAcAAAABAAAAAAAIAAgAAAAJAAEAAAAIAAkAAAALAAEAAAAIAAoAAAAIAAEAAAAIAAsAAAACAAAAAAAIAAwAAAAAAAAAAAAIAA0AAAAAAAAAAAAIAA4AAAAAAAAAAAAIAA8AAAAJAAEAAAAIABAAAAACAAAAAAAIABEAAAAIAAEAAAAIABIAAAALAAEAAAAIABMAAAAKAAEAAAAJAAAAAAAIAAEAAAAJAAEAAAACAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAIAAEAAAAJAAQAAAAKAAEAAAAJAAUAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAJAAgAAAAKAAEAAAAJAAkAAAAAAAAAAAAJAAoAAAAIAAEAAAAJAAsAAAABAAAAAAAJAAwAAAAJAAEAAAAJAA0AAAADAAAAAAAJAA4AAAAAAAAAAAAJAA8AAAACAAAAAAAJABAAAAADAAAAAAAJABEAAAAJAAEAAAAJABIAAAAAAAAAAAAJABMAAAAKAAEAAAAKAAAAAAACAAAAAAAKAAEAAAAAAAAAAAAKAAIAAAALAAEAAAAKAAMAAAAAAAAAAAAKAAQAAAAIAAEAAAAKAAUAAAAKAAEAAAAKAAYAAAALAAEAAAAKAAcAAAAIAAEAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAAAAAAKAAoAAAAAAAAAAAAKAAsAAAAAAAAAAAAKAAwAAAAAAAAAAAAKAA0AAAAAAAAAAAAKAA4AAAAAAAAAAAAKAA8AAAAIAAEAAAAKABAAAAAIAAEAAAAKABEAAAAIAAEAAAAKABIAAAAKAAEAAAAKABMAAAABAAAAAAALAAAAAAAAAAAAAAALAAEAAAAJAAEAAAALAAIAAAAAAAAAAAALAAMAAAALAAEAAAALAAQAAAACAAAAAAALAAUAAAAIAAEAAAALAAYAAAAAAAAAAAALAAcAAAAIAAEAAAALAAgAAAAIAAEAAAALAAkAAAAAAAAAAAALAAoAAAAAAAAAAAALAAsAAAACAAAAAAALAAwAAAAAAAAAAAALAA0AAAACAAAAAAALAA4AAAAJAAEAAAALAA8AAAAAAAAAAAALABAAAAAJAAEAAAALABEAAAACAAAAAAALABIAAAADAAAAAAALABMAAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAMAAAADAAAAAAAMAAQAAAACAAAAAAAMAAUAAAAIAAEAAAAMAAYAAAAJAAEAAAAMAAcAAAAAAAAAAAAMAAgAAAACAAAAAAAMAAkAAAAIAAEAAAAMAAoAAAAJAAEAAAAMAAsAAAABAAAAAAAMAAwAAAAAAAAAAAAMAA0AAAALAAEAAAAMAA4AAAALAAEAAAAMAA8AAAAAAAAAAAAMABAAAAAAAAAAAAAMABEAAAAAAAAAAAAMABIAAAADAAAAAAAMABMAAAALAAEAAAANAAAAAAAAAAAAAAANAAEAAAAAAAAAAAANAAIAAAACAAAAAAANAAMAAAACAAAAAAANAAQAAAALAAEAAAANAAUAAAAAAAAAAAANAAYAAAAIAAEAAAANAAcAAAAAAAAAAAANAAgAAAAIAAEAAAANAAkAAAADAAAAAAANAAoAAAAIAAEAAAANAAsAAAAKAAEAAAANAAwAAAAAAAAAAAANAA0AAAALAAEAAAANAA4AAAAAAAAAAAANAA8AAAAIAAEAAAANABAAAAAAAAAAAAANABEAAAAIAAEAAAANABIAAAALAAEAAAANABMAAAAAAAAAAAAOAAAAAAAAAAAAAAAOAAEAAAAJAAEAAAAOAAIAAAAJAAEAAAAOAAMAAAAIAAEAAAAOAAQAAAADAAAAAAAOAAUAAAABAAAAAAAOAAYAAAACAAAAAAAOAAcAAAADAAAAAAAOAAgAAAAAAAAAAAAOAAkAAAACAAAAAAAOAAoAAAAAAAAAAAAOAAsAAAAAAAAAAAAOAAwAAAAJAAEAAAAOAA0AAAADAAAAAAAOAA4AAAAIAAEAAAAOAA8AAAAKAAEAAAAOABAAAAAIAAEAAAAOABEAAAADAAAAAAAOABIAAAAAAAAAAAAOABMAAAAAAAAAAAAPAAAAAAAJAAEAAAAPAAEAAAAJAAEAAAAPAAIAAAAKAAEAAAAPAAMAAAAIAAEAAAAPAAQAAAAJAAEAAAAPAAUAAAAAAAAAAAAPAAYAAAABAAAAAAAPAAcAAAAAAAAAAAAPAAgAAAALAAEAAAAPAAkAAAAAAAAAAAAPAAoAAAADAAAAAAAPAAsAAAALAAEAAAAPAAwAAAAAAAAAAAAPAA0AAAAKAAEAAAAPAA4AAAALAAEAAAAPAA8AAAALAAEAAAAPABAAAAAKAAEAAAAPABEAAAADAAAAAAAPABIAAAAJAAEAAAAPABMAAAAAAAAAAAAQAAAAAAADAAAAAAAQAAEAAAAKAAEAAAAQAAIAAAAAAAAAAAAQAAMAAAADAAAAAAAQAAQAAAAAAAAAAAAQAAUAAAABAAAAAAAQAAYAAAAAAAAAAAAQAAcAAAAAAAAAAAAQAAgAAAACAAAAAAAQAAkAAAAAAAAAAAAQAAoAAAADAAAAAAAQAAsAAAAAAAAAAAAQAAwAAAABAAAAAAAQAA0AAAAIAAEAAAAQAA4AAAALAAEAAAAQAA8AAAADAAAAAAAQABAAAAADAAAAAAAQABEAAAABAAAAAAAQABIAAAAAAAAAAAAQABMAAAACAAAAAAARAAAAAAAJAAEAAAARAAEAAAAIAAEAAAARAAIAAAAAAAAAAAARAAMAAAAKAAEAAAARAAQAAAAKAAEAAAARAAUAAAAJAAEAAAARAAYAAAAAAAAAAAARAAcAAAAAAAAAAAARAAgAAAAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAARAAsAAAAAAAAAAAARAAwAAAACAAAAAAARAA0AAAADAAAAAAARAA4AAAAAAAAAAAARAA8AAAADAAAAAAARABAAAAAAAAAAAAARABEAAAALAAEAAAARABIAAAAAAAAAAAARABMAAAABAAAAAAA=")
+
+[node name="Piso_1" type="ColorRect" parent="Piso"]
+visible = false
+mouse_filter = 2
+offset_left = 0
+offset_top = 0
+offset_right = 576
+offset_bottom = 640
+color = Color(0.0902, 0.0784, 0.1569, 1)
+
+[node name="ParedesTiles" type="TileMapLayer" parent="Paredes"]
+tile_set = ExtResource("r7")
+rendering_quadrant_size = 32
+collision_enabled = false
+navigation_enabled = false
+tile_map_data = PackedByteArray("AAD/////AAACAAIAAAAAAP//AAABAAMAAAABAP//AAAAAAMAAAACAP//AAAAAAMAAAADAP//AAAFAAMAAAAEAP//AAABAAMAAAAFAP//AAABAAMAAAAGAP//AAAAAAMAAAAHAP//AAAFAAMAAAAIAP//AAAAAAMAAAAJAP//AAAAAAMAAAAKAP//AAABAAMAAAALAP//AAABAAMAAAAMAP//AAABAAMAAAANAP//AAAAAAMAAAAOAP//AAABAAMAAAAPAP//AAAAAAMAAAAQAP//AAAAAAMAAAARAP//AAACAAMAAAASAP//AAAMAAIAAAASAAAAAAABAAIAAAD//wUAAAAEAAIAAAD//wYAAAAFAAIAAAD//wcAAAAFAAIAAAD//wgAAAAFAAIAAAD//wkAAAAFAAIAAAD//woAAAAFAAIAAAD//wsAAAAFAAIAAAD//wwAAAAFAAIAAAD//w0AAAAFAAIAAAD//w4AAAAFAAIAAAD//w8AAAABAAIAAAASAAQAAAAEAAIAAAASAAUAAAAFAAIAAAASAAYAAAAFAAIAAAASAAcAAAAFAAIAAAASAAgAAAAFAAIAAAASAAkAAAAFAAIAAAASAAoAAAAFAAIAAAASAAsAAAAFAAIAAAASAAwAAAAFAAIAAAASAA0AAAAFAAIAAAASAA4AAAAFAAIAAAASAA8AAAABAAIAAAD//xMAAAAEAAIAAAASABMAAAAEAAIAAAALABQAAAACAAIAAAAMABQAAAAKAAIAAAANABQAAAAKAAIAAAAOABQAAAAKAAIAAAAPABQAAAAKAAIAAAAQABQAAAAKAAIAAAARABQAAAAKAAIAAAASABQAAAAJAAIAAAD//xQAAAADAAIAAAAAABQAAAAKAAIAAAABABQAAAAKAAIAAAACABQAAAAKAAIAAAADABQAAAAKAAIAAAAEABQAAAAKAAIAAAAFABQAAAAKAAIAAAAGABQAAAAKAAIAAAAHABQAAAAIAAIAAAA=")
+
+[node name="Muro_1" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, -32)
+tamanho = Vector2(640, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_1" index="0"]
+visible = false
+
+[node name="Muro_2" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(576, 0)
+tamanho = Vector2(32, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_2" index="0"]
+visible = false
+
+[node name="Muro_3" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 160)
+tamanho = Vector2(32, 352)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_3" index="0"]
+visible = false
+
+[node name="Muro_4" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(576, 128)
+tamanho = Vector2(32, 384)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_4" index="0"]
+visible = false
+
+[node name="Muro_5" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 608)
+tamanho = Vector2(32, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_5" index="0"]
+visible = false
+
+[node name="Muro_6" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(576, 608)
+tamanho = Vector2(32, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_6" index="0"]
+visible = false
+
+[node name="Muro_7" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(352, 640)
+tamanho = Vector2(256, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_7" index="0"]
+visible = false
+
+[node name="Muro_8" parent="Paredes" instance=ExtResource("r5")]
+position = Vector2(-32, 640)
+tamanho = Vector2(288, 32)
+cor = Color(0.1686, 0.1451, 0.2706, 1)
+
+[node name="Visual" parent="Paredes/Muro_8" index="0"]
+visible = false
