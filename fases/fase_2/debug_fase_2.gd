@@ -13,6 +13,9 @@ class_name DebugFase2 extends CanvasLayer
 ## Só age quando uma das teclas abaixo é pressionada; o painel começa escondido. Não usa
 ## o Input Map (teclas lidas direto do evento). Teclas de função, iguais em qualquer layout.
 ##
+## ATENÇÃO: os atalhos abaixo (exceto HOME) só funcionam com o painel de debug aberto (HOME).
+## Quem joga a fase usa o TERMINAL (`git branch`, `git switch`...): é a didática da fase.
+##
 ##   N         executa `git branch vida-alternativa`   (GameState.criar_branch)
 ##   B         executa `git switch` para a outra branch (GameState.trocar_branch)
 ##   HOME      mostra/esconde o painel de estado
@@ -104,6 +107,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if tecla.ctrl_pressed or tecla.alt_pressed or tecla.shift_pressed or tecla.meta_pressed:
 		return
+	# Os atalhos (N, B, PgUp/PgDn, End, Insert) só valem com o painel de debug ABERTO (HOME). Assim uma
+	# tecla apertada por engano não cria/troca branch nem liga flags: o jogador usa o terminal.
+	if tecla.keycode != KEY_HOME and not _rotulo.visible:
+		return
 	match tecla.keycode:
 		KEY_N:
 			_mostrar_resultado(GameState.criar_branch(BRANCH_ALTERNATIVA))
@@ -161,7 +168,7 @@ func _on_jogador_entrou(area: AreaFase2) -> void:
 func _atualizar_painel() -> void:
 	if _rotulo == null:
 		return
-	var texto := "[DEBUG FASE 2]  N criar branch · B trocar\nárea: %s\nbranch ativa: %s\nbranches: %s\n" % [
+	var texto := "[DEBUG FASE 2 — só para testes; no jogo use o terminal]  N criar branch · B trocar\nárea: %s\nbranch ativa: %s\nbranches: %s\n" % [
 		_area_atual, GameState.branch_ativa, ", ".join(GameState.listar_branches())]
 	for flag in ProgressoFase2.ORDEM_FLAGS:
 		var marca := "[x]" if _progresso.obter(flag) else "[ ]"

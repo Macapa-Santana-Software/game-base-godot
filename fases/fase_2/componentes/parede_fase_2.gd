@@ -14,6 +14,11 @@ class_name ParedeFase2 extends StaticBody2D
 	set(valor):
 		cor = valor
 		_atualizar()
+## Textura ladrilhada (opcional). Quando definida, substitui o ColorRect provisório.
+@export var textura: Texture2D:
+	set(valor):
+		textura = valor
+		_atualizar()
 @export var colisao_ativa: bool = true:
 	set(valor):
 		colisao_ativa = valor
@@ -21,6 +26,8 @@ class_name ParedeFase2 extends StaticBody2D
 
 @onready var visual: ColorRect = $Visual
 @onready var forma: CollisionShape2D = $Forma
+
+var _arte: TextureRect
 
 
 func _ready() -> void:
@@ -33,6 +40,19 @@ func _atualizar() -> void:
 	visual.position = Vector2.ZERO
 	visual.size = tamanho
 	visual.color = cor
+	if textura != null:
+		visual.visible = false
+		if _arte == null:
+			_arte = TextureRect.new()
+			_arte.name = "ArteTile"
+			_arte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			_arte.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			_arte.stretch_mode = TextureRect.STRETCH_TILE
+			_arte.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			add_child(_arte)
+		_arte.texture = textura
+		_arte.position = Vector2.ZERO
+		_arte.size = tamanho
 	var retangulo := RectangleShape2D.new()
 	retangulo.size = tamanho
 	forma.shape = retangulo

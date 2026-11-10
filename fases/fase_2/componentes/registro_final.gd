@@ -53,7 +53,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if progresso == null:
 		return
 	if not progresso.obter(ProgressoFase2.CONVERGENCIA_CONCLUIDA):
-		MensagemHud.mostrar_em(self, "O registro está em silêncio. As realidades ainda não convergiram.")
+		MensagemHud.mostrar_em(self, "O registro está em silêncio. As realidades ainda não convergiram: em 'main', no terminal da Convergência, use 'git merge vida-alternativa'.")
 	else:
 		consulta_sem_reflexao.emit()
 

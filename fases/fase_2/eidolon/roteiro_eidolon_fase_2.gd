@@ -39,6 +39,7 @@ const FALAS := {
 		"linhas": [
 			"A memória mais antiga deste registro: “{mensagem}”. Dela partem todas as outras.",
 			"Meus registros apontam uma possibilidade que nunca foi aberta: '{branch_alvo}'. Se eu a abrir a partir daqui... o mundo muda?",
+			"Abra-a aqui mesmo, pelo terminal: `git branch {branch_alvo}`.",
 		],
 		"nota": "Em Git: `git log` lista os commits do histórico da branch ativa, do mais recente ao mais antigo.",
 	},
@@ -49,8 +50,9 @@ const FALAS := {
 		"linhas": [
 			"Nada mudou. Continuamos em '{ativa}'. E, no entanto, o Atlas ganhou uma linha nova.",
 			"Uma possibilidade ainda não catalogada. Vou tratá-la como um desvio a observar.",
+			"Criar uma linha não nos leva até ela. Para entrar, use o terminal: `git switch {branch_alvo}`.",
 		],
-		"balao": "Uma linha nova no Atlas. E continuamos em '{ativa}'.",
+		"balao": "Uma linha nova no Atlas. E continuamos em '{ativa}'. Para entrar nela, use no terminal: git switch {branch_alvo}.",
 		"nota": "Em Git: `git branch <nome>` cria um novo ponteiro para o commit atual. O HEAD continua na branch em que você estava.",
 	},
 

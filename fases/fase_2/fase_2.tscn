@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Dialogo/CaixaDialogo.tscn" id="r22"]
 [ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="r23"]
 [ext_resource type="PackedScene" path="res://atlas/atlas_ui.tscn" id="r24"]
+[ext_resource type="Script" path="res://fases/fase_2/interface/painel_objetivos_fase_2.gd" id="r25"]
+[ext_resource type="Script" path="res://fases/fase_2/interface/painel_conceitos_fase_2.gd" id="r26"]
 
 [node name="Fase2" type="Node2D" unique_id=1567771168]
 y_sort_enabled = true
@@ -108,3 +110,9 @@ layer = 80
 config = ExtResource("r1")
 
 [node name="AtlasUI" parent="." unique_id=1933172610 instance=ExtResource("r24")]
+
+[node name="PainelObjetivos" type="CanvasLayer" parent="." unique_id=1730004101]
+script = ExtResource("r25")
+
+[node name="PainelConceitos" type="CanvasLayer" parent="." unique_id=1730004102]
+script = ExtResource("r26")

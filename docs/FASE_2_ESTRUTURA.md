@@ -166,6 +166,40 @@ Só valem sem Ctrl/Alt/Shift/Meta e com o nó habilitado. Evite teclas de funç�
 reserva (F9 pausava o jogo embutido). N e B não constam no Input Map. Desligar: desmarcar `habilitado`
 ou apagar o nó. Ao rodar a fase isolada, e só se não houver nenhum commit, cria um repositório simulado.
 
+## Painéis laterais (objetivos e conceitos) — `res://fases/fase_2/interface/`
+
+Dois painéis independentes, no mesmo estilo do Manual da Fase 1 (tema `tema_santuario.tres`, aba +
+tecla, recolhíveis, sem pausar o jogo, só leitura). A Fase 1 não foi alterada.
+
+| Painel | Lado | Tecla | Papel |
+|---|---|---|---|
+| `PainelObjetivosFase2` | esquerda | `O` | A jornada em 9 objetivos, com indicador de progresso. Começa aberto. |
+| `PainelConceitosFase2` | direita | `C` | Conceitos de Git usados na fase (repo, commit, branch, HEAD, switch, merge, log). Começa recolhido. |
+
+- **Objetivos** não têm estado próprio: cada um é uma flag do `ProgressoFase2` (derivada do GameState ou
+  de exploração) e o painel só reage a `flag_alterada`. Abrir o terminal ou digitar um comando não
+  conclui nada; só o resultado (a flag). O primeiro objetivo ainda não concluído é o "atual" e mostra
+  uma descrição curta. Com o painel recolhido, um selo na aba avisa que algo foi concluído.
+- **Conceitos** ficam sempre disponíveis (não dependem de objetivos, terminal nem Eidolon). Os textos
+  estão em `conceitos_fase_2.gd` (só dados).
+- Ambos ficam no fim da árvore da cena (acima do terminal, abaixo do Atlas) e lembram o estado
+  aberto/recolhido ao recarregar a fase na mesma sessão.
+
+## Orientação pelo terminal e destaque dos coletáveis
+
+- **Branch e switch são do terminal.** Eidolon diz o comando na hora certa (`git log` -> `git branch
+  vida-alternativa` -> `git switch vida-alternativa`), o painel de Objetivos mostra o comando do passo atual
+  (e, nos ecos, muda conforme a branch ativa) e as portas dizem qual comando falta. Os atalhos do
+  `DebugFase2` (N, B, PgUp/PgDn, End, Insert) só funcionam com o painel de debug aberto (HOME).
+- **Ecos e fragmentos em destaque.** `DestaqueColetavel` (filho do prop) desenha halo que pulsa, faíscas e,
+  no eco, um feixe de luz; o sprite flutua levemente. Só visual. Ecos usam arte própria maior
+  (`eco_main_destaque.png`, `eco_vida_destaque.png`). Eles somem com o prop quando recolhidos; o fragmento
+  lido esmaece junto com o prop.
+- **Teste de progressão** (`test/fase_2_progressao_test.tscn`): percorre a jornada pelas operações reais do
+  GameState (log, branch, switch, coleta, add, commit, merge) e confere flags, comandos liberados, zonas e
+  portas. Grava o resultado em `%TEMP%/fase2_progressao_teste.txt`. Pré-visualização dos destaques:
+  `test/destaques_preview.tscn`.
+
 ## Eidolon (Parte 4 — concluída: Etapas 1 a 5)
 
 Consciência fragmentada de um arquivista Codex que vive no Atlas (entidade distinta da IA da Fase 1;

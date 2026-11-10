@@ -17,6 +17,23 @@
 [ext_resource type="Texture2D" path="res://Props/Sprites/Santuario/pedestal.png" id="tx_pedestal"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/pilar_fino.png" id="tx_pilar"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/barreiras/barreira_passagem_main.png" id="tx_barreira"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/eco_main_destaque.png" id="nv_1"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/destaque_coletavel.gd" id="nv_2"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/abismo_main_grande.png" id="nv_3"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/ponte_ponta_norte.png" id="nv_4"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/ponte_ponta_sul.png" id="nv_5"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/ponte_vao_detalhes.png" id="nv_6"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/borda_abismo_main_sup.png" id="nv_7"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/borda_abismo_main_inf.png" id="nv_8"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/borda_abismo_main_dir.png" id="nv_9"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/tiles/borda_abismo_main_esq.png" id="nv_10"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_a.png" id="nv_11"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_b.png" id="nv_12"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/runa_chao_main.png" id="nv_13"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_a.png" id="nv_14"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_b.png" id="nv_15"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/coluna_tombada_main.png" id="nv_16"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/brilho_ambiente.gd" id="nv_17"]
 
 [sub_resource type="AtlasTexture" id="at_entulho0"]
 atlas = ExtResource("tx_entulho")
@@ -45,6 +62,32 @@ region = Rect2(0, 0, 64, 96)
 [sub_resource type="AtlasTexture" id="at_barreira_aberta"]
 atlas = ExtResource("tx_barreira")
 region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="Gradient" id="g_faixa"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.4784, 0.3451, 0.8392, 0, 0.4784, 0.3451, 0.8392, 0.32, 0.4784, 0.3451, 0.8392, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_faixa"]
+gradient = SubResource("g_faixa")
+width = 32
+height = 64
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="g_main"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.55, 0.42, 1.0, 0.55, 0.55, 0.42, 1.0, 0.18, 0.55, 0.42, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_main"]
+gradient = SubResource("g_main")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="mat_aditivo"]
+blend_mode = 1
 
 [node name="Area3_Main" type="Node2D"]
 script = ExtResource("r1")
@@ -105,13 +148,15 @@ mensagem = "A fissura vibra: é um ponto de ancoragem entre as realidades. Um 'g
 [node name="Terminal_Espinheiro" parent="Objetos" instance=ExtResource("r4")]
 position = Vector2(617.6, 528)
 
-[node name="Faixa_Transicao" type="ColorRect" parent="Decor"]
+[node name="Faixa_Transicao" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 640
 offset_top = -96
 offset_right = 736
 offset_bottom = 96
-color = Color(0.4784, 0.3451, 0.8392, 0.3)
+texture = SubResource("gt_faixa")
+expand_mode = 1
+stretch_mode = 0
 
 [node name="ParedesTiles" type="TileMapLayer" parent="Paredes"]
 tile_set = ExtResource("r11")
@@ -134,7 +179,7 @@ cor = Color(0.0235, 0.0157, 0.0510, 1)
 position = Vector2(736, -192)
 tamanho = Vector2(64, 96)
 cor = Color(0.4784, 0.3451, 0.8392, 0)
-texto_bloqueada = "Esta realidade está adormecida. Troque para a branch 'main' para atravessar."
+texto_bloqueada = "Esta realidade está adormecida. No terminal, use 'git switch main' para atravessar."
 branch_requerida = &"main"
 
 [node name="ArteAberta" type="Sprite2D" parent="Paredes/Barreira_Limiar" index="0"]
@@ -150,21 +195,27 @@ position = Vector2(320, 320)
 tamanho = Vector2(128, 64)
 cor = Color(0.0235, 0.0157, 0.0510, 1)
 
-[node name="Ponte_Ponta_Norte" type="ColorRect" parent="Decor"]
+[node name="Ponte_Ponta_Norte" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 320
 offset_top = 288
 offset_right = 448
 offset_bottom = 320
-color = Color(0.3529, 0.2902, 0.4784, 1)
+texture = ExtResource("nv_4")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Ponte_Ponta_Sul" type="ColorRect" parent="Decor"]
+[node name="Ponte_Ponta_Sul" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 320
 offset_top = 384
 offset_right = 448
 offset_bottom = 416
-color = Color(0.3529, 0.2902, 0.4784, 1)
+texture = ExtResource("nv_5")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Muro_Ruina_A" parent="Paredes" instance=ExtResource("r5")]
 position = Vector2(384, 96)
@@ -288,7 +339,7 @@ position = Vector2(144, 595.2)
 tamanho_visual = Vector2(14, 14)
 tamanho_colisao = Vector2(0, 0)
 cor = Color(0.8784, 0.8157, 1.0000, 0.95)
-textura = SubResource("at_frag0")
+textura = ExtResource("nv_1")
 
 [node name="Coleta_Eco_Main" parent="Interacoes" instance=ExtResource("r8")]
 position = Vector2(144, 592)
@@ -531,3 +582,486 @@ cor = Color(0.2392, 0.1725, 0.4000, 1)
 
 [node name="Visual" parent="Paredes/Muro_12" index="0"]
 visible = false
+
+[node name="Destaque" type="Node2D" parent="Objetos/Eco_Main"]
+script = ExtResource("nv_2")
+tipo = 0
+cor = Color(0.62, 0.48, 1, 1)
+
+[node name="Destaque" type="Node2D" parent="Objetos/Frag_M1_Brilho"]
+script = ExtResource("nv_2")
+tipo = 1
+cor = Color(0.62, 0.48, 1, 1)
+
+[node name="Destaque" type="Node2D" parent="Objetos/Frag_M2_Brilho"]
+script = ExtResource("nv_2")
+tipo = 1
+cor = Color(0.62, 0.48, 1, 1)
+
+[node name="Destaque" type="Node2D" parent="Objetos/Frag_M3_Brilho"]
+script = ExtResource("nv_2")
+tipo = 1
+cor = Color(0.62, 0.48, 1, 1)
+
+[node name="Abismo_Visual" type="TextureRect" parent="Paredes"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 0
+offset_top = 288
+offset_right = 768
+offset_bottom = 416
+texture = ExtResource("nv_3")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Ponte_Vao_Detalhes" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(320, 320)
+texture = ExtResource("nv_6")
+
+[node name="Borda_Oeste_Norte" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 0
+offset_top = 288
+offset_right = 320
+offset_bottom = 304
+texture = ExtResource("nv_7")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Oeste_Sul" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 0
+offset_top = 400
+offset_right = 320
+offset_bottom = 416
+texture = ExtResource("nv_8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Leste_Norte" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 448
+offset_top = 288
+offset_right = 768
+offset_bottom = 304
+texture = ExtResource("nv_7")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Leste_Sul" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 448
+offset_top = 400
+offset_right = 768
+offset_bottom = 416
+texture = ExtResource("nv_8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Ponta_Oeste_288" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 304
+offset_top = 288
+offset_right = 320
+offset_bottom = 320
+texture = ExtResource("nv_9")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Ponta_Leste_288" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 448
+offset_top = 288
+offset_right = 464
+offset_bottom = 320
+texture = ExtResource("nv_10")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Ponta_Oeste_384" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 304
+offset_top = 384
+offset_right = 320
+offset_bottom = 416
+texture = ExtResource("nv_9")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Borda_Ponta_Leste_384" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 448
+offset_top = 384
+offset_right = 464
+offset_bottom = 416
+texture = ExtResource("nv_10")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Detalhe_01" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(819, 561)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_02" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(669, -26)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_03" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(775, 568)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_04" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(798, 618)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_05" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(442, 211)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_06" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(685, -152)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_07" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(395, 67)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_08" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(451, 77)
+texture = ExtResource("nv_11")
+
+[node name="Detalhe_09" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(529, 229)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_10" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(362, 670)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_11" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(670, 70)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_12" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(791, -60)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_13" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(76, 495)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_14" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(191, 10)
+texture = ExtResource("nv_12")
+
+[node name="Detalhe_15" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(17, 644)
+texture = ExtResource("nv_13")
+
+[node name="Detalhe_16" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(294, 149)
+texture = ExtResource("nv_13")
+
+[node name="Detalhe_17" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(165, 441)
+texture = ExtResource("nv_13")
+
+[node name="Detalhe_18" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(115, 177)
+texture = ExtResource("nv_13")
+
+[node name="Detalhe_19" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(236, 214)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_20" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(514, 621)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_21" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(862, 547)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_22" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(698, -89)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_23" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(655, -87)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_24" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(97, 113)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_25" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(560, 66)
+texture = ExtResource("nv_14")
+
+[node name="Detalhe_26" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(35, 164)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_27" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(75, 158)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_28" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(845, 617)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_29" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(527, 682)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_30" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(805, -164)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_31" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(28, 491)
+texture = ExtResource("nv_15")
+
+[node name="Detalhe_32" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(379, 602)
+texture = ExtResource("nv_16")
+
+[node name="Detalhe_33" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(240, 37)
+texture = ExtResource("nv_16")
+
+[node name="Borda_Entulho_0" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(60, 262)
+texture = ExtResource("nv_15")
+
+[node name="Borda_Entulho_1" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(210, 266)
+texture = ExtResource("nv_14")
+
+[node name="Borda_Entulho_2" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(540, 262)
+texture = ExtResource("nv_15")
+
+[node name="Borda_Entulho_3" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(690, 268)
+texture = ExtResource("nv_14")
+
+[node name="Borda_Entulho_4" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(90, 420)
+texture = ExtResource("nv_15")
+
+[node name="Borda_Entulho_5" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(250, 424)
+texture = ExtResource("nv_14")
+
+[node name="Borda_Entulho_6" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(500, 420)
+texture = ExtResource("nv_15")
+
+[node name="Borda_Entulho_7" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(700, 424)
+texture = ExtResource("nv_14")
+
+[node name="Borda_Entulho_8" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(350, 282)
+texture = ExtResource("nv_15")
+
+[node name="Borda_Entulho_9" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(402, 418)
+texture = ExtResource("nv_14")
+
+[node name="Brilho_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(342.4, 242.4)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 0.8
+
+[node name="Brilho_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(342.4, 322.4)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 0.9500000000000001
+
+[node name="Brilho_2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(611.2, 455.2)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.1
+
+[node name="Brilho_3" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(105.6, 551.6)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.25
+
+[node name="Brilho_4" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(592, 20)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.4
+
+[node name="Brilho_5" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(352, 208)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.55
+
+[node name="Brilho_6" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(236, 554)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.7
+
+[node name="Brilho_7" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(709.6, 505.6)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 1.85
+
+[node name="Brilho_8" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(709.6, 601.6)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 2.0
+
+[node name="Brilho_9" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(624, -64)
+scale = Vector2(1, 1)
+texture = SubResource("gt_main")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_17")
+intensidade = 0.35
+velocidade = 2.15

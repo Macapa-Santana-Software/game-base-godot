@@ -329,7 +329,7 @@ func _on_log_consultado(_branch: String) -> void:
 
 func _on_branch_criada(nome: String, _commit_id: String) -> void:
 	if nome == BRANCH_ALVO:
-		solicitar(&"branch_criada", {"ativa": GameState.branch_ativa})
+		solicitar(&"branch_criada", {"ativa": GameState.branch_ativa, "branch_alvo": BRANCH_ALVO})
 		if _area_id == &"ramificacao":
 			_checar_desconforto_da_area_2()
 	else:

@@ -59,7 +59,7 @@ tile_map_data = PackedByteArray("AAD/////AAAGAAIAAAAAAP//AAABAAMAAAABAP//AAAAAAM
 position = Vector2(-96, 448)
 tamanho = Vector2(64, 96)
 cor = Color(0.4196, 0.3725, 0.6588, 0)
-texto_bloqueada = "Este caminho está selado até que as realidades convirjam."
+texto_bloqueada = "Selado até as realidades convergirem. Em 'main', no terminal da Convergência, use 'git merge vida-alternativa'."
 flags_requeridas = PackedStringArray("convergencia_concluida")
 
 [node name="ArteAberta" type="Sprite2D" parent="Paredes/Barreira_Selo" index="0"]

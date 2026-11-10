@@ -10,6 +10,49 @@
 [ext_resource type="PackedScene" path="res://fases/fase_2/componentes/parede.tscn" id="r8"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/barreiras/barreira_convergencia.png" id="tx_barreira_conv"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/barreiras/barreira_convergencia_norte.png" id="tx_barreira_conv_norte"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/piso_conv_main.png" id="nv_1"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/piso_conv_vida.png" id="nv_2"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/muro_conv_main.png" id="nv_3"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/muro_conv_vida.png" id="nv_4"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/plataforma_main.png" id="nv_5"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/plataforma_vida.png" id="nv_6"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/fusao_resultado.png" id="nv_7"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/tiles/fenda_divisoria.png" id="nv_8"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/moldura_main.png" id="nv_9"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/moldura_vida.png" id="nv_10"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/main_coluna.png" id="nv_11"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/main_capitel.png" id="nv_12"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/main_laje_a.png" id="nv_13"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/main_laje_b.png" id="nv_14"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/main_eco.png" id="nv_15"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/vida_copa.png" id="nv_16"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/vida_tronco.png" id="nv_17"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/vida_raizes.png" id="nv_18"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/vida_raizes_veio.png" id="nv_19"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/vida_eco.png" id="nv_20"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_coluna_pedra.png" id="nv_21"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_coluna_raizes.png" id="nv_22"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_ponte_pedra.png" id="nv_23"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_ponte_raizes.png" id="nv_24"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_eco_main.png" id="nv_25"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/coex_eco_vida.png" id="nv_26"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/pilar_fino.png" id="nv_27"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/vida/props/pilar_vida.png" id="nv_28"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/props/atlas_convergencia.png" id="nv_29"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/energia_h_partida.png" id="nv_30"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/energia_h.png" id="nv_31"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/energia_h_96.png" id="nv_32"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/energia_v.png" id="nv_33"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/glifo_conv.png" id="nv_34"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/rachadura_conv.png" id="nv_35"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/entulho_conv.png" id="nv_36"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/entulho_conv_vida.png" id="nv_37"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/raiz_conv.png" id="nv_38"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/cristais_conv.png" id="nv_39"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/hera_conv_0.png" id="nv_40"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/hera_conv_1.png" id="nv_41"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/convergencia/decor/hera_conv_2.png" id="nv_42"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/brilho_ambiente.gd" id="nv_43"]
 
 [sub_resource type="AtlasTexture" id="at_barreira_conv_fechada"]
 atlas = ExtResource("tx_barreira_conv")
@@ -26,6 +69,45 @@ region = Rect2(0, 0, 96, 64)
 [sub_resource type="AtlasTexture" id="at_barreira_norte_aberta"]
 atlas = ExtResource("tx_barreira_conv_norte")
 region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="Gradient" id="g_conv"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.1, 0.9, 1.0, 0.55, 0.1, 0.9, 1.0, 0.18, 0.1, 0.9, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_conv"]
+gradient = SubResource("g_conv")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="g_conv_vida"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.18, 1.0, 0.7, 0.55, 0.18, 1.0, 0.7, 0.18, 0.18, 1.0, 0.7, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_conv_vida"]
+gradient = SubResource("g_conv_vida")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="g_conv_main"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.55, 0.42, 1.0, 0.55, 0.55, 0.42, 1.0, 0.18, 0.55, 0.42, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_conv_main"]
+gradient = SubResource("g_conv_main")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="mat_aditivo"]
+blend_mode = 1
 
 [node name="Area4_Convergencia" type="Node2D"]
 script = ExtResource("r1")
@@ -57,7 +139,7 @@ y_sort_enabled = true
 position = Vector2(-96, 416)
 tamanho = Vector2(64, 96)
 cor = Color(0.4784, 0.3451, 0.8392, 0)
-texto_bloqueada = "Os dois ecos precisam ser reunidos antes de atravessar."
+texto_bloqueada = "Selada. Para abrir: colha os dois ecos (Vida e main) e esteja em 'main' (terminal: git switch main)."
 flags_requeridas = PackedStringArray("eco_main", "eco_vida")
 branch_requerida = &"main"
 
@@ -73,7 +155,7 @@ texture = SubResource("at_barreira_conv_fechada")
 position = Vector2(480, 416)
 tamanho = Vector2(64, 96)
 cor = Color(0.3216, 0.8784, 0.5412, 0)
-texto_bloqueada = "Os dois ecos precisam ser reunidos antes de atravessar."
+texto_bloqueada = "Selada. Para abrir: colha os dois ecos (Vida e main) e esteja em 'vida-alternativa' (terminal: git switch vida-alternativa)."
 flags_requeridas = PackedStringArray("eco_main", "eco_vida")
 branch_requerida = &"vida-alternativa"
 
@@ -89,7 +171,7 @@ texture = SubResource("at_barreira_conv_fechada")
 position = Vector2(192, -96)
 tamanho = Vector2(96, 64)
 cor = Color(0.4196, 0.3725, 0.6588, 0)
-texto_bloqueada = "Os dois ecos precisam ser reunidos antes de atravessar."
+texto_bloqueada = "Selada. Para abrir: colha os dois ecos (Vida e main)."
 flags_requeridas = PackedStringArray("eco_main", "eco_vida")
 
 [node name="ArteAberta" type="Sprite2D" parent="Paredes/Barreira_Norte" index="0"]
@@ -120,115 +202,145 @@ script = ExtResource("r3")
 position = Vector2(224, 464)
 tipo = "debug"
 
-[node name="Metade_Main" type="ColorRect" parent="Decor"]
+[node name="Metade_Main" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 96
 offset_top = 128
 offset_right = 224
 offset_bottom = 448
-color = Color(0.1647, 0.1216, 0.2902, 0.9)
+texture = ExtResource("nv_5")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Metade_Vida" type="ColorRect" parent="Decor"]
+[node name="Metade_Vida" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 224
 offset_top = 128
 offset_right = 352
 offset_bottom = 448
-color = Color(0.0902, 0.2471, 0.1647, 0.9)
+texture = ExtResource("nv_6")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Fusao_Resultado" type="ColorRect" parent="Decor"]
+[node name="Fusao_Resultado" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 211.2
 offset_top = 134.4
 offset_right = 236.8
 offset_bottom = 441.6
-color = Color(0.6235, 0.8784, 0.7529, 0.22)
+texture = ExtResource("nv_7")
+expand_mode = 1
+stretch_mode = 1
+texture_filter = 1
 
-[node name="Fenda_Divisoria" type="ColorRect" parent="Decor"]
+[node name="Fenda_Divisoria" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 219.2
 offset_top = 128
 offset_right = 228.8
 offset_bottom = 448
-color = Color(0.0196, 0.0157, 0.0392, 1)
+texture = ExtResource("nv_8")
+expand_mode = 1
+stretch_mode = 1
+texture_filter = 1
 
 [node name="Slot_Convergencia_Main_1" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(147.2, 179.2)
 tipo = "slot"
 
-[node name="Moldura_Main_1" type="ColorRect" parent="Decor"]
+[node name="Moldura_Main_1" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 134.4
 offset_top = 166.4
 offset_right = 160
 offset_bottom = 192
-color = Color(0.4784, 0.3451, 0.8392, 0.45)
+texture = ExtResource("nv_9")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Slot_Convergencia_Main_2" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(147.2, 275.2)
 tipo = "slot"
 
-[node name="Moldura_Main_2" type="ColorRect" parent="Decor"]
+[node name="Moldura_Main_2" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 134.4
 offset_top = 262.4
 offset_right = 160
 offset_bottom = 288
-color = Color(0.4784, 0.3451, 0.8392, 0.45)
+texture = ExtResource("nv_9")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Slot_Convergencia_Main_3" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(147.2, 371.2)
 tipo = "slot"
 
-[node name="Moldura_Main_3" type="ColorRect" parent="Decor"]
+[node name="Moldura_Main_3" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 134.4
 offset_top = 358.4
 offset_right = 160
 offset_bottom = 384
-color = Color(0.4784, 0.3451, 0.8392, 0.45)
+texture = ExtResource("nv_9")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Slot_Convergencia_Vida_1" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(300.8, 179.2)
 tipo = "slot"
 
-[node name="Moldura_Vida_1" type="ColorRect" parent="Decor"]
+[node name="Moldura_Vida_1" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 288
 offset_top = 166.4
 offset_right = 313.6
 offset_bottom = 192
-color = Color(0.3216, 0.8784, 0.5412, 0.45)
+texture = ExtResource("nv_10")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Slot_Convergencia_Vida_2" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(300.8, 275.2)
 tipo = "slot"
 
-[node name="Moldura_Vida_2" type="ColorRect" parent="Decor"]
+[node name="Moldura_Vida_2" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 288
 offset_top = 262.4
 offset_right = 313.6
 offset_bottom = 288
-color = Color(0.3216, 0.8784, 0.5412, 0.45)
+texture = ExtResource("nv_10")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Slot_Convergencia_Vida_3" type="Marker2D" parent="Conexoes"]
 script = ExtResource("r3")
 position = Vector2(300.8, 371.2)
 tipo = "slot"
 
-[node name="Moldura_Vida_3" type="ColorRect" parent="Decor"]
+[node name="Moldura_Vida_3" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 288
 offset_top = 358.4
 offset_right = 313.6
 offset_bottom = 384
-color = Color(0.3216, 0.8784, 0.5412, 0.45)
+texture = ExtResource("nv_10")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Itens_Main" type="Node2D" parent="Decor"]
 
@@ -236,133 +348,181 @@ color = Color(0.3216, 0.8784, 0.5412, 0.45)
 
 [node name="Coexistencia" type="Node2D" parent="Decor"]
 
-[node name="Main_Coluna" type="ColorRect" parent="Decor/Itens_Main"]
+[node name="Main_Coluna" type="TextureRect" parent="Decor/Itens_Main"]
 mouse_filter = 2
 offset_left = 142.4
 offset_top = 168
 offset_right = 152
 offset_bottom = 192
-color = Color(0.3569, 0.2627, 0.6000, 1)
+texture = ExtResource("nv_11")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Main_Coluna_Topo" type="ColorRect" parent="Decor/Itens_Main"]
+[node name="Main_Coluna_Topo" type="TextureRect" parent="Decor/Itens_Main"]
 mouse_filter = 2
 offset_left = 139.2
 offset_top = 164.8
 offset_right = 155.2
 offset_bottom = 169.6
-color = Color(0.3255, 0.2510, 0.5490, 1)
+texture = ExtResource("nv_12")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Main_Ponte_A" type="ColorRect" parent="Decor/Itens_Main"]
+[node name="Main_Ponte_A" type="TextureRect" parent="Decor/Itens_Main"]
 mouse_filter = 2
 offset_left = 134.4
 offset_top = 273.6
 offset_right = 145.6
 offset_bottom = 280
-color = Color(0.3529, 0.2902, 0.4784, 1)
+texture = ExtResource("nv_13")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Main_Ponte_B" type="ColorRect" parent="Decor/Itens_Main"]
+[node name="Main_Ponte_B" type="TextureRect" parent="Decor/Itens_Main"]
 mouse_filter = 2
 offset_left = 148.8
 offset_top = 273.6
 offset_right = 160
 offset_bottom = 280
-color = Color(0.3529, 0.2902, 0.4784, 1)
+texture = ExtResource("nv_14")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Main_Eco" type="ColorRect" parent="Decor/Itens_Main"]
+[node name="Main_Eco" type="TextureRect" parent="Decor/Itens_Main"]
 mouse_filter = 2
 offset_left = 142.4
 offset_top = 364.8
 offset_right = 152
 offset_bottom = 377.6
-color = Color(0.8784, 0.8157, 1.0000, 1)
+texture = ExtResource("nv_15")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Vida_Copa" type="ColorRect" parent="Decor/Itens_Vida"]
+[node name="Vida_Copa" type="TextureRect" parent="Decor/Itens_Vida"]
 mouse_filter = 2
 offset_left = 291.2
 offset_top = 166.4
 offset_right = 310.4
 offset_bottom = 185.6
-color = Color(0.1843, 0.5608, 0.3059, 1)
+texture = ExtResource("nv_16")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Vida_Tronco" type="ColorRect" parent="Decor/Itens_Vida"]
+[node name="Vida_Tronco" type="TextureRect" parent="Decor/Itens_Vida"]
 mouse_filter = 2
 offset_left = 298.24
 offset_top = 185.6
 offset_right = 303.36
 offset_bottom = 195.2
-color = Color(0.4196, 0.2902, 0.1647, 1)
+texture = ExtResource("nv_17")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Vida_Raizes" type="ColorRect" parent="Decor/Itens_Vida"]
+[node name="Vida_Raizes" type="TextureRect" parent="Decor/Itens_Vida"]
 mouse_filter = 2
 offset_left = 288
 offset_top = 272
 offset_right = 313.6
 offset_bottom = 278.4
-color = Color(0.4196, 0.2902, 0.1647, 1)
+texture = ExtResource("nv_18")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Vida_Raizes_Veio" type="ColorRect" parent="Decor/Itens_Vida"]
+[node name="Vida_Raizes_Veio" type="TextureRect" parent="Decor/Itens_Vida"]
 mouse_filter = 2
 offset_left = 300.16
 offset_top = 272
 offset_right = 301.44
 offset_bottom = 278.4
-color = Color(0.2392, 0.6314, 0.3529, 1)
+texture = ExtResource("nv_19")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Vida_Eco" type="ColorRect" parent="Decor/Itens_Vida"]
+[node name="Vida_Eco" type="TextureRect" parent="Decor/Itens_Vida"]
 mouse_filter = 2
 offset_left = 296
 offset_top = 364.8
 offset_right = 305.6
 offset_bottom = 377.6
-color = Color(0.7137, 1.0000, 0.8510, 1)
+texture = ExtResource("nv_20")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Coluna_Pedra" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Coluna_Pedra" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 208
 offset_top = 153.6
 offset_right = 224
 offset_bottom = 198.4
-color = Color(0.3569, 0.2627, 0.6000, 1)
+texture = ExtResource("nv_21")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Coluna_Copa" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Coluna_Copa" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 224
 offset_top = 150.4
 offset_right = 241.6
 offset_bottom = 198.4
-color = Color(0.1843, 0.5608, 0.3059, 1)
+texture = ExtResource("nv_22")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Ponte_Pedra" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Ponte_Pedra" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 195.2
 offset_top = 252.8
 offset_right = 224
 offset_bottom = 268.8
-color = Color(0.3529, 0.2902, 0.4784, 1)
+texture = ExtResource("nv_23")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Ponte_Raizes" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Ponte_Raizes" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 224
 offset_top = 252.8
 offset_right = 252.8
 offset_bottom = 268.8
-color = Color(0.4196, 0.2902, 0.1647, 1)
+texture = ExtResource("nv_24")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Eco_Main" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Eco_Main" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 206.4
 offset_top = 323.2
 offset_right = 223.04
 offset_bottom = 348.8
-color = Color(0.8784, 0.8157, 1.0000, 1)
+texture = ExtResource("nv_25")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Coex_Eco_Vida" type="ColorRect" parent="Decor/Coexistencia"]
+[node name="Coex_Eco_Vida" type="TextureRect" parent="Decor/Coexistencia"]
 mouse_filter = 2
 offset_left = 224.96
 offset_top = 323.2
 offset_right = 241.6
 offset_bottom = 348.8
-color = Color(0.7137, 1.0000, 0.8510, 1)
+texture = ExtResource("nv_26")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Terminal_Convergencia" parent="Objetos" instance=ExtResource("r4")]
 position = Vector2(224, 403.2)
@@ -372,6 +532,7 @@ position = Vector2(224, 112)
 tamanho_visual = Vector2(30, 40)
 tamanho_colisao = Vector2(20, 10)
 cor = Color(0.0980, 0.9020, 1.0000, 0.85)
+textura = ExtResource("nv_29")
 
 [node name="Atlas_Artefato_Convergencia" parent="Interacoes" instance=ExtResource("r6")]
 script = ExtResource("r7")
@@ -385,24 +546,28 @@ position = Vector2(48, 64)
 tamanho_visual = Vector2(14, 52)
 tamanho_colisao = Vector2(12, 8)
 cor = Color(0.4784, 0.3451, 0.8392, 1)
+textura = ExtResource("nv_27")
 
 [node name="Pilar_2" parent="Objetos" instance=ExtResource("r5")]
 position = Vector2(400, 64)
 tamanho_visual = Vector2(14, 52)
 tamanho_colisao = Vector2(12, 8)
 cor = Color(0.3216, 0.8784, 0.5412, 1)
+textura = ExtResource("nv_28")
 
 [node name="Pilar_3" parent="Objetos" instance=ExtResource("r5")]
 position = Vector2(48, 528)
 tamanho_visual = Vector2(14, 52)
 tamanho_colisao = Vector2(12, 8)
 cor = Color(0.4784, 0.3451, 0.8392, 1)
+textura = ExtResource("nv_27")
 
 [node name="Pilar_4" parent="Objetos" instance=ExtResource("r5")]
 position = Vector2(400, 528)
 tamanho_visual = Vector2(14, 52)
 tamanho_colisao = Vector2(12, 8)
 cor = Color(0.3216, 0.8784, 0.5412, 1)
+textura = ExtResource("nv_28")
 
 [node name="SlotLuz_1" type="Marker2D" parent="Iluminacao"]
 position = Vector2(224, 96)
@@ -416,63 +581,529 @@ position = Vector2(96, 288)
 [node name="SlotLuz_4" type="Marker2D" parent="Iluminacao"]
 position = Vector2(352, 288)
 
-[node name="Piso_1" type="ColorRect" parent="Piso"]
+[node name="Piso_1" type="TextureRect" parent="Piso"]
 mouse_filter = 2
 offset_left = 0
 offset_top = 0
-offset_right = 448
+offset_right = 224
 offset_bottom = 576
-color = Color(0.1020, 0.0863, 0.1882, 1)
+texture = ExtResource("nv_1")
+expand_mode = 1
+stretch_mode = 1
+texture_filter = 1
 
-[node name="Piso_2" type="ColorRect" parent="Piso"]
+[node name="Piso_2" type="TextureRect" parent="Piso"]
 mouse_filter = 2
 offset_left = 192
 offset_top = -192
-offset_right = 288
+offset_right = 240
 offset_bottom = 0
-color = Color(0.1020, 0.0863, 0.1882, 1)
+texture = ExtResource("nv_1")
+expand_mode = 1
+stretch_mode = 1
+texture_filter = 1
 
 [node name="Muro_1" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(160, -160)
 tamanho = Vector2(32, 128)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_3")
 
 [node name="Muro_2" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(288, -160)
 tamanho = Vector2(32, 128)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_4")
 
 [node name="Muro_3" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(-32, -32)
 tamanho = Vector2(224, 32)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_3")
 
 [node name="Muro_4" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(288, -32)
 tamanho = Vector2(192, 32)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_4")
 
 [node name="Muro_5" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(-32, 0)
 tamanho = Vector2(32, 384)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_3")
 
 [node name="Muro_6" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(448, 0)
 tamanho = Vector2(32, 384)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_4")
 
 [node name="Muro_7" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(-32, 544)
 tamanho = Vector2(32, 32)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_3")
 
 [node name="Muro_8" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(448, 544)
 tamanho = Vector2(32, 32)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_4")
 
 [node name="Muro_9" parent="Paredes" instance=ExtResource("r8")]
 position = Vector2(-32, 576)
 tamanho = Vector2(512, 32)
 cor = Color(0.1686, 0.1451, 0.2706, 1)
+textura = ExtResource("nv_3")
+
+[node name="Piso_1_Vida" type="TextureRect" parent="Piso"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 224
+offset_top = 0
+offset_right = 448
+offset_bottom = 576
+texture = ExtResource("nv_2")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Piso_2_Vida" type="TextureRect" parent="Piso"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 240
+offset_top = -192
+offset_right = 288
+offset_bottom = 0
+texture = ExtResource("nv_2")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Muro_9_Vida" type="TextureRect" parent="Decor"]
+texture_filter = 1
+mouse_filter = 2
+offset_left = 224
+offset_top = 576
+offset_right = 480
+offset_bottom = 608
+texture = ExtResource("nv_4")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Fio_Solto_1" type="Sprite2D" parent="Decor/Fenda_Divisoria"]
+texture_filter = 1
+centered = false
+position = Vector2(-59.2, 47.2)
+texture = ExtResource("nv_30")
+modulate = Color(1, 1, 1, 0.55)
+
+[node name="Fio_Pleno_1" type="Sprite2D" parent="Decor/Coexistencia"]
+texture_filter = 1
+centered = false
+position = Vector2(160, 175.2)
+texture = ExtResource("nv_31")
+
+[node name="Fio_Solto_2" type="Sprite2D" parent="Decor/Fenda_Divisoria"]
+texture_filter = 1
+centered = false
+position = Vector2(-59.2, 143.2)
+texture = ExtResource("nv_30")
+modulate = Color(1, 1, 1, 0.55)
+
+[node name="Fio_Pleno_2" type="Sprite2D" parent="Decor/Coexistencia"]
+texture_filter = 1
+centered = false
+position = Vector2(160, 271.2)
+texture = ExtResource("nv_31")
+
+[node name="Fio_Solto_3" type="Sprite2D" parent="Decor/Fenda_Divisoria"]
+texture_filter = 1
+centered = false
+position = Vector2(-59.2, 239.2)
+texture = ExtResource("nv_30")
+modulate = Color(1, 1, 1, 0.55)
+
+[node name="Fio_Pleno_3" type="Sprite2D" parent="Decor/Coexistencia"]
+texture_filter = 1
+centered = false
+position = Vector2(160, 367.2)
+texture = ExtResource("nv_31")
+
+[node name="Energia" type="Node2D" parent="Decor"]
+
+[node name="Conduto_Oeste" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(0, 460)
+texture = ExtResource("nv_32")
+modulate = Color(1, 1, 1, 0.8)
+
+[node name="Conduto_Leste" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(352, 460)
+texture = ExtResource("nv_32")
+modulate = Color(1, 1, 1, 0.8)
+
+[node name="Conduto_Norte" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(220, 24)
+texture = ExtResource("nv_33")
+modulate = Color(1, 1, 1, 0.8)
+
+[node name="Glifo_0" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(1, 431)
+texture = ExtResource("nv_34")
+
+[node name="Glifo_1" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(1, 475)
+texture = ExtResource("nv_34")
+
+[node name="Glifo_2" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(417, 431)
+texture = ExtResource("nv_34")
+
+[node name="Glifo_3" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(417, 475)
+texture = ExtResource("nv_34")
+
+[node name="Glifo_4" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(191, 11)
+texture = ExtResource("nv_34")
+
+[node name="Glifo_5" type="Sprite2D" parent="Decor/Energia"]
+texture_filter = 1
+centered = false
+position = Vector2(231, 11)
+texture = ExtResource("nv_34")
+
+[node name="Detalhe_01" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(10, 348)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_02" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(198, -182)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_03" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(208, -25)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_04" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(130, 492)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_05" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(389, 206)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_06" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(228, 466)
+texture = ExtResource("nv_35")
+
+[node name="Detalhe_07" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(36, 412)
+texture = ExtResource("nv_36")
+
+[node name="Detalhe_08" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(60, 197)
+texture = ExtResource("nv_36")
+
+[node name="Detalhe_09" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(106, 75)
+texture = ExtResource("nv_36")
+
+[node name="Detalhe_10" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(316, 77)
+texture = ExtResource("nv_37")
+
+[node name="Detalhe_11" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(256, -155)
+texture = ExtResource("nv_37")
+
+[node name="Detalhe_12" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(359, 135)
+texture = ExtResource("nv_37")
+
+[node name="Detalhe_13" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(318, 531)
+texture = ExtResource("nv_38")
+
+[node name="Detalhe_14" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(363, 349)
+texture = ExtResource("nv_38")
+
+[node name="Detalhe_15" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(371, 80)
+texture = ExtResource("nv_38")
+
+[node name="Detalhe_16" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(389, 285)
+texture = ExtResource("nv_38")
+
+[node name="Detalhe_17" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(296, 455)
+texture = ExtResource("nv_38")
+
+[node name="Detalhe_18" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(34, 99)
+texture = ExtResource("nv_39")
+
+[node name="Detalhe_19" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(296, 18)
+texture = ExtResource("nv_39")
+
+[node name="Detalhe_20" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(205, -138)
+texture = ExtResource("nv_39")
+
+[node name="Detalhe_21" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(8, 159)
+texture = ExtResource("nv_39")
+
+[node name="Detalhe_22" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(9, 269)
+texture = ExtResource("nv_39")
+
+[node name="Hera_01" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(39, -12)
+texture = ExtResource("nv_40")
+
+[node name="Hera_02" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(104, -12)
+texture = ExtResource("nv_41")
+
+[node name="Hera_03" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(414, -12)
+texture = ExtResource("nv_42")
+
+[node name="Brilho_Atlas" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(154, 20)
+scale = Vector2(1.1, 1.1)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.8)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 0.9
+
+[node name="Brilho_Fenda" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(160, 224)
+scale = Vector2(1, 1)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.25
+velocidade = 1.1
+
+[node name="Brilho_Fenda_N" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(160, 106)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_43")
+intensidade = 0.25
+velocidade = 0.8
+
+[node name="Brilho_Fenda_S" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(160, 346)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_43")
+intensidade = 0.25
+velocidade = 1.0
+
+[node name="Brilho_Pilar_M0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(8, 0)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_main")
+modulate = Color(1, 1, 1, 0.6)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 0.8
+
+[node name="Brilho_Pilar_M1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(8, 464)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_main")
+modulate = Color(1, 1, 1, 0.6)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.0
+
+[node name="Brilho_Pilar_V0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(360, 0)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_vida")
+modulate = Color(1, 1, 1, 0.6)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 0.9
+
+[node name="Brilho_Pilar_V1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(360, 464)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_vida")
+modulate = Color(1, 1, 1, 0.6)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.1
+
+[node name="Brilho_Moldura_M0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(107, 139)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_main")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.0
+
+[node name="Brilho_Moldura_M1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(107, 235)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_main")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.1
+
+[node name="Brilho_Moldura_M2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(107, 331)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_main")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.2
+
+[node name="Brilho_Moldura_V0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(261, 139)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_vida")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.1
+
+[node name="Brilho_Moldura_V1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(261, 235)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_vida")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.2000000000000002
+
+[node name="Brilho_Moldura_V2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(261, 331)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_conv_vida")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.3
+
+[node name="Brilho_Barreira_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(-36, 408)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 0.9
+
+[node name="Brilho_Barreira_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(372, 408)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.05
+
+[node name="Brilho_Barreira_2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(168, -36)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_conv")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_43")
+intensidade = 0.3
+velocidade = 1.2
