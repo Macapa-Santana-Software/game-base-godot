@@ -339,3 +339,16 @@ por texto ambíguo. **Etapa 2 (feita):** dicas graduais (acima). **Etapa 3 (feit
 
 Textos provisórios restantes: `ConfiguracaoTerminal`, `AtlasUI` (`_texto_da_dica`), `RegistroFinalFase2`
 e as zonas da cena.
+
+## Acabamento visual das Áreas 1, 2 e 5 (realidade neutra)
+
+Só visual: colisões, lógica, textos e nomes de nós não mudaram. A arte nova fica em `fases/fase_2/arte/neutra/`
+(`props/`, `decor/`, `tiles/`) e é gerada por `tools/gen_arte_fase2_areas125.py`; `tools/aplicar_visual_fase2_areas125.py`
+a aplica nas cenas (parte do `HEAD` e recusa reaplicar se o acabamento já estiver commitado).
+
+- **Área 1:** hologramas (`holograma_tech`, `neon_magenta`), entulho/rachaduras da Main no piso e luzes nas colunas, no Atlas e no terminal.
+- **Área 2:** trilhas de energia (`Line2D` em modo tile), anel rúnico do Nó de Origem, porta de vidro tech (`porta_tech`) e neon.
+- **Área 5:** plataforma do registro (`plataforma_registro`, `plataforma_friso`), luzes e o portal de saída de pedra
+  (`GeneralNodes/ExitArea/portal_saida.tscn`, o mesmo componente da Fase 1, que já herda de `ExitArea`).
+- Barreiras: todas as 7 (Áreas 1, 3 Main, 3 Vida, 4 ×3 e 5) têm arte fechada/aberta.
+- `test/areas_captura.tscn` renderiza as 6 áreas em PNGs (`%TEMP%\fase2_area_<id>.png`) sem depender do foco da janela.

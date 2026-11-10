@@ -17,6 +17,14 @@
 [ext_resource type="Texture2D" path="res://Props/Sprites/Santuario/fragmentos_flutuantes.png" id="tx_frag"]
 [ext_resource type="Texture2D" path="res://Props/Sprites/Santuario/coluna_quebrada.png" id="tx_quebrada"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/barreiras/barreira_passagem_main.png" id="tx_barreira"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/neutra/props/holograma_tech.png" id="nv_1"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/neutra/props/neon_magenta.png" id="nv_2"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_a.png" id="nv_3"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_b.png" id="nv_4"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_a.png" id="nv_5"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_b.png" id="nv_6"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/coluna_tombada_main.png" id="nv_7"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/brilho_ambiente.gd" id="nv_8"]
 
 [sub_resource type="AtlasTexture" id="at_altar"]
 atlas = ExtResource("tx_altar")
@@ -45,6 +53,45 @@ region = Rect2(0, 0, 64, 96)
 [sub_resource type="AtlasTexture" id="at_barreira_aberta"]
 atlas = ExtResource("tx_barreira")
 region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="Gradient" id="g_violeta"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.55, 0.42, 1.0, 0.55, 0.55, 0.42, 1.0, 0.18, 0.55, 0.42, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_violeta"]
+gradient = SubResource("g_violeta")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="g_ciano"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.1, 0.9, 1.0, 0.55, 0.1, 0.9, 1.0, 0.18, 0.1, 0.9, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_ciano"]
+gradient = SubResource("g_ciano")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="g_magenta"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1.0, 0.17, 0.84, 0.55, 1.0, 0.17, 0.84, 0.18, 1.0, 0.17, 0.84, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_magenta"]
+gradient = SubResource("g_magenta")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="mat_aditivo"]
+blend_mode = 1
 
 [node name="Area1_Arquivo" type="Node2D"]
 script = ExtResource("r1")
@@ -207,12 +254,14 @@ position = Vector2(448, -9.6)
 tamanho_visual = Vector2(44, 56)
 tamanho_colisao = Vector2(0, 0)
 cor = Color(0.0980, 0.9020, 1.0000, 0.45)
+textura = ExtResource("nv_1")
 
 [node name="Holograma_Neon" parent="Objetos" instance=ExtResource("r3")]
 position = Vector2(489.6, -9.6)
 tamanho_visual = Vector2(6, 56)
 tamanho_colisao = Vector2(0, 0)
 cor = Color(1.0000, 0.1686, 0.8392, 0.7)
+textura = ExtResource("nv_2")
 
 [node name="Visao_Tech" parent="Interacoes" instance=ExtResource("r5")]
 position = Vector2(448, -32)
@@ -412,3 +461,193 @@ cor = Color(0.2000, 0.1490, 0.3529, 1)
 
 [node name="Visual" parent="Paredes/Muro_13" index="0"]
 visible = false
+
+[node name="Detalhe_01" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(-50, 224)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_02" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(45, 119)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_03" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(20, 71)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_04" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(508, 63)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_05" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(503, 318)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_06" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(194, 525)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_07" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(760, 465)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_08" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(291, 234)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_09" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(40, 280)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_10" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(143, 395)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_11" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(391, -53)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_12" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(-36, 134)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_13" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(533, 420)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_14" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(104, 332)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_15" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(462, 505)
+texture = ExtResource("nv_7")
+
+[node name="Brilho_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(153.6, 222.4)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_ciano")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.0
+
+[node name="Brilho_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(384, -102)
+scale = Vector2(1, 1)
+texture = SubResource("gt_ciano")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.35
+velocidade = 1.3
+
+[node name="Brilho_2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(454.4, -73.2)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_magenta")
+modulate = Color(1, 1, 1, 0.6)
+script = ExtResource("nv_8")
+intensidade = 0.35
+velocidade = 1.7
+
+[node name="Brilho_Coluna_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(28.8, 144.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.8
+
+[node name="Brilho_Coluna_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(28.8, 336.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.93
+
+[node name="Brilho_Coluna_2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(540.8, 144.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.06
+
+[node name="Brilho_Coluna_3" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(540.8, 336.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.19
+
+[node name="Brilho_Registros" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(262.4, 242.4)
+scale = Vector2(0.9, 0.9)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.9
+
+[node name="Brilho_Terminal" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(384, 281.6)
+scale = Vector2(0.6, 0.6)
+texture = SubResource("gt_ciano")
+modulate = Color(1, 1, 1, 0.4)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.1
+
+[node name="Brilho_Passagem" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(652.8, 444.8)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.95

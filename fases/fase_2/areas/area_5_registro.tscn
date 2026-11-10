@@ -6,13 +6,21 @@
 [ext_resource type="PackedScene" path="res://fases/fase_2/componentes/prop_fase_2.tscn" id="r4"]
 [ext_resource type="PackedScene" path="res://fases/fase_2/componentes/zona_interacao.tscn" id="r5"]
 [ext_resource type="Script" path="res://fases/fase_2/componentes/registro_final.gd" id="r6"]
-[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/exit_area.tscn" id="r7"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/portal_saida.tscn" id="r7"]
 [ext_resource type="PackedScene" path="res://fases/fase_2/componentes/parede.tscn" id="r8"]
 [ext_resource type="TileSet" path="res://fases/fase_2/arte/tilesets/tileset_fase_2.tres" id="r9"]
 [ext_resource type="TileSet" path="res://fases/fase_2/arte/tilesets/tileset_paredes_fase_2.tres" id="r10"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/pilar_fino.png" id="tx_pilar"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/props/registro_final.png" id="tx_registro"]
 [ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/barreiras/barreira_passagem_main.png" id="tx_barreira"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/neutra/tiles/plataforma_registro.png" id="nv_1"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/neutra/tiles/plataforma_friso.png" id="nv_2"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_a.png" id="nv_3"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/rachadura_main_b.png" id="nv_4"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_a.png" id="nv_5"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/entulho_main_b.png" id="nv_6"]
+[ext_resource type="Texture2D" path="res://fases/fase_2/arte/main/decor/coluna_tombada_main.png" id="nv_7"]
+[ext_resource type="Script" path="res://fases/fase_2/componentes/brilho_ambiente.gd" id="nv_8"]
 
 [sub_resource type="AtlasTexture" id="at_barreira_fechada"]
 atlas = ExtResource("tx_barreira")
@@ -21,6 +29,33 @@ region = Rect2(0, 0, 64, 96)
 [sub_resource type="AtlasTexture" id="at_barreira_aberta"]
 atlas = ExtResource("tx_barreira")
 region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="Gradient" id="g_violeta"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.55, 0.42, 1.0, 0.55, 0.55, 0.42, 1.0, 0.18, 0.55, 0.42, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_violeta"]
+gradient = SubResource("g_violeta")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="g_ciano"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.1, 0.9, 1.0, 0.55, 0.1, 0.9, 1.0, 0.18, 0.1, 0.9, 1.0, 0)
+
+[sub_resource type="GradientTexture2D" id="gt_ciano"]
+gradient = SubResource("g_ciano")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="mat_aditivo"]
+blend_mode = 1
 
 [node name="Area5_Registro" type="Node2D"]
 script = ExtResource("r1")
@@ -85,21 +120,27 @@ script = ExtResource("r3")
 position = Vector2(320, 224)
 tipo = "slot"
 
-[node name="Plataforma" type="ColorRect" parent="Decor"]
+[node name="Plataforma" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 192
 offset_top = 96
 offset_right = 448
 offset_bottom = 352
-color = Color(0.1412, 0.1098, 0.2510, 1)
+texture = ExtResource("nv_1")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
-[node name="Plataforma_Borda" type="ColorRect" parent="Decor"]
+[node name="Plataforma_Borda" type="TextureRect" parent="Decor"]
 mouse_filter = 2
 offset_left = 192
 offset_top = 96
 offset_right = 448
 offset_bottom = 128
-color = Color(0.4196, 0.3725, 0.6588, 0.5)
+texture = ExtResource("nv_2")
+expand_mode = 1
+stretch_mode = 0
+texture_filter = 1
 
 [node name="Registro_Final_Placeholder" parent="Objetos" instance=ExtResource("r4")]
 position = Vector2(320, 256)
@@ -221,3 +262,167 @@ cor = Color(0.1686, 0.1451, 0.2706, 1)
 
 [node name="Visual" parent="Paredes/Muro_5" index="0"]
 visible = false
+
+[node name="Detalhe_01" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(588, 182)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_02" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(205, 51)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_03" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(247, 430)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_04" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(120, 470)
+texture = ExtResource("nv_3")
+
+[node name="Detalhe_05" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(22, 237)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_06" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(596, 358)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_07" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(518, 11)
+texture = ExtResource("nv_4")
+
+[node name="Detalhe_08" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(33, 461)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_09" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(573, 466)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_10" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(513, 419)
+texture = ExtResource("nv_5")
+
+[node name="Detalhe_11" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(68, 341)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_12" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(471, 356)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_13" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(128, 180)
+texture = ExtResource("nv_6")
+
+[node name="Detalhe_14" type="Sprite2D" parent="Decor"]
+texture_filter = 1
+centered = false
+position = Vector2(334, 414)
+texture = ExtResource("nv_7")
+
+[node name="Brilho_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(224, 119)
+scale = Vector2(1.5, 1.5)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.55)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.8
+
+[node name="Brilho_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(268.8, 163.8)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("gt_ciano")
+modulate = Color(1, 1, 1, 0.35)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.1
+
+[node name="Brilho_Portal" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(496, 208)
+scale = Vector2(1, 1)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.2
+
+[node name="Brilho_Pilar_0" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(28.8, 34.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.8
+
+[node name="Brilho_Pilar_1" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(28.8, 354.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 0.92
+
+[node name="Brilho_Pilar_2" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(540.8, 34.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.04
+
+[node name="Brilho_Pilar_3" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(540.8, 354.8)
+scale = Vector2(0.55, 0.55)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.5)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.1600000000000001
+
+[node name="Brilho_Selo" type="Sprite2D" parent="Iluminacao"]
+material = SubResource("mat_aditivo")
+position = Vector2(-115.2, 444.8)
+scale = Vector2(0.8, 0.8)
+texture = SubResource("gt_violeta")
+modulate = Color(1, 1, 1, 0.45)
+script = ExtResource("nv_8")
+intensidade = 0.3
+velocidade = 1.0
