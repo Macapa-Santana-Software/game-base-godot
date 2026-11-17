@@ -40,7 +40,7 @@ var _raiz: Control
 var _painel: Panel
 var _aba: Button
 var _selo: ColorRect
-var _caixa_abas: HBoxContainer
+var _caixa_abas: HFlowContainer
 var _grupo_abas := ButtonGroup.new()
 var _rolagem: ScrollContainer
 var _texto: RichTextLabel
@@ -212,8 +212,10 @@ func _montar() -> void:
 
 	coluna.add_child(_montar_cabecalho())
 
-	_caixa_abas = HBoxContainer.new()
-	_caixa_abas.add_theme_constant_override("separation", 3)
+	# HFlow: com 6 comandos as abas quebram para a linha de baixo (com 4, ficam numa linha só)
+	_caixa_abas = HFlowContainer.new()
+	_caixa_abas.add_theme_constant_override("h_separation", 3)
+	_caixa_abas.add_theme_constant_override("v_separation", 3)
 	coluna.add_child(_caixa_abas)
 
 	coluna.add_child(HSeparator.new())

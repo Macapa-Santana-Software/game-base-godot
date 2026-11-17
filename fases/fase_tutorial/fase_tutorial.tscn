@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://cg03nm7r5oq6p"]
+
+[ext_resource type="Script" uid="uid://cwdgl52t28gjw" path="res://fases/fase_tutorial/fase_tutorial.gd" id="1_fase"]
+[ext_resource type="Script" uid="uid://bdksclwti6upw" path="res://fases/fase_tutorial/ponte_tutorial.gd" id="2_ponte"]
+[ext_resource type="Script" uid="uid://bu1vxr4rckowl" path="res://fases/fase_tutorial/peca_ponte.gd" id="3_peca"]
+[ext_resource type="Script" uid="uid://dl7e35qtoo2xj" path="res://fases/fase_tutorial/painel_objetivos_ponte.gd" id="4_objetivos"]
+[ext_resource type="Resource" path="res://terminal/config/terminal_tutorial.tres" id="5_config"]
+[ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="6_player"]
+[ext_resource type="PackedScene" uid="uid://dwcmeudwlush3" path="res://Enemies/Slime/slime.tscn" id="7_slime"]
+[ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://inventario/Inventario.tscn" id="8_inventario"]
+[ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="9_terminal_ui"]
+[ext_resource type="PackedScene" path="res://terminal/World/obelisco_santuario.tscn" id="10_obelisco"]
+[ext_resource type="PackedScene" path="res://itens/fase1/arquivo_cosmico.tscn" id="11_arquivo"]
+[ext_resource type="Texture2D" uid="uid://do1daj0ady8y4" path="res://itens/fase1/sprites/arquivo_setup.png" id="12_tex_peca"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/portal_saida.tscn" id="13_saida"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/Manual/manual_sistema.tscn" id="14_manual"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="15_hp"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="16_pausa"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="17_derrota"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/VictoryScreen/victory_screen.tscn" id="18_vitoria"]
+
+[sub_resource type="RectangleShape2D" id="Forma_cima"]
+size = Vector2(1088, 32)
+
+[sub_resource type="RectangleShape2D" id="Forma_baixo"]
+size = Vector2(1088, 32)
+
+[sub_resource type="RectangleShape2D" id="Forma_esq"]
+size = Vector2(32, 320)
+
+[sub_resource type="RectangleShape2D" id="Forma_dir"]
+size = Vector2(32, 320)
+
+[sub_resource type="RectangleShape2D" id="Forma_abismo_cima"]
+size = Vector2(160, 96)
+
+[sub_resource type="RectangleShape2D" id="Forma_abismo_baixo"]
+size = Vector2(160, 96)
+
+[sub_resource type="RectangleShape2D" id="Forma_bloqueio_ponte"]
+size = Vector2(160, 64)
+
+[node name="FaseTutorial" type="Node2D" unique_id=384440484]
+y_sort_enabled = true
+script = ExtResource("1_fase")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=2046461667]
+z_index = -12
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 1024.0
+offset_bottom = 320.0
+mouse_filter = 2
+color = Color(0.0196, 0.0157, 0.0392, 1)
+
+[node name="ChaoEsquerdo" type="ColorRect" parent="." unique_id=1750120607]
+z_index = -10
+offset_right = 400.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.165, 0.145, 0.263, 1)
+
+[node name="ChaoDireito" type="ColorRect" parent="." unique_id=1530009607]
+z_index = -10
+offset_left = 560.0
+offset_right = 960.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.165, 0.145, 0.263, 1)
+
+[node name="Abismo" type="ColorRect" parent="." unique_id=1375553497]
+z_index = -10
+offset_left = 400.0
+offset_right = 560.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.008, 0.008, 0.02, 1)
+
+[node name="Colisoes" type="StaticBody2D" parent="." unique_id=1046215903]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Cima" type="CollisionShape2D" parent="Colisoes" unique_id=1340955778]
+position = Vector2(480, -16)
+shape = SubResource("Forma_cima")
+
+[node name="Baixo" type="CollisionShape2D" parent="Colisoes" unique_id=1844583863]
+position = Vector2(480, 272)
+shape = SubResource("Forma_baixo")
+
+[node name="Esquerda" type="CollisionShape2D" parent="Colisoes" unique_id=103022433]
+position = Vector2(-16, 128)
+shape = SubResource("Forma_esq")
+
+[node name="Direita" type="CollisionShape2D" parent="Colisoes" unique_id=548588311]
+position = Vector2(976, 128)
+shape = SubResource("Forma_dir")
+
+[node name="AbismoCima" type="CollisionShape2D" parent="Colisoes" unique_id=749858606]
+position = Vector2(480, 48)
+shape = SubResource("Forma_abismo_cima")
+
+[node name="AbismoBaixo" type="CollisionShape2D" parent="Colisoes" unique_id=109095799]
+position = Vector2(480, 208)
+shape = SubResource("Forma_abismo_baixo")
+
+[node name="Ponte" type="Node2D" parent="." unique_id=2026236182]
+z_index = -9
+position = Vector2(400, 96)
+script = ExtResource("2_ponte")
+
+[node name="Quebrada" type="Node2D" parent="Ponte" unique_id=1767567156]
+
+[node name="TocoEsquerdo" type="ColorRect" parent="Ponte/Quebrada" unique_id=561373215]
+offset_right = 40.0
+offset_bottom = 64.0
+mouse_filter = 2
+color = Color(0.42, 0.28, 0.17, 1)
+
+[node name="TocoDireito" type="ColorRect" parent="Ponte/Quebrada" unique_id=574749789]
+offset_left = 120.0
+offset_right = 160.0
+offset_bottom = 64.0
+mouse_filter = 2
+color = Color(0.42, 0.28, 0.17, 1)
+
+[node name="Inteira" type="Node2D" parent="Ponte" unique_id=162618395]
+visible = false
+
+[node name="Tabuas" type="ColorRect" parent="Ponte/Inteira" unique_id=755027251]
+offset_right = 160.0
+offset_bottom = 64.0
+mouse_filter = 2
+color = Color(0.62, 0.43, 0.23, 1)
+
+[node name="Bloqueio" type="StaticBody2D" parent="Ponte" unique_id=2006715325]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Forma" type="CollisionShape2D" parent="Ponte/Bloqueio" unique_id=1651735024]
+position = Vector2(80, 32)
+shape = SubResource("Forma_bloqueio_ponte")
+
+[node name="Limites" type="Node2D" parent="." unique_id=716223039]
+
+[node name="SupEsq" type="Marker2D" parent="Limites" unique_id=494296621]
+
+[node name="InfDir" type="Marker2D" parent="Limites" unique_id=1492049702]
+position = Vector2(960, 256)
+
+[node name="ObjetoTerminal" parent="." unique_id=186495917 instance=ExtResource("10_obelisco")]
+position = Vector2(120, 128)
+
+[node name="PecaPonte" parent="." unique_id=1698827306 instance=ExtResource("11_arquivo")]
+position = Vector2(340, 70)
+script = ExtResource("3_peca")
+branch_visivel = &"ponte"
+textura_icone = ExtResource("12_tex_peca")
+nome_do_item = "ponte.tile"
+
+[node name="Slime" parent="." unique_id=1099334172 instance=ExtResource("7_slime")]
+position = Vector2(230, 60)
+
+[node name="Slime2" parent="." unique_id=1785621833 instance=ExtResource("7_slime")]
+position = Vector2(270, 200)
+
+[node name="PortalSaida" parent="." unique_id=1568799738 instance=ExtResource("13_saida")]
+position = Vector2(880, 128)
+
+[node name="Player" parent="." unique_id=1296318626 instance=ExtResource("6_player")]
+position = Vector2(60, 128)
+
+[node name="InventarioUI" parent="." unique_id=624655226 instance=ExtResource("8_inventario")]
+
+[node name="TerminalUI" parent="." unique_id=830394077 instance=ExtResource("9_terminal_ui")]
+visible = false
+config = ExtResource("5_config")
+
+[node name="ManualSistema" parent="." unique_id=1198069822 instance=ExtResource("14_manual")]
+comandos = Array[String](["log", "branch", "switch", "add", "commit", "merge"])
+
+[node name="PainelObjetivos" type="CanvasLayer" parent="." unique_id=1975674604]
+script = ExtResource("4_objetivos")
+
+[node name="PlayerHealthUI" parent="." unique_id=1470207797 instance=ExtResource("15_hp")]
+
+[node name="PauseMenu" parent="." unique_id=668956609 instance=ExtResource("16_pausa")]
+
+[node name="DefeatScreen" parent="." unique_id=2050551238 instance=ExtResource("17_derrota")]
+
+[node name="VictoryScreen" parent="." unique_id=1704418157 instance=ExtResource("18_vitoria")]
