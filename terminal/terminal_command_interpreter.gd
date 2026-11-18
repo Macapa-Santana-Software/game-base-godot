@@ -13,7 +13,10 @@ var _todos_os_comandos: Dictionary = {
 	"switch": GitCommand_Switch,
 	"merge": GitCommand_Merge,
 	"diff": GitCommand_Diff,
-	"restore": GitCommand_Restore
+	"restore": GitCommand_Restore,
+	"revert": GitCommand_Revert,
+	"reset": GitCommand_Reset,
+	"stash": GitCommand_Stash
 }
 
 # Comandos reais do Git que ainda não foram implementados no jogo

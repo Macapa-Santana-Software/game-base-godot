@@ -69,7 +69,5 @@ func _on_portal_unlocked_entered() -> void:
 
 
 func _on_proxima_fase_pressed() -> void:
-	if not FaseManager.has_next_phase():
-		return
-	GameState.reset_fase()
-	FaseManager.advance_to_next_phase()
+	# Sai pelo portal: o FaseManager limpa o temporário e abre a entrada da fase seguinte.
+	FaseManager.concluir_fase_e_avancar()

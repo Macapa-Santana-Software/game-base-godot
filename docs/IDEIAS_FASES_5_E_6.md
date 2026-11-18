@@ -18,6 +18,16 @@
 
 ---
 
+## Fluxo entre fases (saída e entrada)
+
+- Cada portal leva à fase seguinte pelo MESMO caminho: o botão "próxima fase" da tela de vitória chama
+  `FaseManager.concluir_fase_e_avancar()`, que limpa o temporário (`reset_fase`, o repositório é preservado)
+  e abre a entrada da próxima fase de `FaseManager.FASES` (1 a 6, na ordem).
+- Abrir uma fase direto (F6) também funciona: a tela de vitória alinha o índice com a cena atual.
+- A ÚLTIMA fase (hoje a 6) só mostra "FIM DE JOGO" e uma mensagem, sem botão nem resumo. Quando houver
+  fases novas, basta acrescentá-las ao fim de `FASES`.
+- Teste: `test/fluxo_fases_test.tscn` (48 verificações).
+
 ## Retrospecto: o que já existe
 
 | Fase | Tipo | Comandos | Situação |
@@ -93,21 +103,40 @@ escolhe o lado e fecha com `add` + `commit`. **Um único arquivo, um único conf
 **Eidolon:** a doutrina "não integrar" falha quando as duas linhas discordam (primeiro abalo real).
 **Depende do `GameState`:** conteúdo por arquivo, detecção de conflito e marcadores. **Esta é a
 mudança grande, para quando chegar a hora.**
+**Protótipo (`fases/fase_5/`, sem tocar no `GameState`):** `ModeloConflito` simula o mini-merge (estados
+pre → conflito → resolvido → preparado → concluído). `selo.runa` conflita (main dourado × `ajuste` azul) e
+`porta.runa` é mesclada sozinha. Fluxo: `status` → `merge ajuste` (CONFLICT) → `diff` (marcadores) → escolher
+a versão num dos 3 pedestais no mundo (minha / deles / as duas) → `add selo.runa` → `commit`. `merge --abort`
+desfaz a tentativa. Os comandos merge/status/diff/add/commit só desviam para o modelo quando a cena o tem.
+Ainda NÃO está em `FaseManager.FASES` (a Fase 4 está em standby): abra `fase_5.tscn` direto para jogar.
 
-### Fase 6 — "A Catástrofe" (nova) · E
-**Comandos novos:** `revert`, `reset` (`--soft`, `--hard`), `stash`.
-**Objetivo do jogador:** lidar com erros de verdade, com risco.
-**Ideias de áreas:**
-1. *Ponte instável:* um commit ruim; `revert` volta sem apagar a história.
-2. *Corredor do stash:* um perigo obriga a guardar o trabalho pela metade, resolver outra coisa e
-   recuperar (`stash` / `stash pop`).
-3. *Câmara do reset:* puzzle de risco; `--soft` serve, `--hard` destrói um item. Aprende-se a
-   diferença na prática.
-**Mecânica nova:** inimigos "corrompidos" (reaproveitando o Slime), derrotados quando o problema
-é resolvido.
-**Eidolon:** a Catástrofe é nomeada, mas **ainda não explicada** (ele aponta um `reset --hard`
-sem perceber a ligação).
-**Depende do `GameState`:** mover head, desfazer commit, guardar/recuperar trabalho.
+### Fase 6 — "Ponto de Retorno" · T (decidido: tutorial, NÃO é fechamento)
+**Comandos novos:** `revert`, `reset` (`--soft`, `--hard`), `stash`. **Objetivo do jogador:** aprender as
+três maneiras de voltar atrás e o custo de cada uma. Por ora é a última das 6 fases da apresentação, mas
+**não fecha o jogo**: termina com uma pergunta em aberto (a Fase 7 continua).
+**Formato tutorial:** três áreas curtas em fila, UM comando por área, apresentado pela IA na hora certa
+(como nas fases 2, 3 e 5). Sem inimigos e sem sala final difícil.
+1. *A Ponte Instável (`revert`):* um commit ruim quebrou a ponte. `git revert` cria um commit NOVO que
+   desfaz o anterior; a história continua inteira.
+2. *O Corredor (`stash`):* o jogador está com trabalho pela metade e precisa mexer em outra coisa.
+   `git stash` guarda o trabalho, a pasta fica limpa, `git stash pop` o devolve.
+3. *A Câmara do Reset (`reset`):* duas câmaras idênticas com um item. `--soft` volta o ponteiro e mantém
+   o trabalho; `--hard` volta e DESTRÓI o item. O jogador vê a diferença na prática (um item some de
+   verdade). Armadilha "não besta": o item certo para guardar está identificado só pelo histórico.
+**Visual principal:** uma LINHA DO TEMPO de commits na tela. O HEAD anda por ela; um `reset` recua o
+ponteiro e os commits descartados viram fantasmas translúcidos; um `revert` faz nascer um nó novo; o
+`stash` aparece como uma prateleira que acende. Só lê o GameState (sinais), sem alterá-lo.
+**Gancho aberto (sem fechamento):** depois do `reset`, a linha do tempo mostra um commit fantasma que o
+jogador não criou e não consegue ler. A IA diz só "isso não era nosso" e o portal abre. É a ponte para
+`reflog` e `cherry-pick` (Fase 7). Sem Eidolon aqui; a explicação da Catástrofe fica para o futuro.
+**Técnico:** o `GameState` já tem `reverter`, `resetar_para`, `guardar_stash`, `aplicar_stash` e o reflog.
+Faltam as classes de comando (`revert`, `reset`, `stash`), a IA da fase, o painel de objetivos e a linha
+do tempo. Usa o repositório REAL (sem modelo local).
+**Implementado (`fases/fase_6/`):** usa o repositório REAL. Progresso e fatos em `EstadoRetorno`; linha do tempo
+em `faixa_tempo.gd`; IA em `tutora_retorno.gd`. Rede de segurança: o Altar de Retorno desfaz um `reset` que deixou a
+câmara sem saída. Comandos novos no terminal: `revert`, `reset`, `stash`. As fases 4, 5 e 6 JÁ entram em
+`FaseManager.FASES` (sequência 1 a 6); a Fase 4 ganhou só a ligação do botão "próxima fase".
+Testes: `test/fase_6_fluxo_test.tscn` (44 verificações) e `test/fase_6_captura.tscn` (PNGs da fase).
 
 ### Fase 7 — "O Apagador" (final) · E
 **Comandos novos:** `reflog`, `cherry-pick`; opcional: `rebase` (escolha final).
@@ -128,6 +157,14 @@ A lacuna de memória são commits perdidos; fecha o gancho da Fase 4.
 ---
 
 ## Ordem de impacto no `GameState` (para quando chegar a hora)
+
+> **Atualização:** as capacidades abaixo foram adicionadas ao `GameState` de forma ADITIVA (nada que
+> existia mudou de comportamento; as fases 1 a 5 e o teste da Fase 4 seguem passando):
+> `reflog` (+ `formatar_reflog`), `resetar_para` (soft/mixed/hard), `reverter`, `escolher_commit`
+> (cherry-pick), `guardar_stash`/`aplicar_stash`, `resolver_referencia` (HEAD, HEAD~N, branch, id) e
+> conteúdo opcional por arquivo (`criar_commit(msg, conteudos)` + `conteudo_em`). Ainda não há comandos
+> do terminal para elas; ficam para as fases 6 e 7. Faltam: conflito nativo no merge, `rebase`.
+> Teste: `test/fase_5_gamestate_test.tscn`.
 
 1. **Conteúdo por arquivo** — base de `diff`, `restore` e conflito (Fases 3 e 5).
 2. **Conflito de merge** (Fase 5).

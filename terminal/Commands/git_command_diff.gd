@@ -4,6 +4,9 @@ class_name GitCommand_Diff extends GitCommand
 ## ModeloMural, porque o GameState ainda não guarda conteúdo.
 
 func execute(args: Array[String], _raw_input: String) -> String:
+	var conflito := ModeloConflito.ativo()
+	if conflito != null:
+		return conflito.texto_diff(args)
 	var mural := ModeloMural.ativo()
 	if mural == null:
 		return GameState.registrar_falha("diff", GameState.FALHA_COMANDO_INDISPONIVEL,

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ConfiguracaoTerminal" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://terminal/configuracao_terminal.gd" id="1_config"]
+
+[resource]
+script = ExtResource("1_config")
+titulo = "TERMINAL GIT :: LINHAS CRUZADAS"
+mensagem_boas_vindas = "SISTEMA CENTRAL DE TERMINAL - FASE 5\nA IA vai te orientar por aqui. Em dúvida, digite 'git help'."
+prompt = "dev@selo:~$"
+cor_prompt = Color(0.24, 1, 0.61, 1)
+texto_do_campo = "Digite um comando Git..."
+comandos = PackedStringArray("help", "status", "diff", "merge", "add", "commit")

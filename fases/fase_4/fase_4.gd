@@ -27,6 +27,7 @@ func _ready() -> void:
 	_posicionar_jogador()
 	_configurar_camera()
 	area_registro.saida_alcancada.connect(_on_saida_alcancada)
+	victory_screen.proxima_fase_pressed.connect(_on_proxima_fase_pressed)
 
 	var debug := get_node_or_null("DebugFase4") as DebugFase4
 	if debug:
@@ -51,3 +52,9 @@ func _on_saida_alcancada() -> void:
 	fase_concluida = true
 	print("[FASE 4] Fase concluída.")
 	victory_screen.mostrar()
+
+
+## "Próxima fase" na tela de vitória: segue a sequência do FaseManager (se houver uma).
+func _on_proxima_fase_pressed() -> void:
+	# Sai pelo portal: o FaseManager limpa o temporário e abre a entrada da fase seguinte.
+	FaseManager.concluir_fase_e_avancar()

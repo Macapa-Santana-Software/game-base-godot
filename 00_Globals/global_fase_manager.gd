@@ -9,8 +9,9 @@ const FASES: Array[String] = [
 	"res://fases/fase_1/fase_1.tscn",  # indice 0 -> Fase 1
 	"res://fases/fase_2/fase_2.tscn",  # indice 1 -> Fase 2 (tutorial: a ponte quebrada)
 	"res://fases/fase_3/fase_3.tscn",  # indice 2 -> Fase 3 (tutorial: o mural corrompido; diff e restore)
-	# STANDBY: a Fase 4 ("Ecos de Possibilidades", antiga Fase 2). Fica fora da
-	# sequência por enquanto, sem nenhuma alteração: "res://fases/fase_4/fase_4.tscn"
+	"res://fases/fase_4/fase_4.tscn",  # indice 3 -> Fase 4 (elevada: Ecos de Possibilidades, antiga Fase 2)
+	"res://fases/fase_5/fase_5.tscn",  # indice 4 -> Fase 5 (tutorial: Linhas Cruzadas, merge com conflito)
+	"res://fases/fase_6/fase_6.tscn",  # indice 5 -> Fase 6 (tutorial: Ponto de Retorno; revert, stash, reset)
 ]
 
 ## Indice da fase atual dentro de FASES (0 = Fase 1).
@@ -42,3 +43,31 @@ func advance_to_next_phase() -> bool:
 	get_tree().paused = false
 	get_tree().change_scene_to_file(FASES[current_level_index])
 	return true
+
+## Alinha o índice com a cena que está rodando. Serve para quando uma fase é aberta direto
+## (editor/F6) em vez de chegar pela sequência: a tela de vitória e o "próximo" passam a valer
+## para ela. Cenas fora da lista (testes, ferramentas) não mudam nada.
+func sincronizar_com_cena_atual() -> void:
+	var cena := get_tree().current_scene
+	if cena == null:
+		return
+	var indice := FASES.find(cena.scene_file_path)
+	if indice >= 0:
+		current_level_index = indice
+
+## A fase atual é a última da sequência?
+func is_last_phase() -> bool:
+	return current_level_index == FASES.size() - 1
+
+## Chamado quando o jogador conclui a fase (botão da tela de vitória): limpa o estado temporário
+## (o repositório é preservado) e entra na entrada da fase seguinte. Devolve false se não há
+## próxima fase ou se a cena atual não faz parte da sequência.
+func concluir_fase_e_avancar() -> bool:
+	var cena := get_tree().current_scene
+	if cena != null and FASES.find(cena.scene_file_path) < 0:
+		return false
+	sincronizar_com_cena_atual()
+	if not has_next_phase():
+		return false
+	GameState.reset_fase()
+	return advance_to_next_phase()

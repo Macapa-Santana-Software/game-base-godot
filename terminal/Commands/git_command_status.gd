@@ -5,4 +5,7 @@ func execute(_args: Array[String], _raw_input: String) -> String:
 	var mural := ModeloMural.ativo()
 	if mural != null:
 		return mural.texto_status()
+	var conflito := ModeloConflito.ativo()
+	if conflito != null:
+		return conflito.texto_status()
 	return GameState.obter_status()

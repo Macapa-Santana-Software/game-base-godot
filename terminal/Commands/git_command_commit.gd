@@ -1,6 +1,10 @@
 class_name GitCommand_Commit extends GitCommand
 
 func execute(args: Array[String], _raw_input: String) -> String:
+	# Fase 5: fecha o merge que estava em conflito (ModeloConflito).
+	var conflito := ModeloConflito.ativo()
+	if conflito != null:
+		return conflito.commitar(args)
 	# O tokenizador separa por espaços e respeita aspas duplas. Para: git commit -m "minha mensagem"
 	# args[0] será "-m" e args[1] será "minha mensagem"
 	if args.size() < 2 or args[0] != "-m":

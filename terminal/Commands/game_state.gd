@@ -37,6 +37,18 @@ signal log_consultado(branch: String)
 ## (o commit de merge, ou o commit de `origem` se foi fast-forward).
 signal merge_realizado(origem: String, destino: String, commit_id: String, fast_forward: bool)
 
+# Operações de "desfazer" e "recuperar" (fases futuras). Só a lógica Git as emite.
+## `git reset` moveu o HEAD da branch ativa de `de` para `para` (ids de commit).
+signal reset_realizado(modo: String, de: String, para: String)
+## `git revert` criou `novo_commit`, que desfaz `commit_original` sem apagar a história.
+signal revert_realizado(commit_original: String, novo_commit: String)
+## `git cherry-pick` copiou `origem` para a branch ativa como `novo_commit`.
+signal cherry_pick_realizado(origem: String, novo_commit: String)
+signal stash_guardado(arquivos: Array)
+signal stash_aplicado(arquivos: Array)
+## `git reflog` foi executado.
+signal reflog_consultado
+
 const FALHA_SEM_REPOSITORIO := "sem_repositorio"
 const FALHA_ARQUIVO_INEXISTENTE := "arquivo_inexistente"
 const FALHA_JA_NA_STAGING := "ja_na_staging"
@@ -55,6 +67,11 @@ const FALHA_SEM_COMMITS := "sem_commits"
 const FALHA_JA_NA_BRANCH := "ja_na_branch"
 const FALHA_MESMA_BRANCH := "mesma_branch"
 const FALHA_STAGING_PENDENTE := "staging_pendente"
+const FALHA_COMMIT_INEXISTENTE := "commit_inexistente"
+const FALHA_MODO_INVALIDO := "modo_invalido"
+const FALHA_STASH_VAZIO := "stash_vazio"
+const FALHA_NADA_PARA_GUARDAR := "nada_para_guardar"
+const FALHA_MERGE_COMMIT := "merge_commit"
 
 ## Nome da branch inicial de todo repositório.
 const BRANCH_PADRAO := "main"
@@ -96,6 +113,16 @@ var staging_area: Array[String] = []
 ## O commit NÃO sabe a que branch pertence: um commit pode ser alcançado por várias
 ## branches. O histórico de uma branch se obtém seguindo TODOS os pais a partir do seu head.
 var commits: Array[Dictionary] = []
+
+## Diário dos movimentos do HEAD (como `git reflog`), do mais antigo ao mais novo. Cada entrada é
+## { indice, acao, branch, de, para, detalhe } (`de`/`para` são ids de commit). Os commits que
+## um `reset` deixa para trás continuam em `commits` (o "object store"): o reflog os acha.
+## Vive com o repositório: sobrevive a reset_fase() e some em resetar_repositorio().
+var reflog: Array[Dictionary] = []
+
+## Pilha do `git stash`: cada item { mensagem, branch, staging, soltos }. É estado temporário
+## (como a staging area): reset_fase() a esvazia.
+var stash_pilha: Array[Dictionary] = []
 
 ## Ponteiros de branch: nome -> { "head": id do último commit, "mundo": {} }.
 ## `mundo` é um dicionário OPACO reservado para o jogo (ex.: estado da realidade da
@@ -175,7 +202,11 @@ func arquivos_na_pasta() -> Array[String]:
 
 # true se o arquivo já entrou em algum commit
 func esta_versionado(arquivo: String) -> bool:
+	# Do commit mais novo para o mais antigo: o primeiro que cita o arquivo decide. Um commit de
+	# `revert` o lista em `removidos` (campo opcional; sem ele o resultado é o de sempre).
 	for commit in historico():
+		if arquivo in commit.get("removidos", []):
+			return false
 		if arquivo in commit["arquivos"]:
 			return true
 	return false
@@ -185,6 +216,8 @@ func _arquivos_versionados() -> Array[String]:
 	var linha_do_tempo := historico()
 	linha_do_tempo.reverse()  # do commit mais antigo para o mais novo
 	for commit in linha_do_tempo:
+		for arquivo in commit.get("removidos", []):
+			resultado.erase(str(arquivo))
 		for arquivo in commit["arquivos"]:
 			if str(arquivo) not in resultado:
 				resultado.append(str(arquivo))
@@ -245,7 +278,7 @@ func adicionar_todos_ao_stage() -> String:
 	arquivos_preparados.emit(adicionados)
 	return "[color=#3DFF9B]Adicionados à Staging Area (%d): %s[/color]" % [adicionados.size(), ", ".join(adicionados)]
 
-func criar_commit(mensagem: String) -> String:
+func criar_commit(mensagem: String, conteudos: Dictionary = {}) -> String:
 	if not git_inicializado:
 		return registrar_falha("commit", FALHA_SEM_REPOSITORIO, "[color=#FF6B6B]Erro: fatal: not a git repository[/color]")
 	if staging_area.is_empty():
@@ -260,9 +293,13 @@ func criar_commit(mensagem: String) -> String:
 		"pai": pai,
 		"pais": [] if pai.is_empty() else [pai],
 	}
+	# Opcional: texto de cada arquivo neste commit (base de diff/restore/conflito no futuro).
+	if not conteudos.is_empty():
+		novo_commit["conteudos"] = conteudos.duplicate()
 	commits.append(novo_commit)
 	# A branch ativa avança para o novo commit; é ela (e não o commit) que "pertence" ao histórico.
 	_registro_branch(branch_ativa)["head"] = novo_commit["id"]
+	_registrar_reflog("commit", pai, novo_commit["id"], mensagem)
 
 	# Os arquivos continuam no inventário/pasta: commit grava um snapshot, não consome os arquivos.
 	staging_area.clear()
@@ -283,6 +320,7 @@ func reset_fase() -> void:
 	inventario_player.clear()
 	liberacao_progressiva = false
 	comandos_liberados.clear()
+	stash_pilha.clear()
 	progresso_tutoria = PROGRESSO_INICIAL.duplicate(true)
 
 # Reset COMPLETO e DESTRUTIVO: apaga também o repositório (commits, branches, branch ativa).
@@ -292,6 +330,7 @@ func resetar_repositorio() -> void:
 	git_inicializado = false
 	commits.clear()
 	branches.clear()
+	reflog.clear()
 	branch_ativa = BRANCH_PADRAO
 
 func obter_status() -> String:
@@ -474,6 +513,7 @@ func trocar_branch(nome: String) -> Dictionary:
 		return _resultado(false, FALHA_JA_NA_BRANCH, "Você já está na branch '%s'." % nome)
 	var anterior := branch_ativa
 	branch_ativa = nome
+	_registrar_reflog("switch", obter_head(anterior), obter_head(nome), "moving from %s to %s" % [anterior, nome], anterior)
 	# A pasta de trabalho acompanha o HEAD: arquivos commitados só na outra branch somem
 	# da lista de "não rastreados" (antes de avisar quem escuta o sinal).
 	sincronizar_inventario_com_git()
@@ -546,6 +586,7 @@ func mesclar(origem: String) -> Dictionary:
 		return _resultado(true, "", "Already up to date. '%s' já está integrada em '%s'." % [origem, destino])
 	if eh_ancestral(head_destino, head_origem):
 		branches[destino]["head"] = head_origem
+		_registrar_reflog("merge", head_destino, head_origem, "merge %s: Fast-forward" % origem)
 		sincronizar_inventario_com_git()
 		merge_realizado.emit(origem, destino, head_origem, true)
 		return _resultado(true, "", "[color=#3DFF9B]Fast-forward: '%s' avançou até %s.[/color]" % [destino, head_origem])
@@ -558,10 +599,263 @@ func mesclar(origem: String) -> Dictionary:
 	}
 	commits.append(novo_commit)
 	branches[destino]["head"] = novo_commit["id"]
+	_registrar_reflog("merge", head_destino, novo_commit["id"], "merge %s" % origem)
 	sincronizar_inventario_com_git()
 	merge_realizado.emit(origem, destino, novo_commit["id"], false)
 	return _resultado(true, "", "[color=#3DFF9B]Merge feito: '%s' integrada em '%s'.[/color]\n[%s] %s\nPais: %s e %s" % [
 		origem, destino, novo_commit["id"], novo_commit["mensagem"], head_destino, head_origem])
+
+# ======================================================================================
+# Desfazer e recuperar: reflog, reset, revert, cherry-pick e stash (fases futuras)
+# Mesmo contrato das operações acima: { ok, erro (FALHA_* ou ""), mensagem (BBCode) }.
+# Nada aqui é chamado pelas fases atuais: são só capacidades novas do repositório. Nenhuma
+# apaga commits do object store (`commits`): `reset` só move ponteiros, e é por isso que o
+# reflog consegue recuperar o que parecia perdido.
+# ======================================================================================
+
+func _novo_id_commit() -> String:
+	return "c" + str(commits.size() + 1) + "a" + str(randi() % 90 + 10)
+
+# Anota um movimento do HEAD no reflog. `branch` vazio = a branch ativa.
+func _registrar_reflog(acao: String, de: String, para: String, detalhe: String = "", branch: String = "") -> void:
+	reflog.append({
+		"indice": reflog.size(),
+		"acao": acao,
+		"branch": branch if not branch.is_empty() else branch_ativa,
+		"de": de,
+		"para": para,
+		"detalhe": detalhe,
+	})
+
+# Referência -> id de commit: "HEAD", "HEAD~N" ("HEAD^" = HEAD~1), nome de branch ou id.
+# Devolve "" se não existir (ou se o histórico não tem N pais).
+func resolver_referencia(ref: String) -> String:
+	var texto := ref.strip_edges()
+	var base := texto
+	var passos := 0
+	var til := texto.find("~")
+	if til >= 0:
+		base = texto.substr(0, til)
+		var resto := texto.substr(til + 1)
+		passos = 1 if resto.is_empty() else (int(resto) if resto.is_valid_int() else -1)
+	elif texto.ends_with("^"):
+		base = texto.trim_suffix("^")
+		passos = 1
+	if passos < 0:
+		return ""
+	var id := ""
+	if base == "HEAD" or base.is_empty():
+		id = obter_head()
+	elif branches.has(base):
+		id = obter_head(base)
+	elif not obter_commit(base).is_empty():
+		id = base
+	if id.is_empty():
+		return ""
+	for _i in range(passos):
+		var pais := pais_de(obter_commit(id))
+		if pais.is_empty():
+			return ""
+		id = pais[0]
+	return id
+
+# git reflog: movimentos do HEAD, do mais recente ao mais antigo (HEAD@{0} é o último).
+func formatar_reflog() -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("reflog", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	if reflog.is_empty():
+		return _resultado_falha("reflog", FALHA_SEM_COMMITS, "[color=#FFCC00]O reflog ainda está vazio.[/color]")
+	var linhas: Array[String] = []
+	for i in range(reflog.size() - 1, -1, -1):
+		var e: Dictionary = reflog[i]
+		var ordem := reflog.size() - 1 - i
+		var id := str(e["para"])
+		linhas.append("[color=#FFE08A]%s[/color] HEAD@{%d}: %s: %s" % [id if not id.is_empty() else "-------", ordem, e["acao"], str(e["detalhe"]).replace("[", "[lb]")])
+	reflog_consultado.emit()
+	return _resultado(true, "", "\n".join(linhas))
+
+# Arquivos versionados em `antes` que deixaram de ser em `depois` (ids de commit; "" = nenhum).
+func _arquivos_perdidos(antes: String, depois: String) -> Array[String]:
+	var perdidos: Array[String] = []
+	var ficam: Array[String] = []
+	for commit in _em_ordem_de_criacao(_alcancaveis(depois)):
+		for arquivo in commit["arquivos"]:
+			ficam.append(str(arquivo))
+	var lista := _em_ordem_de_criacao(_alcancaveis(antes))
+	lista.reverse()
+	for commit in lista:
+		for arquivo in commit["arquivos"]:
+			var nome := str(arquivo)
+			if nome not in ficam and nome not in perdidos:
+				perdidos.append(nome)
+	return perdidos
+
+# git reset [--soft|--mixed|--hard] <alvo>: move o HEAD da branch ativa para `alvo`.
+#  soft  -> só move o ponteiro; os arquivos dos commits descartados ficam na staging area;
+#  mixed -> move e esvazia a staging area; os arquivos voltam para a pasta como "não rastreados";
+#  hard  -> move e DESTRÓI: staging e os arquivos dos commits descartados saem do inventário.
+# Os commits descartados NÃO somem do object store: o reflog continua achando.
+func resetar_para(alvo: String, modo: String = "mixed") -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("reset", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	if modo not in ["soft", "mixed", "hard"]:
+		return _resultado_falha("reset", FALHA_MODO_INVALIDO,
+			"[color=#FF6B6B]reset: modo '%s' inválido. Use --soft, --mixed ou --hard.[/color]" % modo.replace("[", "[lb]"))
+	var destino := resolver_referencia(alvo)
+	if destino.is_empty():
+		return _resultado_falha("reset", FALHA_COMMIT_INEXISTENTE,
+			"[color=#FF6B6B]fatal: '%s' não é um commit válido.[/color]" % alvo.replace("[", "[lb]"))
+	var origem := obter_head()
+	var perdidos := _arquivos_perdidos(origem, destino)
+	_registro_branch(branch_ativa)["head"] = destino
+	_registrar_reflog("reset", origem, destino, "reset --%s: moving to %s" % [modo, alvo])
+	match modo:
+		"soft":
+			for arquivo in perdidos:
+				if arquivo not in staging_area:
+					staging_area.append(arquivo)
+				if arquivo not in inventario_player:
+					inventario_player.append(arquivo)
+		"mixed":
+			staging_area.clear()
+			for arquivo in perdidos:
+				if arquivo not in inventario_player:
+					inventario_player.append(arquivo)
+		"hard":
+			staging_area.clear()
+			for arquivo in perdidos:
+				inventario_player.erase(arquivo)
+	sincronizar_inventario_com_git()
+	reset_realizado.emit(modo, origem, destino)
+	return _resultado(true, "", "[color=#3DFF9B]HEAD agora está em %s (reset --%s).[/color]" % [destino, modo])
+
+# git revert <commit>: cria um commit NOVO que desfaz o efeito de `ref`, sem apagar a história
+# (ao contrário do reset). O commit desfeito precisa estar na branch ativa; merge não é suportado.
+func reverter(ref: String) -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("revert", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	var id := resolver_referencia(ref)
+	if id.is_empty() or not eh_ancestral(id, obter_head()):
+		return _resultado_falha("revert", FALHA_COMMIT_INEXISTENTE,
+			"[color=#FF6B6B]fatal: '%s' não é um commit da branch '%s'.[/color]" % [ref.replace("[", "[lb]"), branch_ativa])
+	var alvo := obter_commit(id)
+	if pais_de(alvo).size() > 1:
+		return _resultado_falha("revert", FALHA_MERGE_COMMIT,
+			"[color=#FFCC00]revert: desfazer um commit de merge ainda não é suportado.[/color]")
+	if not staging_area.is_empty():
+		return _resultado_falha("revert", FALHA_STAGING_PENDENTE,
+			"[color=#FFCC00]revert: há arquivos na staging area. Faça o commit antes.[/color]")
+	var head := obter_head()
+	var novo := {
+		"id": _novo_id_commit(),
+		"mensagem": "Revert \"%s\"" % str(alvo["mensagem"]),
+		# Desfazer um revert devolve o que ele tinha tirado (`removidos`), e vice-versa.
+		"arquivos": alvo.get("removidos", []).duplicate(),
+		"removidos": alvo["arquivos"].duplicate(),
+		"reverte": id,
+		"pai": head,
+		"pais": [head],
+	}
+	commits.append(novo)
+	_registro_branch(branch_ativa)["head"] = novo["id"]
+	_registrar_reflog("revert", head, novo["id"], "revert %s" % id)
+	sincronizar_inventario_com_git()
+	revert_realizado.emit(id, novo["id"])
+	return _resultado(true, "", "[color=#3DFF9B][%s] %s\nDesfaz %s sem apagar a história.[/color]" % [novo["id"], novo["mensagem"], id])
+
+# git cherry-pick <commit>: copia UM commit (mesma mensagem e arquivos) para a branch ativa.
+func escolher_commit(ref: String) -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("cherry-pick", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	var id := resolver_referencia(ref)
+	if id.is_empty():
+		return _resultado_falha("cherry-pick", FALHA_COMMIT_INEXISTENTE,
+			"[color=#FF6B6B]fatal: '%s' não é um commit válido.[/color]" % ref.replace("[", "[lb]"))
+	var head := obter_head()
+	if head.is_empty():
+		return _resultado_falha("cherry-pick", FALHA_SEM_COMMITS,
+			"[color=#FF6B6B]fatal: '%s' ainda não tem commits.[/color]" % branch_ativa)
+	if eh_ancestral(id, head):
+		return _resultado(false, FALHA_JA_NA_BRANCH, "O commit %s já está na branch '%s'." % [id, branch_ativa])
+	var original := obter_commit(id)
+	if pais_de(original).size() > 1:
+		return _resultado_falha("cherry-pick", FALHA_MERGE_COMMIT,
+			"[color=#FFCC00]cherry-pick: copiar um commit de merge ainda não é suportado.[/color]")
+	if not staging_area.is_empty():
+		return _resultado_falha("cherry-pick", FALHA_STAGING_PENDENTE,
+			"[color=#FFCC00]cherry-pick: há arquivos na staging area. Faça o commit antes.[/color]")
+	var novo := {
+		"id": _novo_id_commit(),
+		"mensagem": original["mensagem"],
+		"arquivos": original["arquivos"].duplicate(),
+		"cherry_pick_de": id,
+		"pai": head,
+		"pais": [head],
+	}
+	if original.has("conteudos"):
+		novo["conteudos"] = original["conteudos"].duplicate()
+	commits.append(novo)
+	_registro_branch(branch_ativa)["head"] = novo["id"]
+	_registrar_reflog("cherry-pick", head, novo["id"], "cherry-pick %s" % id)
+	for arquivo in novo["arquivos"]:
+		if arquivo not in inventario_player:
+			inventario_player.append(arquivo)
+	sincronizar_inventario_com_git()
+	cherry_pick_realizado.emit(id, novo["id"])
+	return _resultado(true, "", "[color=#3DFF9B][%s] %s\nCopiado de %s.[/color]" % [novo["id"], novo["mensagem"], id])
+
+# git stash: guarda o trabalho em andamento (staging area + arquivos soltos) e limpa a pasta.
+func guardar_stash(mensagem: String = "") -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("stash", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	sincronizar_inventario_com_git()
+	if staging_area.is_empty() and working_directory.is_empty():
+		return _resultado_falha("stash", FALHA_NADA_PARA_GUARDAR,
+			"[color=#FFCC00]Nada para guardar: não há trabalho em andamento.[/color]")
+	var item := {
+		"mensagem": mensagem if not mensagem.is_empty() else "WIP on %s" % branch_ativa,
+		"branch": branch_ativa,
+		"staging": staging_area.duplicate(),
+		"soltos": working_directory.duplicate(),
+	}
+	stash_pilha.append(item)
+	var guardados: Array = item["staging"] + item["soltos"]
+	for arquivo in guardados:
+		inventario_player.erase(arquivo)
+	staging_area.clear()
+	sincronizar_inventario_com_git()
+	stash_guardado.emit(guardados)
+	return _resultado(true, "", "[color=#3DFF9B]Trabalho guardado (%s): %s.[/color]" % [item["mensagem"], ", ".join(guardados)])
+
+# git stash pop: devolve o último trabalho guardado (staging area e arquivos soltos).
+func aplicar_stash() -> Dictionary:
+	if not git_inicializado:
+		return _resultado_falha("stash", FALHA_SEM_REPOSITORIO, MSG_NAO_E_REPOSITORIO)
+	if stash_pilha.is_empty():
+		return _resultado_falha("stash", FALHA_STASH_VAZIO,
+			"[color=#FFCC00]Não há nada guardado no stash.[/color]")
+	var item: Dictionary = stash_pilha.pop_back()
+	var devolvidos: Array = item["staging"] + item["soltos"]
+	for arquivo in devolvidos:
+		if arquivo not in inventario_player:
+			inventario_player.append(arquivo)
+	for arquivo in item["staging"]:
+		if arquivo not in staging_area:
+			staging_area.append(arquivo)
+	sincronizar_inventario_com_git()
+	stash_aplicado.emit(devolvidos)
+	return _resultado(true, "", "[color=#3DFF9B]Trabalho recuperado (%s): %s.[/color]" % [item["mensagem"], ", ".join(devolvidos)])
+
+# Conteúdo de `arquivo` na versão mais recente do histórico de `branch` ("" = ativa), quando os
+# commits foram criados com `conteudos`. "" se nenhum commit guardou texto desse arquivo.
+func conteudo_em(arquivo: String, branch: String = "") -> String:
+	for commit in historico(branch):
+		if arquivo in commit.get("removidos", []):
+			return ""
+		var textos: Dictionary = commit.get("conteudos", {})
+		if textos.has(arquivo):
+			return str(textos[arquivo])
+	return ""
 
 # Estado do "mundo" guardado em uma branch (dicionário opaco; ver `branches`).
 # Devolve a referência viva, ou {} (solto) se a branch ainda não existe.

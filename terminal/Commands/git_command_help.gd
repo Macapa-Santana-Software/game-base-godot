@@ -5,7 +5,7 @@ class_name GitCommand_Help extends GitCommand
 
 ## Ordem de exibição. Os 4 primeiros são os da Fase 1 (a saída dela não muda); os demais
 ## aparecem depois, na ordem em que a fase os declarou.
-const ORDEM: Array[String] = ["init", "status", "add", "commit", "log", "branch", "switch", "merge", "diff", "restore"]
+const ORDEM: Array[String] = ["init", "status", "add", "commit", "log", "branch", "switch", "merge", "diff", "restore", "revert", "reset", "stash"]
 
 const USO := {
 	"init": "git init",
@@ -18,6 +18,9 @@ const USO := {
 	"merge": "git merge <branch>",
 	"diff": "git diff [--staged] [<arquivo>]",
 	"restore": "git restore [--staged] <arquivo>",
+	"revert": "git revert <commit>",
+	"reset": "git reset [--soft|--hard] <commit>",
+	"stash": "git stash  |  git stash pop",
 }
 
 const RESUMO := {
@@ -31,6 +34,9 @@ const RESUMO := {
 	"merge": "integra a outra linha de realidade na que você está",
 	"diff": "mostra o que mudou (linhas - e +) sem alterar nada",
 	"restore": "desfaz uma mudança: descarta da Oficina; com --staged, tira do Palco",
+	"revert": "desfaz um commit criando um commit novo (a história fica intacta)",
+	"reset": "volta o HEAD no tempo: --soft mantém o trabalho, --hard o destrói",
+	"stash": "guarda o trabalho pela metade numa prateleira; stash pop o devolve",
 }
 
 ## Comandos da fase atual; o interpretador preenche ao configurar a fase.

@@ -27,10 +27,8 @@ func _ready() -> void:
 	victory_screen.proxima_fase_pressed.connect(_on_proxima_fase_pressed)
 
 func _on_proxima_fase_pressed() -> void:
-	if not FaseManager.has_next_phase():
-		return
-	GameState.reset_fase()
-	FaseManager.advance_to_next_phase()
+	# Sai pelo portal: o FaseManager limpa o temporário e abre a entrada da fase seguinte.
+	FaseManager.concluir_fase_e_avancar()
 
 func _on_commit_realizado(_commit_info: Dictionary) -> void:
 	# A saída só abre quando TODOS os arquivos da fase foram registrados (a IA avisa o que falta)

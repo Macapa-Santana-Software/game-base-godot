@@ -10,6 +10,11 @@ func execute(args: Array[String], _raw_input: String) -> String:
 	if mural != null:
 		return mural.adicionar(args)
 
+	# Fase 5: o `add` marca o conflito como resolvido (ModeloConflito).
+	var conflito := ModeloConflito.ativo()
+	if conflito != null:
+		return conflito.adicionar(args)
+
 	# git add . (ou -A / --all): tudo que ainda não está rastreado
 	if "." in args or "-A" in args or "--all" in args:
 		return GameState.adicionar_todos_ao_stage()
