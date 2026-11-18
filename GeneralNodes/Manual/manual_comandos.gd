@@ -80,4 +80,22 @@ const ENTRADAS := {
 		"resultado": "O terminal informa o fast-forward ou o merge. O que estava só na outra branch passa a existir também na atual. Exige a staging area vazia (faça o commit antes).",
 		"jogo": "Traz o conserto da ponte de volta para a main: é isso que faz a ponte existir no mundo principal.",
 	},
+	"diff": {
+		"titulo": "git diff",
+		"sintaxe": ["git diff", "git diff <arquivo>", "git diff --staged"],
+		"faz": "Mostra o que MUDOU num arquivo em relação à versão anterior. Linhas com - (vermelho) são como estava; linhas com + (verde) são como ficou. Sem opções compara a pasta de trabalho com a staging area; com --staged compara a staging area com o último commit. Só lê: não altera nada.",
+		"serve": "Olhar antes de agir: saber o que mudou e se a mudança é boa, antes de preparar, registrar ou descartar.",
+		"exemplo": ["git diff", "git diff sol.runa", "git diff --staged"],
+		"resultado": "Um bloco por arquivo alterado, com as linhas - e +. Se nada mudou, o terminal avisa que não há diferenças.",
+		"jogo": "É a lente do Mural: mostra como a runa era (-) e como ficou (+). A corrupção aparece como \"ruído\".",
+	},
+	"restore": {
+		"titulo": "git restore",
+		"sintaxe": ["git restore <arquivo>", "git restore --staged <arquivo>"],
+		"faz": "Desfaz uma mudança. Sem opções, DESCARTA a mudança da pasta de trabalho e devolve o arquivo à versão da staging area (ou do último commit): o que foi descartado NÃO volta. Com --staged, só tira o arquivo da staging area; a mudança continua na pasta de trabalho.",
+		"serve": "Voltar atrás num arquivo estragado, ou corrigir um git add feito por engano, sem mexer no resto.",
+		"exemplo": ["git restore sol.runa", "git restore --staged eclipse.runa"],
+		"resultado": "O terminal confirma quais arquivos foram restaurados. Confira com git status. Cuidado: restaurar um arquivo com uma mudança boa apaga o seu trabalho. Olhe o git diff antes.",
+		"jogo": "Sem opções, apaga a mudança da Oficina. Com --staged, tira a runa do Palco e a devolve à Oficina.",
+	},
 }

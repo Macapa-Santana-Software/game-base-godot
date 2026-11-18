@@ -1,11 +1,11 @@
 extends Node2D
-## Pré-visualização de teste dos ecos e fragmentos (Fase 2, Áreas 3 Main e Vida): mostra os
+## Pré-visualização de teste dos ecos e fragmentos (Fase 4, Áreas 3 Main e Vida): mostra os
 ## coletáveis REAIS das áreas, com a câmera passando por cada um (a cada `INTERVALO` segundos).
 ## Só para conferir o destaque visual; não faz parte do jogo.
 
 const INTERVALO := 4.0
-const AREA_VIDA := "res://fases/fase_2/areas/area_3_vida.tscn"
-const AREA_MAIN := "res://fases/fase_2/areas/area_3_main.tscn"
+const AREA_VIDA := "res://fases/fase_4/areas/area_3_vida.tscn"
+const AREA_MAIN := "res://fases/fase_4/areas/area_3_main.tscn"
 const DESLOCAMENTO_MAIN := Vector2(2000, 0)
 
 var _alvos: Array[Vector2] = []

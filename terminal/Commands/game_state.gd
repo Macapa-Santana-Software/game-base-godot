@@ -27,7 +27,7 @@ signal ajuda_pedida
 ## Emitido quando a lista de comandos liberados muda (ouvido pelo Manual do Sistema).
 signal comandos_atualizados
 
-# Sinais do modelo de branches (Fase 2). Só a lógica Git os emite; quem reage (mapa, Atlas,
+# Sinais do modelo de branches (Fases 2 e 4). Só a lógica Git os emite; quem reage (mapa, Atlas,
 # terminal) apenas escuta. `commit_id` é o commit para o qual a nova branch aponta.
 signal branch_criada(nome: String, commit_id: String)
 signal branch_ativa_mudou(anterior: String, nova: String)
@@ -99,7 +99,7 @@ var commits: Array[Dictionary] = []
 
 ## Ponteiros de branch: nome -> { "head": id do último commit, "mundo": {} }.
 ## `mundo` é um dicionário OPACO reservado para o jogo (ex.: estado da realidade da
-## Fase 2); a lógica Git nunca o lê nem o interpreta.
+## Fase 4); a lógica Git nunca o lê nem o interpreta.
 ## Antes do primeiro commit a branch ainda "não nasceu": existe `branch_ativa`, mas não
 ## há entrada aqui (como no Git real).
 var branches: Dictionary = {}
@@ -275,7 +275,7 @@ func criar_commit(mensagem: String) -> String:
 
 # Limpa SÓ o estado temporário da fase (arquivos soltos, staging, inventário, tutoria e
 # liberação de comandos). O REPOSITÓRIO É PRESERVADO: commits, branches e branch ativa
-# sobrevivem, pois a Fase 1 chama isto ao avançar e a Fase 2 precisa do histórico.
+# sobrevivem, pois a Fase 1 chama isto ao avançar e as fases seguintes precisam do histórico.
 # Não emite sinais e não é chamado automaticamente.
 func reset_fase() -> void:
 	working_directory.clear()
@@ -322,7 +322,7 @@ func obter_status() -> String:
 
 
 # ======================================================================================
-# Branches e histórico (Fase 2)
+# Branches e histórico (Fases 2 e 4)
 # As operações devolvem { ok: bool, erro: String (FALHA_* ou ""), mensagem: String (BBCode) }.
 # O terminal só precisa exibir `mensagem`; testes e o jogo conferem `ok`/`erro`.
 # ======================================================================================

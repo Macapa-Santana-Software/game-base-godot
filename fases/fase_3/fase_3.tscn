@@ -1,0 +1,368 @@
+[gd_scene format=3 uid="uid://bas4c8wqm6j4u"]
+
+[ext_resource type="Script" uid="uid://e28mqhka5b5u" path="res://fases/fase_3/fase_3.gd" id="1_fase"]
+[ext_resource type="Script" uid="uid://drtp27on28frp" path="res://fases/fase_3/modelo_mural.gd" id="2_modelo"]
+[ext_resource type="Script" uid="uid://damdhfflptvee" path="res://fases/fase_3/runa_mural.gd" id="3_runa"]
+[ext_resource type="Script" uid="uid://bemyfphrgk25v" path="res://fases/fase_3/porta_mural.gd" id="4_porta"]
+[ext_resource type="Script" uid="uid://bdgn8se4asbo" path="res://fases/fase_3/altar_reescrita.gd" id="5_altar"]
+[ext_resource type="Script" uid="uid://to4oi5246ne2" path="res://fases/fase_3/painel_objetivos_mural.gd" id="6_objetivos"]
+[ext_resource type="Resource" path="res://terminal/config/terminal_fase_3.tres" id="7_config"]
+[ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="8_fonte"]
+[ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="9_player"]
+[ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://inventario/Inventario.tscn" id="10_inventario"]
+[ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="11_terminal_ui"]
+[ext_resource type="PackedScene" path="res://terminal/World/obelisco_santuario.tscn" id="12_obelisco"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/portal_saida.tscn" id="13_saida"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/Manual/manual_sistema.tscn" id="14_manual"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="15_hp"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="16_pausa"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="17_derrota"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/VictoryScreen/victory_screen.tscn" id="18_vitoria"]
+
+[sub_resource type="RectangleShape2D" id="Forma_cima"]
+size = Vector2(1428, 32)
+
+[sub_resource type="RectangleShape2D" id="Forma_baixo"]
+size = Vector2(1428, 32)
+
+[sub_resource type="RectangleShape2D" id="Forma_lado"]
+size = Vector2(32, 320)
+
+[sub_resource type="RectangleShape2D" id="Forma_porta"]
+size = Vector2(16, 256)
+
+[sub_resource type="RectangleShape2D" id="Forma_altar"]
+size = Vector2(36, 36)
+
+[node name="Fase3" type="Node2D" unique_id=410774058]
+y_sort_enabled = true
+script = ExtResource("1_fase")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=87358007]
+z_index = -12
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 1364.0
+offset_bottom = 320.0
+mouse_filter = 2
+color = Color(0.0196, 0.0157, 0.0392, 1)
+
+[node name="Chao1" type="ColorRect" parent="." unique_id=1638375593]
+z_index = -10
+offset_right = 408.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.165, 0.145, 0.263, 1)
+
+[node name="Chao2" type="ColorRect" parent="." unique_id=38307318]
+z_index = -10
+offset_left = 408.0
+offset_right = 824.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.19, 0.165, 0.25, 1)
+
+[node name="Chao3" type="ColorRect" parent="." unique_id=1319218843]
+z_index = -10
+offset_left = 824.0
+offset_right = 1300.0
+offset_bottom = 256.0
+mouse_filter = 2
+color = Color(0.145, 0.165, 0.265, 1)
+
+[node name="AreaOficina" type="ColorRect" parent="." unique_id=24784519]
+z_index = -9
+offset_left = 840.0
+offset_top = 40.0
+offset_right = 960.0
+offset_bottom = 232.0
+mouse_filter = 2
+color = Color(1, 0.6, 0.24, 0.18)
+
+[node name="AreaPalco" type="ColorRect" parent="." unique_id=1358968356]
+z_index = -9
+offset_left = 960.0
+offset_top = 40.0
+offset_right = 1080.0
+offset_bottom = 232.0
+mouse_filter = 2
+color = Color(0.24, 0.66, 1, 0.22)
+
+[node name="AreaArquivo" type="ColorRect" parent="." unique_id=606483520]
+z_index = -9
+offset_left = 1080.0
+offset_top = 40.0
+offset_right = 1200.0
+offset_bottom = 232.0
+mouse_filter = 2
+color = Color(0.24, 1, 0.61, 0.16)
+
+[node name="TituloOficina" type="Label" parent="." unique_id=574379534]
+offset_left = 840.0
+offset_top = 26.0
+offset_right = 960.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 0.6, 0.24, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "OFICINA (pasta)"
+horizontal_alignment = 1
+
+[node name="TituloPalco" type="Label" parent="." unique_id=424554507]
+offset_left = 960.0
+offset_top = 26.0
+offset_right = 1080.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.24, 0.66, 1, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "PALCO (staging)"
+horizontal_alignment = 1
+
+[node name="TituloArquivo" type="Label" parent="." unique_id=728510780]
+offset_left = 1080.0
+offset_top = 26.0
+offset_right = 1200.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.24, 1, 0.61, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "ARQUIVO (commit)"
+horizontal_alignment = 1
+
+[node name="Placa1" type="Label" parent="." unique_id=1069159113]
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "MURAL DA ENTRADA - Os Escribas gravaram o Selo nestas runas.
+Na noite passada a Corrupcao (\"ruido\") alterou algumas. O que mudou?"
+autowrap_mode = 3
+
+[node name="Placa2" type="Label" parent="." unique_id=1662230178]
+offset_left = 424.0
+offset_top = 8.0
+offset_right = 808.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "OFICINA - Aqui a Corrupcao tambem agiu. Mas UMA mudanca e sua, e e boa.
+Descarte so o ruido."
+autowrap_mode = 3
+
+[node name="Placa3" type="Label" parent="." unique_id=233321339]
+offset_left = 840.0
+offset_top = 240.0
+offset_right = 1200.0
+offset_bottom = 254.0
+theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "Um git add . apressado mandou tudo ao Palco. As runas andam sozinhas conforme o estado."
+autowrap_mode = 3
+
+[node name="Colisoes" type="StaticBody2D" parent="." unique_id=1004771270]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Cima" type="CollisionShape2D" parent="Colisoes" unique_id=1630028113]
+position = Vector2(650, -16)
+shape = SubResource("Forma_cima")
+
+[node name="Baixo" type="CollisionShape2D" parent="Colisoes" unique_id=1967977084]
+position = Vector2(650, 272)
+shape = SubResource("Forma_baixo")
+
+[node name="Esquerda" type="CollisionShape2D" parent="Colisoes" unique_id=1697138766]
+position = Vector2(-16, 128)
+shape = SubResource("Forma_lado")
+
+[node name="Direita" type="CollisionShape2D" parent="Colisoes" unique_id=1777438222]
+position = Vector2(1316, 128)
+shape = SubResource("Forma_lado")
+
+[node name="Portas" type="Node2D" parent="." unique_id=653824319]
+
+[node name="Porta1" type="StaticBody2D" parent="Portas" unique_id=2014900885]
+position = Vector2(408, 128)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_porta")
+
+[node name="Forma" type="CollisionShape2D" parent="Portas/Porta1" unique_id=949686790]
+shape = SubResource("Forma_porta")
+
+[node name="Visual" type="ColorRect" parent="Portas/Porta1" unique_id=1126820966]
+z_index = -8
+offset_left = -8.0
+offset_top = -128.0
+offset_right = 8.0
+offset_bottom = 128.0
+mouse_filter = 2
+color = Color(0.85, 0.3, 0.7, 0.85)
+
+[node name="Porta2" type="StaticBody2D" parent="Portas" unique_id=1372873781]
+position = Vector2(824, 128)
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_porta")
+
+[node name="Forma" type="CollisionShape2D" parent="Portas/Porta2" unique_id=540848174]
+shape = SubResource("Forma_porta")
+
+[node name="Visual" type="ColorRect" parent="Portas/Porta2" unique_id=2132837546]
+z_index = -8
+offset_left = -8.0
+offset_top = -128.0
+offset_right = 8.0
+offset_bottom = 128.0
+mouse_filter = 2
+color = Color(0.85, 0.3, 0.7, 0.85)
+
+[node name="Limites" type="Node2D" parent="." unique_id=496909847]
+
+[node name="SupEsq" type="Marker2D" parent="Limites" unique_id=184343640]
+
+[node name="InfDir" type="Marker2D" parent="Limites" unique_id=2004502282]
+position = Vector2(1300, 256)
+
+[node name="ModeloMural" type="Node" parent="." unique_id=1231933853]
+script = ExtResource("2_modelo")
+
+[node name="Runas" type="Node2D" parent="." unique_id=324083452]
+
+[node name="Sol" type="Node2D" parent="Runas" unique_id=2137985259]
+position = Vector2(110, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "sol.runa"
+
+[node name="Lua" type="Node2D" parent="Runas" unique_id=746784501]
+position = Vector2(200, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "lua.runa"
+
+[node name="Estrela" type="Node2D" parent="Runas" unique_id=703838476]
+position = Vector2(290, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "estrela.runa"
+
+[node name="Terra" type="Node2D" parent="Runas" unique_id=22258976]
+position = Vector2(470, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "terra.runa"
+
+[node name="Mar" type="Node2D" parent="Runas" unique_id=1675388206]
+position = Vector2(550, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "mar.runa"
+
+[node name="Fogo" type="Node2D" parent="Runas" unique_id=600853898]
+position = Vector2(630, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "fogo.runa"
+
+[node name="Vento" type="Node2D" parent="Runas" unique_id=171300144]
+position = Vector2(710, 80)
+script = ExtResource("3_runa")
+nome_arquivo = "vento.runa"
+
+[node name="Aurora" type="Node2D" parent="Runas" unique_id=146265996]
+position = Vector2(1020, 96)
+script = ExtResource("3_runa")
+nome_arquivo = "aurora.runa"
+slots = PackedVector2Array(900, 96, 1020, 96, 1140, 96)
+
+[node name="Eclipse" type="Node2D" parent="Runas" unique_id=94183037]
+position = Vector2(1020, 160)
+script = ExtResource("3_runa")
+nome_arquivo = "eclipse.runa"
+slots = PackedVector2Array(900, 160, 1020, 160, 1140, 160)
+
+[node name="ObeliscoZona1" parent="." unique_id=616644525 instance=ExtResource("12_obelisco")]
+position = Vector2(200, 190)
+
+[node name="ObeliscoZona2" parent="." unique_id=22073831 instance=ExtResource("12_obelisco")]
+position = Vector2(590, 190)
+
+[node name="ObeliscoZona3" parent="." unique_id=1644900394 instance=ExtResource("12_obelisco")]
+position = Vector2(1020, 210)
+
+[node name="AltarZona2" type="Area2D" parent="." unique_id=1139972737]
+position = Vector2(740, 200)
+script = ExtResource("5_altar")
+
+[node name="Forma" type="CollisionShape2D" parent="AltarZona2" unique_id=1169276550]
+shape = SubResource("Forma_altar")
+
+[node name="Pedra" type="ColorRect" parent="AltarZona2" unique_id=1924693003]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+mouse_filter = 2
+color = Color(0.9, 0.75, 0.3, 1)
+
+[node name="Aviso" type="Label" parent="AltarZona2" unique_id=1098496946]
+offset_left = -90.0
+offset_top = -34.0
+offset_right = 90.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "ENTER: refazer o trabalho perdido"
+horizontal_alignment = 1
+
+[node name="AltarZona3" type="Area2D" parent="." unique_id=581594491]
+position = Vector2(1230, 200)
+script = ExtResource("5_altar")
+
+[node name="Forma" type="CollisionShape2D" parent="AltarZona3" unique_id=70079203]
+shape = SubResource("Forma_altar")
+
+[node name="Pedra" type="ColorRect" parent="AltarZona3" unique_id=806740162]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+mouse_filter = 2
+color = Color(0.9, 0.75, 0.3, 1)
+
+[node name="Aviso" type="Label" parent="AltarZona3" unique_id=1652205284]
+offset_left = -90.0
+offset_top = -34.0
+offset_right = 90.0
+offset_bottom = -20.0
+theme_override_fonts/font = ExtResource("8_fonte")
+theme_override_font_sizes/font_size = 6
+text = "ENTER: refazer o trabalho perdido"
+horizontal_alignment = 1
+
+[node name="PortalSaida" parent="." unique_id=2076576967 instance=ExtResource("13_saida")]
+position = Vector2(1262, 100)
+
+[node name="Player" parent="." unique_id=218375527 instance=ExtResource("9_player")]
+position = Vector2(40, 140)
+
+[node name="InventarioUI" parent="." unique_id=131459200 instance=ExtResource("10_inventario")]
+
+[node name="TerminalUI" parent="." unique_id=1185660576 instance=ExtResource("11_terminal_ui")]
+visible = false
+config = ExtResource("7_config")
+
+[node name="ManualSistema" parent="." unique_id=1205783561 instance=ExtResource("14_manual")]
+comandos = Array[String](["status", "diff", "restore", "add"])
+
+[node name="PainelObjetivos" type="CanvasLayer" parent="." unique_id=1255022477]
+script = ExtResource("6_objetivos")
+
+[node name="PlayerHealthUI" parent="." unique_id=1721221527 instance=ExtResource("15_hp")]
+
+[node name="PauseMenu" parent="." unique_id=880033878 instance=ExtResource("16_pausa")]
+
+[node name="DefeatScreen" parent="." unique_id=1171980257 instance=ExtResource("17_derrota")]
+
+[node name="VictoryScreen" parent="." unique_id=1209605170 instance=ExtResource("18_vitoria")]

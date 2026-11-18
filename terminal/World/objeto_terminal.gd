@@ -51,7 +51,7 @@ func _atualizar_visual() -> void:
 	var textura := textura_ativa if ativo else textura_inativa
 	if textura:
 		sprite.texture = textura
-	# Elementos opcionais da cena do Santuário (plataforma de runas e luz); a Fase 2 não os tem.
+	# Elementos opcionais da cena do Santuário (plataforma de runas e luz); as demais fases não os têm.
 	var plataforma := get_node_or_null("Plataforma") as Sprite2D
 	if plataforma:
 		plataforma.frame = 1 if ativo else 0

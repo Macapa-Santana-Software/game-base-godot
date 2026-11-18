@@ -1,4 +1,4 @@
-"""Mini biblioteca de pixel art (so stdlib) usada pelos geradores de arte da Fase 2."""
+"""Mini biblioteca de pixel art (so stdlib) usada pelos geradores de arte da Fase 4."""
 import zlib, struct, random, math
 
 def H(h, a=255):

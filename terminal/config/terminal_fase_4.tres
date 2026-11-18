@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConfiguracaoTerminal" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://terminal/configuracao_terminal.gd" id="1_config"]
+
+[resource]
+script = ExtResource("1_config")
+titulo = "TERMINAL GIT :: ATLAS DAS RAMIFICAÇÕES"
+mensagem_boas_vindas = "CONSOLE DOS CODEX - ECOS DE POSSIBILIDADES\nOs comandos se revelam conforme você avança. Digite 'git help' para ver os que já despertaram."
+prompt = "codex@atlas:~$"
+cor_prompt = Color(0.54, 0.39, 1, 1)
+texto_do_campo = "Digite um comando Git..."
+comandos = PackedStringArray("help", "status", "log", "branch", "switch", "add", "commit", "merge")
+mensagem_comando_bloqueado = "[color=#FFCC00]git: o comando '%s' ainda não despertou. Observe o Atlas e o ambiente: o próximo passo está na realidade, não no teclado.[/color]"

@@ -55,7 +55,7 @@ Há também o **Manual do Sistema** (tecla `M`), com um resumo dos comandos já 
 ## Estrutura
 
 ```
-fases/        Fases do jogo (fase_1, fase_2)
+fases/        Fases do jogo (fase_1 a fase_4)
 terminal/     Terminal Git simulado e comandos (GameState)
 Dialogo/      IA tutora e diálogos
 GeneralNodes/ Menus, HUD, manual, saída e outros componentes

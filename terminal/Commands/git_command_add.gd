@@ -5,6 +5,11 @@ func execute(args: Array[String], _raw_input: String) -> String:
 		return GameState.registrar_falha("add", GameState.FALHA_USO_INCORRETO,
 			"[color=#FF6B6B]Erro: Uso correto: git add <arquivo> [<arquivo> ...]  ou  git add .[/color]")
 
+	# Fase 3: o `add` prepara as mudanças das runas do mural.
+	var mural := ModeloMural.ativo()
+	if mural != null:
+		return mural.adicionar(args)
+
 	# git add . (ou -A / --all): tudo que ainda não está rastreado
 	if "." in args or "-A" in args or "--all" in args:
 		return GameState.adicionar_todos_ao_stage()

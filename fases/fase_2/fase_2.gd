@@ -1,19 +1,21 @@
 extends Node2D
-## Fase 2 — "Ecos de Possibilidades".
+## Fase 2 — Tutorial: "A Ponte Quebrada".
 ##
-## Independente da Fase 1: reaproveita HUD, ExitArea e VictoryScreen. O repositório Git
-## (commits, branches, branch ativa) vem do GameState e já chega com o histórico da
-## Fase 1. O progresso da fase vive no ProgressoFase2 (adaptador do GameState) e o mapa
-## reage às branches pelo RealidadesFase2.
+## Uma sala só: um abismo separa o jogador do portal e a ponte está quebrada. Para
+## consertá-la, o jogador apresenta os comandos log, branch, switch e merge (e revê
+## add/commit): cria a branch `ponte`, troca para ela, pega a peça, registra, volta para
+## a `main` e faz o merge. A ponte e o portal reagem ao repositório Git REAL (GameState).
 ##
-## Responsabilidades daqui: posicionar o jogador, limites da câmera e concluir a fase.
+## A IA é a da Fase 1 (TutoraFase1), com o roteiro desta fase (TutoraPonte).
+## Responsabilidades daqui: histórico inicial, câmera, tutora, saída e vitória.
 
-@onready var progresso: ProgressoFase2 = $Progresso
-@onready var realidades: RealidadesFase2 = $Realidades
-@onready var player: Player = $Mundo/Player
-@onready var transicao: TransicaoRealidade = $Transicao
-@onready var area_arquivo: AreaFase2 = $Mundo/Area1_Arquivo
-@onready var area_registro: Area5Registro = $Mundo/Area5_Registro
+## Commit do "passado" que o `git log` mostra. Só é criado se ainda não existir
+## (a Fase 1 já deixa commits; ao abrir esta fase direto, ele garante um histórico).
+const MENSAGEM_PASSADO := "Ponte intacta"
+const ARQUIVO_PASSADO := "ponte_inteira.map"
+
+@onready var ponte: PonteTutorial = $Ponte
+@onready var portal: ExitArea = $PortalSaida
 @onready var victory_screen: CanvasLayer = $VictoryScreen
 @onready var limite_sup_esq: Marker2D = $Limites/SupEsq
 @onready var limite_inf_dir: Marker2D = $Limites/InfDir
@@ -22,32 +24,57 @@ var fase_concluida: bool = false
 
 
 func _ready() -> void:
-	print("[FASE 2] Ecos de Possibilidades carregada. Branch ativa: %s" % GameState.branch_ativa)
-	realidades.iniciar(player, transicao)
-	_posicionar_jogador()
+	_garantir_historico()
 	_configurar_camera()
-	area_registro.saida_alcancada.connect(_on_saida_alcancada)
 
-	var debug := get_node_or_null("DebugFase2") as DebugFase2
-	if debug:
-		debug.configurar(player, progresso)
+	var arquivos_requeridos: Array[String] = []
+	for item in get_tree().get_nodes_in_group(ItemColetavel.GRUPO_ARQUIVOS):
+		arquivos_requeridos.append(item.nome_do_item)
+	var tutora := TutoraPonte.new()
+	tutora.arquivos_requeridos = arquivos_requeridos
+	add_child(tutora)
+
+	ponte.ponte_concluida.connect(_liberar_saida)
+	portal.unlocked_entered.connect(_on_portal_unlocked_entered)
+	victory_screen.proxima_fase_pressed.connect(_on_proxima_fase_pressed)
+
+	# Recarregar a cena (ex.: derrota) depois do merge: a saída já nasce liberada.
+	if EstadoPonte.na_main():
+		_liberar_saida()
 
 
-func _posicionar_jogador() -> void:
-	var entrada := area_arquivo.get_node("Conexoes/Entrada_Fase") as Node2D
-	player.global_position = realidades.posicao_inicial(entrada.global_position)
+## Garante um commit "Ponte intacta" na main para o `git log` ter um passado a mostrar.
+func _garantir_historico() -> void:
+	for commit in GameState.commits:
+		if commit["mensagem"] == MENSAGEM_PASSADO:
+			return
+	GameState.git_inicializado = true
+	GameState.branch_ativa = GameState.BRANCH_PADRAO
+	GameState.staging_area.append(ARQUIVO_PASSADO)
+	GameState.criar_commit(MENSAGEM_PASSADO)
 
 
-## Os limites vêm de dois Marker2D, não de uma TileMapLayer: o LevelManager só guarda
-## os limites da última tilemap carregada, o que não serve a uma fase com várias áreas.
+## Os limites vêm de dois Marker2D (o LevelManager guarda os limites da câmera).
 func _configurar_camera() -> void:
 	var limites: Array[Vector2] = [limite_sup_esq.global_position, limite_inf_dir.global_position]
 	LevelManager.ChangeTilemapsBounds(limites)
 
 
-func _on_saida_alcancada() -> void:
+func _liberar_saida() -> void:
+	if portal.locked:
+		portal.unlock()
+
+
+func _on_portal_unlocked_entered() -> void:
 	if fase_concluida:
 		return
 	fase_concluida = true
-	print("[FASE 2] Fase concluída.")
+	print("[Fase 2] CONDIÇÃO DE VITÓRIA ATINGIDA!")
 	victory_screen.mostrar()
+
+
+func _on_proxima_fase_pressed() -> void:
+	if not FaseManager.has_next_phase():
+		return
+	GameState.reset_fase()
+	FaseManager.advance_to_next_phase()

@@ -7,9 +7,10 @@ extends Node
 ## Fase 1 = res://fases/fase_1/fase_1.tscn (antigo playground.tscn).
 const FASES: Array[String] = [
 	"res://fases/fase_1/fase_1.tscn",  # indice 0 -> Fase 1
-	"res://fases/fase_tutorial/fase_tutorial.tscn",  # indice 1 -> Fase 2 (tutorial: a ponte quebrada)
-	# STANDBY: a antiga Fase 2 ("Ecos de Possibilidades") será a Fase 4. Fica fora da
-	# sequência por enquanto, sem nenhuma alteração: "res://fases/fase_2/fase_2.tscn"
+	"res://fases/fase_2/fase_2.tscn",  # indice 1 -> Fase 2 (tutorial: a ponte quebrada)
+	"res://fases/fase_3/fase_3.tscn",  # indice 2 -> Fase 3 (tutorial: o mural corrompido; diff e restore)
+	# STANDBY: a Fase 4 ("Ecos de Possibilidades", antiga Fase 2). Fica fora da
+	# sequência por enquanto, sem nenhuma alteração: "res://fases/fase_4/fase_4.tscn"
 ]
 
 ## Indice da fase atual dentro de FASES (0 = Fase 1).

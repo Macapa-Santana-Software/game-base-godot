@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cmgk1wxuh1xir"]
+
+[ext_resource type="Resource" path="res://terminal/config/terminal_fase_4.tres" id="r1"]
+[ext_resource type="Script" uid="uid://deibap7xcy0s8" path="res://fases/fase_4/fase_4.gd" id="r2"]
+[ext_resource type="Script" uid="uid://bwd4mys2sf68y" path="res://fases/fase_4/componentes/progresso_fase_4.gd" id="r3"]
+[ext_resource type="Script" uid="uid://dgbclvsj5sdot" path="res://fases/fase_4/gerenciador_realidades.gd" id="r4"]
+[ext_resource type="Script" uid="uid://doicivhrxgq0n" path="res://fases/fase_4/componentes/liberador_comandos_fase_4.gd" id="r5"]
+[ext_resource type="Script" uid="uid://dtjrna5u2ytex" path="res://fases/fase_4/eidolon/eidolon_fase_4.gd" id="r6"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_1_arquivo.tscn" id="r7"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_2_ramificacao.tscn" id="r8"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_3_main.tscn" id="r9"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_3_vida.tscn" id="r10"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_4_convergencia.tscn" id="r11"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/areas/area_5_registro.tscn" id="r12"]
+[ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="r13"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/componentes/transicao_realidade.tscn" id="r14"]
+[ext_resource type="PackedScene" path="res://fases/fase_4/componentes/mensagem_hud.tscn" id="r15"]
+[ext_resource type="Script" uid="uid://bjb2ysv0roowb" path="res://fases/fase_4/debug_fase_4.gd" id="r16"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="r17"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="r18"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="r19"]
+[ext_resource type="PackedScene" path="res://GeneralNodes/VictoryScreen/victory_screen.tscn" id="r20"]
+[ext_resource type="Script" uid="uid://nw5mba1si1di" path="res://fases/fase_4/eidolon/dicas_eidolon.gd" id="r21"]
+[ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Dialogo/CaixaDialogo.tscn" id="r22"]
+[ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="r23"]
+[ext_resource type="PackedScene" path="res://atlas/atlas_ui.tscn" id="r24"]
+[ext_resource type="Script" uid="uid://b3eah481dgs4q" path="res://fases/fase_4/interface/painel_objetivos_fase_4.gd" id="r25"]
+[ext_resource type="Script" uid="uid://cjdkxv4discoy" path="res://fases/fase_4/interface/painel_conceitos_fase_4.gd" id="r26"]
+
+[node name="Fase4" type="Node2D" unique_id=1567771168]
+y_sort_enabled = true
+script = ExtResource("r2")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=1919251912]
+z_index = -10
+offset_left = -446.0
+offset_top = -364.0
+offset_right = 2914.0
+offset_bottom = 2612.0
+mouse_filter = 2
+color = Color(0.0196, 0.0157, 0.0392, 1)
+
+[node name="Progresso" type="Node" parent="." unique_id=1117591062]
+script = ExtResource("r3")
+
+[node name="Realidades" type="Node" parent="." unique_id=1424888530]
+script = ExtResource("r4")
+
+[node name="Liberador" type="Node" parent="." unique_id=462328791]
+script = ExtResource("r5")
+
+[node name="Eidolon" type="Node" parent="." unique_id=1134137968]
+script = ExtResource("r6")
+gatilhos_despertar = Array[NodePath]([NodePath("../Mundo/Area1_Arquivo/Objetos/Terminal_Arquivo"), NodePath("../Mundo/Area1_Arquivo/Interacoes/Atlas_Artefato")])
+
+[node name="Mundo" type="Node2D" parent="." unique_id=465293036]
+y_sort_enabled = true
+
+[node name="Area1_Arquivo" parent="Mundo" unique_id=905387373 instance=ExtResource("r7")]
+position = Vector2(96, 96)
+
+[node name="Area2_Ramificacao" parent="Mundo" unique_id=838787980 instance=ExtResource("r8")]
+position = Vector2(896, 512)
+
+[node name="Area3_Main" parent="Mundo" unique_id=1048727458 instance=ExtResource("r9")]
+position = Vector2(64, 1216)
+
+[node name="Area3_Vida" parent="Mundo" unique_id=939945704 instance=ExtResource("r10")]
+position = Vector2(1536, 1216)
+
+[node name="Area4_Convergencia" parent="Mundo" unique_id=374766153 instance=ExtResource("r11")]
+position = Vector2(960, 1344)
+
+[node name="Area5_Registro" parent="Mundo" unique_id=1062626855 instance=ExtResource("r12")]
+position = Vector2(1632, 96)
+
+[node name="Player" parent="Mundo" unique_id=329833765 instance=ExtResource("r13")]
+
+[node name="Limites" type="Node2D" parent="." unique_id=1558450820]
+
+[node name="SupEsq" type="Marker2D" parent="Limites" unique_id=678453211]
+
+[node name="InfDir" type="Marker2D" parent="Limites" unique_id=1734791501]
+position = Vector2(2336, 1952)
+
+[node name="Transicao" parent="." unique_id=877111594 instance=ExtResource("r14")]
+
+[node name="MensagemHud" parent="." unique_id=824357823 instance=ExtResource("r15")]
+
+[node name="DebugFase4" type="CanvasLayer" parent="." unique_id=1495560065]
+script = ExtResource("r16")
+
+[node name="PlayerHealthUI" parent="." unique_id=357485416 instance=ExtResource("r17")]
+
+[node name="PauseMenu" parent="." unique_id=800447797 instance=ExtResource("r18")]
+
+[node name="DefeatScreen" parent="." unique_id=502422970 instance=ExtResource("r19")]
+
+[node name="VictoryScreen" parent="." unique_id=501932817 instance=ExtResource("r20")]
+
+[node name="DicasEidolon" type="Node" parent="." unique_id=2042477094]
+script = ExtResource("r21")
+
+[node name="DialogoEidolon" type="CanvasLayer" parent="." unique_id=957620914]
+layer = 80
+
+[node name="CaixaDialogo" parent="DialogoEidolon" unique_id=287248190 instance=ExtResource("r22")]
+
+[node name="TerminalUI" parent="." unique_id=149658817 instance=ExtResource("r23")]
+config = ExtResource("r1")
+
+[node name="AtlasUI" parent="." unique_id=1933172610 instance=ExtResource("r24")]
+
+[node name="PainelObjetivos" type="CanvasLayer" parent="." unique_id=1730004101]
+script = ExtResource("r25")
+
+[node name="PainelConceitos" type="CanvasLayer" parent="." unique_id=1730004102]
+script = ExtResource("r26")
