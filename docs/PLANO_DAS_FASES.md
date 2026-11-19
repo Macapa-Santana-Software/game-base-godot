@@ -3,7 +3,8 @@
 > Documento central do roteiro. Explica, fase a fase, o **objetivo**, os **comandos**, a **história** (a que existe
 > e a que pode existir), como cada fase **funciona** e as **ideias** para o futuro. É o lugar para registrar decisões.
 > Detalhes técnicos finos de uma fase ficam em documentos próprios (hoje: `FASE_4_ESTRUTURA.md`; o terminal e o
-> inventário estão no `GUIA_DESENVOLVEDOR.md`).
+> inventário estão no `GUIA_DESENVOLVEDOR.md`). A identidade visual de cada fase está em `DESIGN_FASES.md`, a história
+> completa em `HISTORIA.md` e o **plano de implementação das Fases 7 e 8** em `PLANO_FASES_7_8.md`.
 
 ## Sumário
 
@@ -51,8 +52,10 @@ Tipos de fase (pedido do orientador):
   cada fase tem teste (seção 10).
 - **Cada comando novo nasce numa fase tutorial** e só depois é cobrado numa elevada. (Exceção consciente: a Fase 6 é
   tutorial e apresenta três comandos, um por área.)
-- **Visual primeiro simples, depois bonito.** As fases novas usam arte provisória desenhada por código para validar a
-  mecânica; a arte final vem depois.
+- **Cada fase tem identidade visual própria** (paleta e cenário, ver `DESIGN_FASES.md`), com arte em PNG gerada por
+  `tools/gerar_arte_fase_N.gd`, e **a mesma HUD** em todas (quadro da IA recolhível, Manual, inventário, terminal).
+- **Reinício do zero.** Morrer ou usar REINICIAR FASE (menu de pausa) devolve Git, inventário, progresso e notas da tentativa ao
+  que eram ao entrar na fase (`GameState.guardar_checkpoint()` / `restaurar_checkpoint()`).
 - **A história é consequência do repositório:** falas e eventos nascem de fatos reais do Git (um merge de verdade, um
   `reset` de verdade), não de contadores soltos.
 
@@ -73,9 +76,26 @@ Ordem em `FaseManager.FASES` (índice 0 a 5):
 
 **Saída e entrada.** Cada portal leva à fase seguinte pelo **mesmo caminho**: o botão "próxima fase" da tela de vitória
 chama `FaseManager.concluir_fase_e_avancar()`, que limpa o estado temporário (`GameState.reset_fase()`, o repositório é
-preservado) e abre a fase seguinte. A **última** fase só mostra "FIM DE JOGO" e uma mensagem, sem botão nem resumo.
+preservado) e abre a fase seguinte. A **última** fase mostra só o título e uma mensagem final, sem botão nem resumo (hoje, na Fase 6: "Um registro ficou para trás.
+Nenhuma branch aponta para ele."; a tela não promete continuação).
 Abrir uma fase direto (F6) funciona: a tela de vitória alinha o índice com a cena atual. Para criar fases novas, basta
 acrescentá-las ao fim de `FASES` (ver seção 10).
+
+---
+
+### Estado atual das fases (1 a 6)
+
+| Fase | Mecânica | História | Arte (identidade) | HUD padrão | Testes |
+|---|---|---|---|---|---|
+| 1 | ✔ | ✔ (notas) | ✔ santuário ciano/violeta | ✔ | `fase_1_polimento_test` |
+| 2 | ✔ | ✔ | ✔ cânion de brasa | ✔ | (coberta por `fluxo_fases_test`) |
+| 3 | ✔ | ✔ | ✔ pedra clara e ouro | ✔ | `fase_3_mecanica_test` |
+| 4 | ✔ (elevada) | ✔ (Eidolon, fragmentos = notas) | ✔ violeta x verde | ✔ (Objetivos e Conceitos) | `fase_4_progressao`, `_notas`, `_eidolon` |
+| 5 | ✔ | ✔ (abalo do Eidolon, escolha permanente) | ✔ grafite neutro | ✔ | `fase_5_gamestate`, `fase_5_historia` |
+| 6 | ✔ | ✔ (eco do Eidolon, fantasma no log) | ✔ concreto e sinalização | ✔ | `fase_6_fluxo`, `fase_6_historia` |
+| 7 e 8 | planejadas, **não implementadas** | escritas em `HISTORIA.md` | a propor | — | ver `PLANO_FASES_7_8.md` |
+
+**Falta em todas:** áudio (adiado por decisão do dono do projeto).
 
 ---
 
@@ -88,8 +108,8 @@ acrescentá-las ao fim de `FASES` (ver seção 10).
 | `diff`, `restore` (`--staged`) | 3 | **Modelo local** `ModeloMural` (runas: base / índice / atual) |
 | `merge` com conflito, `merge --abort` | 5 | **Modelo local** `ModeloConflito` |
 | `revert`, `reset` (`--soft/--mixed/--hard`), `stash` (`pop`, `list`) | 6 | `GameState` (repositório real) |
-| `reflog`, `cherry-pick` | futuro (Fase 7) | Já existem no `GameState`; falta o comando de terminal |
-| `rebase` | futuro, opcional | Não existe (conflita com "commits nunca são reescritos") |
+| `reflog`, `cherry-pick` | futuro (Fase 7) | Já existem no `GameState`; falta o comando de terminal (ver `PLANO_FASES_7_8.md`, etapa E1) |
+| `rebase` | futuro (Fase 8, se entrar) | Não existe; escopo mínimo planejado em `PLANO_FASES_7_8.md` |
 
 Como funciona o encaixe dos modelos locais: os comandos `status`, `add`, `diff`, `merge` e `commit` **desviam** para o
 modelo da fase **somente quando a cena o tem** (`ModeloMural.ativo()` / `ModeloConflito.ativo()`). Nas outras fases seguem
@@ -294,6 +314,8 @@ Roteiro: `tutora_retorno.gd`, `eco_eidolon.gd`. Teste: `test/fase_6_historia_tes
 - **Porta de vidro / "outros registros"** (fim da Fase 4): o gancho para o que vem depois.
 - **Commit fantasma ilegível** (fim da Fase 6): um registro que ninguém criou e nenhuma branch alcança.
 
+> **Plano de implementação das Fases 7 e 8:** `docs/PLANO_FASES_7_8.md` (decisões, etapas, testes, riscos).
+
 ### A revelação (Fase 7, ainda não existe): "O Apagador"
 
 A **Catástrofe** foi um `reset --hard` (ou reescrita de histórico) que **apagou o histórico**. A lacuna de memória do Eidolon são
@@ -336,6 +358,8 @@ por um `reset` **continuam no object store**, o que torna o `reflog` possível.
 | Comandos de terminal para `reflog` e `cherry-pick` | Fase 7 | Só a API do `GameState` |
 | `rebase` | final com escolha | Não existe |
 | Desfazer/copiar commit de merge | `revert`/`cherry-pick` de merge | Recusado com mensagem |
+| **Legado** (lembrar as branches que o jogador criou nas fases 2, 4 e 5) | A Fase 7 as usa como peças da reconstrução; os créditos as desenham | Não existe: cada fase zera o repositório (ver `PLANO_FASES_7_8.md` §4) |
+| Escolhas da história | A escolha do conflito (Fase 5) e as dos finais | `GameState.escolhas_historia` (existe) |
 
 **Recomendação.** Unificar os modelos locais ao `GameState` só quando a Fase 7 pedir, e **antes** escrever um teste de regressão
 das fases 1 a 6 (hoje há testes para 4, 5, 6 e o fluxo entre fases).
@@ -360,10 +384,10 @@ das fases 1 a 6 (hoje há testes para 4, 5, 6 e o fluxo entre fases).
 - [x] Fase 3: teste automatizado criado (`test/fase_3_mecanica_test.tscn`).
 - [x] Fase 5: o abalo do Eidolon foi escrito (diálogo obrigatório; ver `roteiro_conflito.gd`).
 - [x] Fase 6: o fantasma ilegível é de **E.** (autor `RS4=`, base64); o Eidolon o reconhece ("Esse hash... eu o conheço"). A Fase 7 o decifra.
-- [ ] Fase 7: manter `rebase` e a escolha final `rebase` vs `merge`, ou simplificar?
-- [ ] Chefe da Fase 7: ação, puzzle de comandos, ou mistura (sugestão: mistura).
-- [ ] Unificar os modelos locais ao `GameState` agora ou só na Fase 7?
-- [ ] Mais de uma elevada? Hoje só a Fase 4 é elevada; avaliar uma elevada depois da Fase 6 (a Fase 7 cumpriria esse papel).
+- [ ] Fases 7 e 8 (decisões D1 a D9, com padrão recomendado, em `PLANO_FASES_7_8.md` §2): nomes, Fase 8 separada, `rebase`, chefe, Walkers, tom do Final B, onde fica a Chave de Arquivista, tempo da luta.
+- [ ] Unificar os modelos locais (`ModeloMural`, `ModeloConflito`) ao `GameState` agora ou só se a Fase 7 pedir? (A Fase 7 pede o **legado**, não essa unificação.)
+- [ ] Mais de uma elevada? Hoje só a Fase 4 é elevada; a Fase 7 ou a 8 cumpririam esse papel.
+- [ ] Áudio: adiado para depois de tudo.
 
 ---
 

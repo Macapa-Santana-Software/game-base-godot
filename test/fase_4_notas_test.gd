@@ -54,6 +54,11 @@ func _testar() -> void:
 	for id in IDS:
 		_ok(notas.has(id), "a nota %s está na cena" % id)
 		_ok(not NotasHistoria.obter(id).is_empty(), "e no catálogo (%s)" % id)
+	var teclas_certas := true
+	for id in IDS:
+		if notas.has(id) and (notas[id] as Nota).acao_input != &"interagir_porta":
+			teclas_certas = false
+	_ok(teclas_certas, "todas as notas usam ENTER (e não a tecla T do terminal)")
 	_ok(fase.find_children("*", "Area2D", true, false).filter(func(n): return n.get_script() != null and "fragmento_memoria" in str(n.get_script().resource_path)).is_empty(), "não sobrou nenhum FragmentoMemoria")
 
 	print("— Ler e brilho —")

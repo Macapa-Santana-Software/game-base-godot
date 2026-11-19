@@ -544,3 +544,30 @@ a aparecer não lida (a entrada no Diário continua); ao concluir a fase, `FaseM
 e a marca fica definitiva. O botão JOGAR do menu inicial chama `Diario.limpar()` (jogo novo = Diário vazio).
 
 > Todas as fases (1 a 6) têm o menu de pausa, então o Diário abre por ele em qualquer uma.
+
+---
+
+## Ferramentas de desenvolvimento (`tools/`)
+
+Nada aqui faz parte do jogo exportado; são scripts para gerar arte e documentação. Rode da raiz do projeto.
+
+| Ferramenta | Para que serve | Comando |
+|---|---|---|
+| `gerar_arte_fase_2.gd`, `_3`, `_5`, `_6` | Desenham pixel a pixel os PNGs de cada fase (`fases/fase_N/arte/`) na paleta de `DESIGN_FASES.md`, e recoloram o Obelisco, a plataforma e o portal | `godot --headless --path . --script res://tools/gerar_arte_fase_N.gd` |
+| `gerar_arte_notas.gd` | Ícones das notas (`GeneralNodes/Nota/arte/`) | `godot --headless --path . --script res://tools/gerar_arte_notas.gd` |
+| `capturar_prints.tscn` | Joga as fases por código e grava os prints do README em `docs/img/` (precisa de janela) | `godot --path . --resolution 1280x720 res://tools/capturar_prints.tscn` |
+
+Depois de gerar PNGs novos, abra o projeto (ou rode `godot --headless --path . --import`) para o Godot importá-los. A arte da Fase 4 foi
+criada por outro conjunto de scripts (`tools/gen_arte_fase4_areas125.py`, `aplicar_visual_fase4_areas125.py`, ver `FASE_4_ESTRUTURA.md`).
+
+## Testes (visão rápida)
+
+Todos são cenas em `test/` que saem com código 1 se algo falhar; a tabela completa e o que cada um cobre estão em `PLANO_DAS_FASES.md` §10.
+Para rodar todos os principais em modo headless:
+
+```
+godot --headless --path . res://test/fluxo_fases_test.tscn
+godot --headless --path . res://test/nota_diario_test.tscn
+godot --headless --path . res://test/hud_abas_test.tscn
+```
+(troque pelo teste desejado: `fase_1_polimento_test`, `fase_3_mecanica_test`, `fase_4_*`, `fase_5_*`, `fase_6_*`).

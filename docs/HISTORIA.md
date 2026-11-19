@@ -821,5 +821,7 @@ A escolha do conflito (mine / theirs / both) **muda uma fala** do Eidolon e da I
 - [ ] **Fases futuras** além da 8 (o epílogo deixa a porta aberta, mas pode ser só um final fechado).
 
 ### Próximo passo
+> O plano de implementação das Fases 7 e 8 (decisões com padrão recomendado, etapas, testes e riscos) está em `PLANO_FASES_7_8.md`.
+
 Aprovada a história, o trabalho fase a fase fica claro: para cada fase, escrever as falas novas (IA, Eidolon, placas e
 fragmentos), ajustar os pontos de pista listados na seção 10, e só depois mexer em visual e áudio.

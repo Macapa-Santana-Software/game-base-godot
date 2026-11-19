@@ -2,16 +2,20 @@
 
 Regras decididas:
 - **Cada fase tem identidade visual própria** (paleta, tipo de cenário, forma dos elementos). Nenhuma fase repete a paleta de outra.
-- **A HUD é a mesma em todas as fases** (quadro da IA, objetivos, inventário, terminal, menus): mesma estrutura, posições e tema.
-  Só o cenário muda. A HUD será redesenhada uma vez, para todas, numa etapa própria.
+- **A HUD é a mesma em todas as fases** (quadro da IA recolhível, Manual, inventário, corações, terminal, menus): mesma estrutura,
+  posições e tema (o estilo dos painéis da Fase 4). Só o cenário muda.
 
-## Identidades já existentes
-| Fase | Identidade |
-|---|---|
-| 1 — Sala de Triagem | Santuário cinza-azulado, ciano e violeta (tema_santuario) |
-| 3 — Mural Corrompido | Mural de runas douradas, ruído magenta |
-| 4 — Duas realidades | Vida (verde, natureza) x Convergência |
-| 5 / 6 | Conflito (glitch) / linha do tempo |
+## Identidades (visão geral)
+| Fase | Identidade | Cores de significado reservadas |
+|---|---|---|
+| 1 — Sala de Triagem | Santuário azul-marinho, ciano e violeta (`tema_santuario`) | ciano (cristais), violeta |
+| 2 — A Ponte Quebrada | Cânion de brasa (vermelho-terra, cobre) | brasa (a ponte acesa) |
+| 3 — O Mural Corrompido | Pedra clara e ouro | magenta = ruído; laranja/azul/verde = Oficina/Palco/Arquivo |
+| 4 — Ecos de Possibilidades | `main` violeta x `vida-alternativa` verde, neutro azul-marinho no Atlas | violeta, verde, ciano |
+| 5 — Linhas Cruzadas | Grafite neutro | dourado (sua linha), azul (a outra), magenta (glitch), verde-água ("ambas") |
+| 6 — Ponto de Retorno | Concreto brutalista com sinalização amarelo-preto | ciano (revert/Eidolon), magenta (fantasma), vermelho (emergência) |
+| 7 — O Arquivo Vazio | **a propor** (sugestão: papel e cinza quente, só os vultos têm cor) | ver `PLANO_FASES_7_8.md` §9 |
+| 8 — O Apagador | **a propor** (sugestão: vazio escuro; as cores voltam uma a uma a cada ataque vencido) | ver `PLANO_FASES_7_8.md` §9 |
 
 ## Fase 2 — A Ponte Quebrada: **Cânion de brasa**
 Um cânion profundo de rocha avermelhada. Sem roxo (a Fase 1 já é ciano/violeta) e sem amarelo-ouro (a Fase 3 é dourada).

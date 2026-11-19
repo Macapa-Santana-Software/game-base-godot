@@ -284,6 +284,7 @@ position = Vector2(-32, 192)
 tamanho = Vector2(64, 80)
 texto_prompt = "Ler"
 id_nota = &"frag_origem"
+acao_input = &"interagir_porta"
 tipo = "registro"
 fase = 4
 desenhar_icone = false

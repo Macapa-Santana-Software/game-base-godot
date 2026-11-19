@@ -24,7 +24,7 @@ const PREFIXO_EIDOLON := "[color=#9BE7FF][EIDOLON][/color] "
 
 const LARGURA_QUADRO := 130.0
 const LARGURA_ABA := 40.0
-const TOPO_QUADRO := 6.0
+const TOPO_QUADRO := 34.0
 const DURACAO_PAINEL := 0.18
 const TEMA := preload("res://GeneralNodes/UI/tema_santuario.tres")
 ## Lembra se o quadro estava aberto ao recarregar a cena na mesma sessão (começa aberto).
