@@ -333,6 +333,47 @@ func resetar_repositorio() -> void:
 	reflog.clear()
 	branch_ativa = BRANCH_PADRAO
 
+# CHECKPOINT DA FASE: foto do estado do jogo (Git, inventário, tutoria) no instante em que a fase
+# começa. Ao morrer e reiniciar, a tela de derrota restaura essa foto: a fase volta EXATAMENTE
+# ao início (repositório, itens e progresso). É o padrão de todas as fases.
+var _checkpoint: Dictionary = {}
+
+func guardar_checkpoint() -> void:
+	_checkpoint = {
+		"progresso_tutoria": progresso_tutoria.duplicate(true),
+		"liberacao_progressiva": liberacao_progressiva,
+		"comandos_liberados": comandos_liberados.duplicate(),
+		"git_inicializado": git_inicializado,
+		"working_directory": working_directory.duplicate(),
+		"staging_area": staging_area.duplicate(),
+		"inventario_player": inventario_player.duplicate(),
+		"commits": commits.duplicate(true),
+		"reflog": reflog.duplicate(true),
+		"stash_pilha": stash_pilha.duplicate(true),
+		"branches": branches.duplicate(true),
+		"branch_ativa": branch_ativa,
+	}
+
+func tem_checkpoint() -> bool:
+	return not _checkpoint.is_empty()
+
+## Volta ao estado guardado por `guardar_checkpoint()`. Não faz nada se não há foto.
+func restaurar_checkpoint() -> void:
+	if _checkpoint.is_empty():
+		return
+	progresso_tutoria = _checkpoint["progresso_tutoria"].duplicate(true)
+	liberacao_progressiva = _checkpoint["liberacao_progressiva"]
+	comandos_liberados.assign(_checkpoint["comandos_liberados"])
+	git_inicializado = _checkpoint["git_inicializado"]
+	working_directory.assign(_checkpoint["working_directory"])
+	staging_area.assign(_checkpoint["staging_area"])
+	inventario_player.assign(_checkpoint["inventario_player"])
+	commits.assign(_checkpoint["commits"].duplicate(true))
+	reflog.assign(_checkpoint["reflog"].duplicate(true))
+	stash_pilha.assign(_checkpoint["stash_pilha"].duplicate(true))
+	branches = _checkpoint["branches"].duplicate(true)
+	branch_ativa = _checkpoint["branch_ativa"]
+
 func obter_status() -> String:
 	if not git_inicializado:
 		return registrar_falha("status", FALHA_SEM_REPOSITORIO, "[color=#FF6B6B]fatal: not a git repository (or any of the parent directories): .git[/color]\nDigite 'git init' para começar.")
@@ -540,6 +581,8 @@ func formatar_log(resumido: bool = false) -> Dictionary:
 		var pais := pais_de(commit)
 		if pais.size() > 1:
 			linhas.append("Merge: %s" % " ".join(pais))
+		if commit.has("autor"):
+			linhas.append("Author: %s" % str(commit["autor"]).replace("[", "[lb]"))
 		linhas.append("\n    %s\n" % str(commit["mensagem"]).replace("[", "[lb]"))
 	log_consultado.emit(branch_ativa)
 	return _resultado(true, "", "\n".join(linhas))

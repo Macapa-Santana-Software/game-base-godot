@@ -67,6 +67,7 @@ func concluir_fase_e_avancar() -> bool:
 	if cena != null and FASES.find(cena.scene_file_path) < 0:
 		return false
 	sincronizar_com_cena_atual()
+	Diario.confirmar_tentativa()  # as notas lidas nesta fase ficam marcadas para sempre
 	if not has_next_phase():
 		return false
 	GameState.reset_fase()

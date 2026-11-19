@@ -515,7 +515,7 @@ Tudo que foi lido fica no **Diário** (botão "DIÁRIO" do menu de pausa) e é s
 | Arquivo (`GeneralNodes/Nota/`) | Papel |
 |---|---|
 | `notas_historia.gd` (`NotasHistoria`) | **Catálogo dos textos.** É aqui que se escreve a história (id, fase, tipo, título, autor, texto com BBCode). |
-| `nota.gd` (`Nota`) | Nó para colocar na cena (Area2D). Ícone provisório que pulsa enquanto não lida. |
+| `nota.gd` (`Nota`) | Nó para colocar na cena (Area2D). Ícone em arte própria (`GeneralNodes/Nota/arte/`, gerada por `tools/gerar_arte_notas.gd`): flutua, brilha e solta um anel enquanto não lida (cor cheia); depois de lida fica translúcida com um "visto". |
 | `diario.gd` (autoload `Diario`) | Guarda o que foi lido, abre a tela, emite `nota_lida(id, primeira_vez)`. |
 | `diario_ui.gd` | Tela de leitura (uma nota) e de lista (menu de pausa). Pausa o jogo e devolve o estado anterior. |
 
@@ -536,6 +536,11 @@ Para um teste rápido dá para preencher `titulo`/`texto`/`autor` direto no nó 
 ### API
 
 `Diario.ler(id, dados)` · `Diario.abrir_diario()` · `Diario.fechar()` · `Diario.foi_lida(id)` · `Diario.entradas()` ·
-`Diario.limpar()` (novo jogo/testes). Teste: `test/nota_diario_test.tscn` (26 verificações).
+`Diario.limpar()` (novo jogo/testes). Teste: `test/nota_diario_test.tscn` (34 verificações).
+
+**Marca no mapa x Diário.** O Diário guarda tudo o que foi lido, para sempre. A *marca* do ícone no mapa (translúcido com visto) é separada:
+vale na tentativa atual da fase (`Diario.foi_marcada(id)`); se o jogador morre, a tela de derrota chama `Diario.descartar_tentativa()` e a nota volta
+a aparecer não lida (a entrada no Diário continua); ao concluir a fase, `FaseManager.concluir_fase_e_avancar()` chama `Diario.confirmar_tentativa()`
+e a marca fica definitiva. O botão JOGAR do menu inicial chama `Diario.limpar()` (jogo novo = Diário vazio).
 
 > A Fase 6 ainda não tem o menu de pausa na cena, então o Diário não abre por lá até ela receber o `PauseMenu`.

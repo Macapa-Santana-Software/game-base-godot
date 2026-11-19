@@ -98,7 +98,7 @@ func _on_terminal_aberto() -> void:
 
 	var linhas: Array = []
 	if _primeira_vez("terminal"):
-		linhas.append("A ponte está quebrada, e não vamos mexer direto no mundo principal. Vamos consertá-la numa cópia segura (uma %s) e só depois trazer o conserto de volta." % _conceito("branch"))
+		linhas.append("A ponte não parece ter caído: as pontas estão lisas, como se alguém a tivesse desligado. Não vamos mexer direto no mundo principal. Vamos consertá-la numa cópia segura (uma %s) e só depois trazer o conserto de volta." % _conceito("branch"))
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
@@ -118,9 +118,23 @@ func _on_log_consultado(_branch: String) -> void:
 		linhas.append("O %s lê o histórico: cada linha é um %s, uma foto do passado, do mais recente para o mais antigo. A linha principal do mundo se chama %s." % [_cmd("git log"), _conceito("commit"), _conceito("main")])
 	else:
 		linhas.append("Esse é o histórico da branch em que você está.")
+	if _primeira_vez("autor_passado") and _tem_autor_desconhecido():
+		linhas.append("Olhe o último da lista: %s, com autor \"E.\". Esse E. você conhece? ... Eu também não. Mas isso quer dizer que a ponte já existiu. E o que existiu, a gente reconstrói." % _cmd("Ponte intacta"))
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
+
+
+func _tem_autor_desconhecido() -> bool:
+	for commit in GameState.historico():
+		if commit.has("autor"):
+			return true
+	return false
+
+
+## Chamado pela fase quando o jogador pisa na ponte sólida pela primeira vez.
+func pisou_na_ponte() -> void:
+	_dizer("O chão sustenta... Eu achei que não ia funcionar.")
 
 
 func _on_branch_criada(nome: String, commit_id: String) -> void:

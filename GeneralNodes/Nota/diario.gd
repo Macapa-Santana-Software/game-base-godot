@@ -24,6 +24,13 @@ const UIScript := preload("res://GeneralNodes/Nota/diario_ui.gd")
 var persistir: bool = true
 
 var _lidas: Array[StringName] = []
+## MARCA NO MAPA ("já li esta nota", ícone translúcido com visto). Separada do Diário:
+##  - `_marcadas`: confirmadas (a fase foi concluída). Nunca mais somem.
+##  - `_marcadas_tentativa`: lidas na tentativa atual da fase. Se o jogador morre, são descartadas
+##    (a fase recomeça do zero e a nota volta a aparecer não lida); ao concluir a fase viram definitivas.
+## O Diário (`_lidas`) não é afetado por nada disso: quem leu, leu.
+var _marcadas: Array[StringName] = []
+var _marcadas_tentativa: Array[StringName] = []
 ## Notas definidas só na cena (fora do catálogo): guardamos uma cópia para o Diário poder reexibi-las.
 var _copias: Dictionary = {}
 var _ui: UIScript = null
@@ -36,6 +43,31 @@ func _ready() -> void:
 
 func foi_lida(id: StringName) -> bool:
 	return id in _lidas
+
+
+## A nota deve aparecer como "lida" no mapa?
+func foi_marcada(id: StringName) -> bool:
+	return id in _marcadas or id in _marcadas_tentativa
+
+
+## O jogador morreu: as notas lidas nesta tentativa voltam a aparecer não lidas no mapa.
+func descartar_tentativa() -> void:
+	if _marcadas_tentativa.is_empty():
+		return
+	_marcadas_tentativa.clear()
+	diario_mudou.emit()
+
+
+## A fase foi concluída: as marcas da tentativa viram definitivas.
+func confirmar_tentativa() -> void:
+	if _marcadas_tentativa.is_empty():
+		return
+	for id in _marcadas_tentativa:
+		if not id in _marcadas:
+			_marcadas.append(id)
+	_marcadas_tentativa.clear()
+	_salvar()
+	diario_mudou.emit()
 
 
 func total_lidas() -> int:
@@ -76,6 +108,9 @@ func ler(id: StringName, dados: Dictionary = {}) -> bool:
 		if Catalogo.obter(id).is_empty():
 			_copias[id] = dados.duplicate()
 		_salvar()
+	if not foi_marcada(id):
+		_marcadas_tentativa.append(id)
+	if primeira or _marcadas_tentativa.has(id):
 		diario_mudou.emit()
 
 	_garantir_ui().abrir_nota(info)
@@ -117,6 +152,8 @@ func entradas() -> Array[Dictionary]:
 ## Apaga todas as notas lidas (novo jogo, testes).
 func limpar() -> void:
 	_lidas.clear()
+	_marcadas.clear()
+	_marcadas_tentativa.clear()
 	_copias.clear()
 	_salvar()
 	diario_mudou.emit()
@@ -124,13 +161,20 @@ func limpar() -> void:
 
 ## Cópia do estado, para um teste poder restaurar o diário do jogador depois.
 func estado() -> Dictionary:
-	return {"lidas": _lidas.duplicate(), "copias": _copias.duplicate(true)}
+	return {"lidas": _lidas.duplicate(), "copias": _copias.duplicate(true),
+		"marcadas": _marcadas.duplicate(), "tentativa": _marcadas_tentativa.duplicate()}
 
 
 func restaurar(estado_salvo: Dictionary) -> void:
 	_lidas.clear()
 	for id in estado_salvo.get("lidas", []):
 		_lidas.append(StringName(id))
+	_marcadas.clear()
+	for id in estado_salvo.get("marcadas", []):
+		_marcadas.append(StringName(id))
+	_marcadas_tentativa.clear()
+	for id in estado_salvo.get("tentativa", []):
+		_marcadas_tentativa.append(StringName(id))
 	# As chaves viram StringName (o JSON as devolve como String).
 	_copias = {}
 	var copias_salvas: Dictionary = estado_salvo.get("copias", {})
@@ -147,7 +191,10 @@ func como_json() -> String:
 	var copias: Dictionary = {}
 	for id in _copias:
 		copias[String(id)] = _copias[id]
-	return JSON.stringify({"lidas": ids, "copias": copias})
+	var marcadas: Array[String] = []
+	for id in _marcadas:
+		marcadas.append(String(id))
+	return JSON.stringify({"lidas": ids, "copias": copias, "marcadas": marcadas})
 
 
 func _garantir_ui() -> UIScript:

@@ -1,23 +1,46 @@
-[gd_scene format=3 uid="uid://cg03nm7r5oq6p"]
+[gd_scene format=3 uid="uid://cmgk1wxuh1xir"]
 
 [ext_resource type="Script" uid="uid://cwdgl52t28gjw" path="res://fases/fase_2/fase_2.gd" id="1_fase"]
 [ext_resource type="Script" uid="uid://bdksclwti6upw" path="res://fases/fase_2/ponte_tutorial.gd" id="2_ponte"]
 [ext_resource type="Script" uid="uid://bu1vxr4rckowl" path="res://fases/fase_2/peca_ponte.gd" id="3_peca"]
-[ext_resource type="Script" uid="uid://dl7e35qtoo2xj" path="res://fases/fase_2/painel_objetivos_ponte.gd" id="4_objetivos"]
 [ext_resource type="Resource" path="res://terminal/config/terminal_fase_2.tres" id="5_config"]
 [ext_resource type="PackedScene" uid="uid://5q25xmn1xy4t" path="res://Player/player.tscn" id="6_player"]
-[ext_resource type="PackedScene" uid="uid://dwcmeudwlush3" path="res://Enemies/Slime/slime.tscn" id="7_slime"]
 [ext_resource type="PackedScene" uid="uid://2yvr1a27p5as" path="res://inventario/Inventario.tscn" id="8_inventario"]
 [ext_resource type="PackedScene" uid="uid://blrfy2xfan345" path="res://terminal/UI/terminal_ui.tscn" id="9_terminal_ui"]
 [ext_resource type="PackedScene" path="res://terminal/World/obelisco_santuario.tscn" id="10_obelisco"]
 [ext_resource type="PackedScene" path="res://itens/fase1/arquivo_cosmico.tscn" id="11_arquivo"]
-[ext_resource type="Texture2D" uid="uid://do1daj0ady8y4" path="res://itens/fase1/sprites/arquivo_setup.png" id="12_tex_peca"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/ExitArea/portal_saida.tscn" id="13_saida"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/Manual/manual_sistema.tscn" id="14_manual"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/Health/PlayerHealthUI.tscn" id="15_hp"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="16_pausa"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="17_derrota"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/VictoryScreen/victory_screen.tscn" id="18_vitoria"]
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="20_nota"]
+[ext_resource type="Script" uid="uid://dtrslfesosyi2" path="res://fases/fase_2/placas_ponte.gd" id="23_placas"]
+[ext_resource type="Texture2D" uid="uid://i7grmgu0mjfu" path="res://fases/fase_2/arte/parede_canion.png" id="31_parede"]
+[ext_resource type="Texture2D" uid="uid://csyjcr6cjeyqc" path="res://fases/fase_2/arte/piso_canion.png" id="32_piso"]
+[ext_resource type="Texture2D" uid="uid://db38x06t2rxkr" path="res://fases/fase_2/arte/abismo_canion.png" id="33_abismo"]
+[ext_resource type="Texture2D" uid="uid://bo82xs2kcxn3k" path="res://fases/fase_2/arte/borda_canion.png" id="34_borda"]
+[ext_resource type="Texture2D" uid="uid://c52alfgngs3di" path="res://fases/fase_2/arte/ponte_toco.png" id="35_toco"]
+[ext_resource type="Texture2D" uid="uid://c0vnijm3airxt" path="res://fases/fase_2/arte/cristal_a.png" id="36_ca"]
+[ext_resource type="Texture2D" uid="uid://cwfvf3wk13mgm" path="res://fases/fase_2/arte/cristal_b.png" id="37_cb"]
+[ext_resource type="Texture2D" uid="uid://hfgf1145i2wd" path="res://fases/fase_2/arte/cristal_c.png" id="38_cc"]
+[ext_resource type="Texture2D" uid="uid://stkxp03vpyxu" path="res://fases/fase_2/arte/coluna_canion.png" id="39_col"]
+[ext_resource type="Texture2D" uid="uid://bw8bfqfsj2ard" path="res://fases/fase_2/arte/peca_ponte.png" id="40_peca"]
+[ext_resource type="Texture2D" uid="uid://ckyt2cq8q3uyr" path="res://fases/fase_2/arte/coluna_quebrada_canion.png" id="41_colq"]
+[ext_resource type="Texture2D" uid="uid://b21aps4rywom1" path="res://fases/fase_2/arte/pedras_1.png" id="42_p1"]
+[ext_resource type="Texture2D" uid="uid://gnqj7qjf38yb" path="res://fases/fase_2/arte/pedras_2.png" id="43_p2"]
+[ext_resource type="Texture2D" uid="uid://c3f3x1bk83v32" path="res://fases/fase_2/arte/pedras_3.png" id="44_p3"]
+[ext_resource type="Texture2D" uid="uid://bw65a6yxshxhu" path="res://fases/fase_2/arte/rachadura_brasa.png" id="45_rach"]
+[ext_resource type="Texture2D" uid="uid://b48twjip4wmc6" path="res://fases/fase_2/arte/bandeira_conselho.png" id="46_band"]
+[ext_resource type="Texture2D" uid="uid://cndeeafcwrwuc" path="res://fases/fase_2/arte/brilho_brasa.png" id="47_brilho"]
+[ext_resource type="Texture2D" uid="uid://bq8hmamwdblup" path="res://fases/fase_2/arte/plataforma_terminal_brasa.png" id="48_plat"]
+[ext_resource type="Texture2D" uid="uid://oa3pchlcg7x4" path="res://fases/fase_2/arte/portal_saida_brasa.png" id="49_portal"]
+[ext_resource type="Texture2D" uid="uid://l5q1fi3nwo1u" path="res://fases/fase_2/arte/obelisco_inativo_brasa.png" id="50_obi"]
+[ext_resource type="Texture2D" uid="uid://cvgdvviwwerhg" path="res://fases/fase_2/arte/obelisco_ativo_brasa.png" id="51_oba"]
+
+[sub_resource type="CanvasItemMaterial" id="Mat_soma"]
+blend_mode = 1
 
 [sub_resource type="RectangleShape2D" id="Forma_cima"]
 size = Vector2(1088, 32)
@@ -40,41 +63,123 @@ size = Vector2(160, 96)
 [sub_resource type="RectangleShape2D" id="Forma_bloqueio_ponte"]
 size = Vector2(160, 64)
 
+[sub_resource type="Animation" id="Anim_ondular"]
+resource_name = "ondular"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="Lib_ondular"]
+_data = {
+&"ondular": SubResource("Anim_ondular")
+}
+
+[sub_resource type="RectangleShape2D" id="Forma_passagem"]
+size = Vector2(100, 40)
+
 [node name="Fase2" type="Node2D" unique_id=384440484]
 y_sort_enabled = true
 script = ExtResource("1_fase")
+textura_plataforma = ExtResource("48_plat")
+textura_portal = ExtResource("49_portal")
 
-[node name="Fundo" type="ColorRect" parent="." unique_id=2046461667]
+[node name="Cenario" type="Node2D" parent="." unique_id=42018929]
 z_index = -12
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 1024.0
-offset_bottom = 320.0
-mouse_filter = 2
-color = Color(0.0196, 0.0157, 0.0392, 1)
 
-[node name="ChaoEsquerdo" type="ColorRect" parent="." unique_id=1750120607]
-z_index = -10
+[node name="Fundo" type="ColorRect" parent="Cenario" unique_id=1109806384]
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 1040.0
+offset_bottom = 340.0
+mouse_filter = 2
+color = Color(0.0824, 0.0392, 0.0353, 1)
+
+[node name="ParedeCima" type="TextureRect" parent="Cenario" unique_id=1417186966]
+offset_left = -80.0
+offset_top = -64.0
+offset_right = 1040.0
+mouse_filter = 2
+texture = ExtResource("31_parede")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ParedeBaixo" type="TextureRect" parent="Cenario" unique_id=1523230886]
+offset_left = -80.0
+offset_top = 320.0
+offset_right = 1040.0
+offset_bottom = 384.0
+scale = Vector2(1, -1)
+mouse_filter = 2
+texture = ExtResource("31_parede")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="PisoEsquerdo" type="TextureRect" parent="Cenario" unique_id=5248446]
 offset_right = 400.0
 offset_bottom = 256.0
 mouse_filter = 2
-color = Color(0.165, 0.145, 0.263, 1)
+texture = ExtResource("32_piso")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="ChaoDireito" type="ColorRect" parent="." unique_id=1530009607]
-z_index = -10
+[node name="PisoDireito" type="TextureRect" parent="Cenario" unique_id=527514263]
 offset_left = 560.0
 offset_right = 960.0
 offset_bottom = 256.0
 mouse_filter = 2
-color = Color(0.165, 0.145, 0.263, 1)
+texture = ExtResource("32_piso")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="Abismo" type="ColorRect" parent="." unique_id=1375553497]
-z_index = -10
-offset_left = 400.0
-offset_right = 560.0
-offset_bottom = 256.0
-mouse_filter = 2
-color = Color(0.008, 0.008, 0.02, 1)
+[node name="Abismo" type="Sprite2D" parent="Cenario" unique_id=402807234]
+position = Vector2(400, 0)
+texture = ExtResource("33_abismo")
+centered = false
+
+[node name="BordaEsquerda" type="Sprite2D" parent="Cenario" unique_id=791813124]
+position = Vector2(376, 0)
+texture = ExtResource("34_borda")
+centered = false
+
+[node name="BordaDireita" type="Sprite2D" parent="Cenario" unique_id=1325198601]
+position = Vector2(552, 0)
+texture = ExtResource("34_borda")
+centered = false
+flip_h = true
+
+[node name="BrilhoAbismo" type="Sprite2D" parent="Cenario" unique_id=1110178895]
+material = SubResource("Mat_soma")
+position = Vector2(480, 250)
+scale = Vector2(5, 2.4)
+texture = ExtResource("47_brilho")
+
+[node name="Faiscas" type="CPUParticles2D" parent="." unique_id=641532586]
+z_index = -11
+position = Vector2(480, 252)
+amount = 28
+lifetime = 7.0
+preprocess = 7.0
+emission_shape = 3
+emission_rect_extents = Vector2(78, 2)
+direction = Vector2(0, -1)
+spread = 12.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 14.0
+initial_velocity_max = 32.0
+scale_amount_max = 2.0
+color = Color(1, 0.604, 0.42, 0.85)
 
 [node name="Colisoes" type="StaticBody2D" parent="." unique_id=1046215903]
 collision_layer = 16
@@ -111,27 +216,19 @@ script = ExtResource("2_ponte")
 
 [node name="Quebrada" type="Node2D" parent="Ponte" unique_id=1767567156]
 
-[node name="TocoEsquerdo" type="ColorRect" parent="Ponte/Quebrada" unique_id=561373215]
-offset_right = 40.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.42, 0.28, 0.17, 1)
+[node name="TocoEsquerdo" type="Sprite2D" parent="Ponte/Quebrada" unique_id=2072213104]
+texture = ExtResource("35_toco")
+centered = false
 
-[node name="TocoDireito" type="ColorRect" parent="Ponte/Quebrada" unique_id=574749789]
-offset_left = 120.0
-offset_right = 160.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.42, 0.28, 0.17, 1)
+[node name="TocoDireito" type="Sprite2D" parent="Ponte/Quebrada" unique_id=549409675]
+position = Vector2(120, 0)
+texture = ExtResource("35_toco")
+centered = false
+flip_h = true
 
 [node name="Inteira" type="Node2D" parent="Ponte" unique_id=162618395]
 visible = false
-
-[node name="Tabuas" type="ColorRect" parent="Ponte/Inteira" unique_id=755027251]
-offset_right = 160.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.62, 0.43, 0.23, 1)
+script = ExtResource("23_placas")
 
 [node name="Bloqueio" type="StaticBody2D" parent="Ponte" unique_id=2006715325]
 collision_layer = 16
@@ -150,22 +247,233 @@ position = Vector2(960, 256)
 
 [node name="ObjetoTerminal" parent="." unique_id=186495917 instance=ExtResource("10_obelisco")]
 position = Vector2(120, 128)
+textura_inativa = ExtResource("50_obi")
+textura_ativa = ExtResource("51_oba")
 
 [node name="PecaPonte" parent="." unique_id=1698827306 instance=ExtResource("11_arquivo")]
 position = Vector2(340, 70)
 script = ExtResource("3_peca")
 branch_visivel = &"ponte"
-textura_icone = ExtResource("12_tex_peca")
+textura_icone = ExtResource("40_peca")
 nome_do_item = "ponte.tile"
-
-[node name="Slime" parent="." unique_id=1099334172 instance=ExtResource("7_slime")]
-position = Vector2(230, 60)
-
-[node name="Slime2" parent="." unique_id=1785621833 instance=ExtResource("7_slime")]
-position = Vector2(270, 200)
 
 [node name="PortalSaida" parent="." unique_id=1568799738 instance=ExtResource("13_saida")]
 position = Vector2(880, 128)
+
+[node name="CristalA1" type="Sprite2D" parent="." unique_id=637095572]
+position = Vector2(40, 44)
+texture = ExtResource("36_ca")
+offset = Vector2(0, -14)
+
+[node name="Brilho" type="Sprite2D" parent="CristalA1" unique_id=67127382]
+material = SubResource("Mat_soma")
+position = Vector2(0, -14)
+scale = Vector2(0.93, 1.23)
+texture = ExtResource("47_brilho")
+
+[node name="CristalC1" type="Sprite2D" parent="." unique_id=246641309]
+position = Vector2(210, 36)
+texture = ExtResource("38_cc")
+offset = Vector2(0, -8)
+
+[node name="Brilho" type="Sprite2D" parent="CristalC1" unique_id=2129797872]
+material = SubResource("Mat_soma")
+position = Vector2(0, -8)
+scale = Vector2(0.67, 0.83)
+texture = ExtResource("47_brilho")
+
+[node name="CristalB1" type="Sprite2D" parent="." unique_id=357970856]
+position = Vector2(310, 248)
+texture = ExtResource("37_cb")
+offset = Vector2(0, -16)
+
+[node name="Brilho" type="Sprite2D" parent="CristalB1" unique_id=518453113]
+material = SubResource("Mat_soma")
+position = Vector2(0, -16)
+scale = Vector2(0.53, 1.37)
+texture = ExtResource("47_brilho")
+
+[node name="CristalC2" type="Sprite2D" parent="." unique_id=242825284]
+position = Vector2(50, 246)
+texture = ExtResource("38_cc")
+offset = Vector2(0, -8)
+
+[node name="Brilho" type="Sprite2D" parent="CristalC2" unique_id=1233933282]
+material = SubResource("Mat_soma")
+position = Vector2(0, -8)
+scale = Vector2(0.67, 0.83)
+texture = ExtResource("47_brilho")
+
+[node name="CristalA2" type="Sprite2D" parent="." unique_id=282648681]
+position = Vector2(190, 250)
+texture = ExtResource("36_ca")
+offset = Vector2(0, -14)
+
+[node name="Brilho" type="Sprite2D" parent="CristalA2" unique_id=1746445083]
+material = SubResource("Mat_soma")
+position = Vector2(0, -14)
+scale = Vector2(0.93, 1.23)
+texture = ExtResource("47_brilho")
+
+[node name="CristalB2" type="Sprite2D" parent="." unique_id=452906613]
+position = Vector2(640, 44)
+texture = ExtResource("37_cb")
+offset = Vector2(0, -16)
+
+[node name="Brilho" type="Sprite2D" parent="CristalB2" unique_id=71272432]
+material = SubResource("Mat_soma")
+position = Vector2(0, -16)
+scale = Vector2(0.53, 1.37)
+texture = ExtResource("47_brilho")
+
+[node name="CristalA3" type="Sprite2D" parent="." unique_id=556658687]
+position = Vector2(790, 248)
+texture = ExtResource("36_ca")
+offset = Vector2(0, -14)
+
+[node name="Brilho" type="Sprite2D" parent="CristalA3" unique_id=1400736379]
+material = SubResource("Mat_soma")
+position = Vector2(0, -14)
+scale = Vector2(0.93, 1.23)
+texture = ExtResource("47_brilho")
+
+[node name="CristalC3" type="Sprite2D" parent="." unique_id=1220891521]
+position = Vector2(700, 244)
+texture = ExtResource("38_cc")
+offset = Vector2(0, -8)
+
+[node name="Brilho" type="Sprite2D" parent="CristalC3" unique_id=1285776779]
+material = SubResource("Mat_soma")
+position = Vector2(0, -8)
+scale = Vector2(0.67, 0.83)
+texture = ExtResource("47_brilho")
+
+[node name="CristalA4" type="Sprite2D" parent="." unique_id=1076981546]
+position = Vector2(930, 44)
+texture = ExtResource("36_ca")
+offset = Vector2(0, -14)
+
+[node name="Brilho" type="Sprite2D" parent="CristalA4" unique_id=293402872]
+material = SubResource("Mat_soma")
+position = Vector2(0, -14)
+scale = Vector2(0.93, 1.23)
+texture = ExtResource("47_brilho")
+
+[node name="CristalC4" type="Sprite2D" parent="." unique_id=1513652277]
+position = Vector2(840, 36)
+texture = ExtResource("38_cc")
+offset = Vector2(0, -8)
+
+[node name="Brilho" type="Sprite2D" parent="CristalC4" unique_id=1434971862]
+material = SubResource("Mat_soma")
+position = Vector2(0, -8)
+scale = Vector2(0.67, 0.83)
+texture = ExtResource("47_brilho")
+
+[node name="CristalB3" type="Sprite2D" parent="." unique_id=861463858]
+position = Vector2(945, 248)
+texture = ExtResource("37_cb")
+offset = Vector2(0, -16)
+
+[node name="Brilho" type="Sprite2D" parent="CristalB3" unique_id=757020123]
+material = SubResource("Mat_soma")
+position = Vector2(0, -16)
+scale = Vector2(0.53, 1.37)
+texture = ExtResource("47_brilho")
+
+[node name="ColunaEsq1" type="Sprite2D" parent="." unique_id=609698112]
+position = Vector2(372, 88)
+texture = ExtResource("39_col")
+offset = Vector2(0, -26)
+
+[node name="ColunaEsq2" type="Sprite2D" parent="." unique_id=348569103]
+position = Vector2(372, 176)
+texture = ExtResource("39_col")
+offset = Vector2(0, -26)
+
+[node name="ColunaDir1" type="Sprite2D" parent="." unique_id=1558810967]
+position = Vector2(588, 88)
+texture = ExtResource("39_col")
+offset = Vector2(0, -26)
+
+[node name="ColunaDir2" type="Sprite2D" parent="." unique_id=1311139405]
+position = Vector2(588, 176)
+texture = ExtResource("41_colq")
+offset = Vector2(0, -18)
+
+[node name="Pedras1" type="Sprite2D" parent="." unique_id=855556983]
+position = Vector2(150, 92)
+texture = ExtResource("42_p1")
+offset = Vector2(0, -8)
+
+[node name="Pedras2" type="Sprite2D" parent="." unique_id=688431696]
+position = Vector2(270, 206)
+texture = ExtResource("43_p2")
+offset = Vector2(0, -8)
+
+[node name="Pedras3" type="Sprite2D" parent="." unique_id=720149030]
+position = Vector2(710, 124)
+texture = ExtResource("44_p3")
+offset = Vector2(0, -8)
+
+[node name="Pedras4" type="Sprite2D" parent="." unique_id=463484943]
+position = Vector2(830, 76)
+texture = ExtResource("42_p1")
+offset = Vector2(0, -8)
+
+[node name="Pedras5" type="Sprite2D" parent="." unique_id=978722957]
+position = Vector2(880, 150)
+texture = ExtResource("43_p2")
+offset = Vector2(0, -8)
+
+[node name="Pedras6" type="Sprite2D" parent="." unique_id=942097867]
+position = Vector2(250, 60)
+texture = ExtResource("44_p3")
+offset = Vector2(0, -8)
+
+[node name="Rachadura1" type="Sprite2D" parent="." unique_id=1207668587]
+z_index = -9
+position = Vector2(200, 150)
+texture = ExtResource("45_rach")
+offset = Vector2(0, -8)
+
+[node name="Rachadura2" type="Sprite2D" parent="." unique_id=1940019678]
+z_index = -9
+position = Vector2(760, 168)
+texture = ExtResource("45_rach")
+offset = Vector2(0, -8)
+
+[node name="Rachadura3" type="Sprite2D" parent="." unique_id=493016254]
+z_index = -9
+position = Vector2(120, 66)
+texture = ExtResource("45_rach")
+offset = Vector2(0, -8)
+
+[node name="Rachadura4" type="Sprite2D" parent="." unique_id=540016590]
+z_index = -9
+position = Vector2(660, 210)
+texture = ExtResource("45_rach")
+offset = Vector2(0, -8)
+
+[node name="BandeiraEsq" type="Sprite2D" parent="." unique_id=1873455804]
+position = Vector2(364, 36)
+texture = ExtResource("46_band")
+offset = Vector2(4, -16)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BandeiraEsq" unique_id=175455098]
+libraries/ = SubResource("Lib_ondular")
+autoplay = &"ondular"
+
+[node name="BandeiraDir" type="Sprite2D" parent="." unique_id=406782841]
+position = Vector2(596, 236)
+texture = ExtResource("46_band")
+offset = Vector2(4, -16)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BandeiraDir" unique_id=1820319019]
+libraries/ = SubResource("Lib_ondular")
+autoplay = &"ondular"
 
 [node name="Player" parent="." unique_id=1296318626 instance=ExtResource("6_player")]
 position = Vector2(60, 128)
@@ -179,9 +487,6 @@ config = ExtResource("5_config")
 [node name="ManualSistema" parent="." unique_id=1198069822 instance=ExtResource("14_manual")]
 comandos = Array[String](["log", "branch", "switch", "add", "commit", "merge"])
 
-[node name="PainelObjetivos" type="CanvasLayer" parent="." unique_id=1975674604]
-script = ExtResource("4_objetivos")
-
 [node name="PlayerHealthUI" parent="." unique_id=1470207797 instance=ExtResource("15_hp")]
 
 [node name="PauseMenu" parent="." unique_id=668956609 instance=ExtResource("16_pausa")]
@@ -189,3 +494,24 @@ script = ExtResource("4_objetivos")
 [node name="DefeatScreen" parent="." unique_id=2050551238 instance=ExtResource("17_derrota")]
 
 [node name="VictoryScreen" parent="." unique_id=1704418157 instance=ExtResource("18_vitoria")]
+
+[node name="Passagem" type="Area2D" parent="." unique_id=1584269284]
+position = Vector2(480, 128)
+collision_layer = 0
+
+[node name="Forma" type="CollisionShape2D" parent="Passagem" unique_id=1295888357]
+shape = SubResource("Forma_passagem")
+
+[node name="NotaRegistro" type="Area2D" parent="." unique_id=647812641]
+position = Vector2(92, 190)
+script = ExtResource("20_nota")
+id_nota = &"f2_registro_segmento"
+tipo = "registro"
+fase = 2
+
+[node name="NotaPlaca" type="Area2D" parent="." unique_id=242229778]
+position = Vector2(900, 190)
+script = ExtResource("20_nota")
+id_nota = &"f2_placa_conselho"
+tipo = "ata"
+fase = 2

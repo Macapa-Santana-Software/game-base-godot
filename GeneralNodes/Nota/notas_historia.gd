@@ -51,6 +51,30 @@ Registre tudo. Um registro não prende o que foi: ele guarda para depois.
 
 [i]Boa sorte, Walker.[/i]",
 	},
+	# ---- Fase 2 ----
+	&"f2_registro_segmento": {
+		"fase": 2,
+		"tipo": "registro",
+		"titulo": "Registro do segmento 12",
+		"autor": "Sistema do fragmento",
+		"texto": "[b]SEGMENTO 12 — PONTE DO ABISMO[/b]
+Estado: [color=#FFE08A]DESLIGADO[/color]
+Dano estrutural: nenhum.
+As pontas foram seladas com precisão.
+
+[i]Isto não caiu. Alguém retirou.[/i]",
+	},
+	&"f2_placa_conselho": {
+		"fase": 2,
+		"tipo": "ata",
+		"titulo": "Placa do Conselho",
+		"autor": "Conselho dos Codex",
+		"texto": "Segmento desligado por divergência de projeto.
+
+[b]Parecer: desnecessário.[/b]
+
+[i](a tinta está quase apagada)[/i]",
+	},
 	# EXEMPLO de formato (usado pelo teste das notas).
 	&"exemplo_carta": {
 		"fase": 0,

@@ -230,12 +230,24 @@ func _falar_no_terminal(id: StringName, entrada: Dictionary, contexto: Dictionar
 	_escrever_no_terminal.bind(linhas).call_deferred()
 
 
+## Mesmo cuidado da tutora: o histórico do terminal não se apaga ao fechar, então a mesma fala não
+## é repetida se nada foi escrito desde a última vez.
+var _ultimo_lote: Array[String] = []
+var _tamanho_apos_lote: int = -1
+
 func _escrever_no_terminal(linhas: Array[String]) -> void:
 	var terminal := get_tree().get_first_node_in_group("terminal_ui")
 	if terminal == null:
 		return
-	for linha in linhas:
+	var novas: Array[String] = linhas
+	var acumulado: Array[String] = linhas.duplicate()
+	if terminal.historico.get_total_character_count() == _tamanho_apos_lote:
+		novas = linhas.filter(func(l: String) -> bool: return not _ultimo_lote.has(l))
+		acumulado = _ultimo_lote + novas
+	for linha in novas:
 		terminal.escrever_no_terminal(linha)
+	_ultimo_lote = acumulado
+	_tamanho_apos_lote = terminal.historico.get_total_character_count()
 
 
 func _linha_de_nota(nota: String) -> String:

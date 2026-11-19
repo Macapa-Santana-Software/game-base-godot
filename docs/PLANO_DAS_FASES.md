@@ -135,7 +135,7 @@ segura e só depois trazê-la para o mundo principal.
 estados lidos do repositório: **quebrada**, **fantasma** (consertada na branch, mas a `main` ainda não a tem: não dá para
 atravessar) e **sólida** (merge feito: a passagem abre para sempre). O `git log` mostra um commit passado ("Ponte intacta").
 
-**Técnico.** `fases/fase_2/` (`EstadoPonte`, `PonteTutorial`, `TutoraPonte`, painel de objetivos).
+**Técnico.** `fases/fase_2/` (`EstadoPonte`, `PonteTutorial`, `TutoraPonte`, painel de objetivos). Visual "Cânion de brasa": ver `docs/DESIGN_FASES.md`.
 
 **História possível.** Quem quebrou a ponte? Ligar ao arco: um commit antigo da ponte aparece no `log` com um autor que o
 jogador não reconhece.

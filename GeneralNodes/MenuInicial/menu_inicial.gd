@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func _on_jogar_pressed() -> void:
+	Diario.limpar()  # jogo novo: o Diário começa vazio
 	get_tree().change_scene_to_file(cena_jogar)
 
 

@@ -11,10 +11,10 @@ class_name PonteTutorial extends Node2D
 
 signal ponte_concluida
 
-const ALFA_FANTASMA := 0.45
+const ALFA_FANTASMA := 0.8
 
 @onready var quebrada: Node2D = $Quebrada
-@onready var inteira: Node2D = $Inteira
+@onready var inteira: PlacasPonte = $Inteira
 @onready var forma_bloqueio: CollisionShape2D = $Bloqueio/Forma
 
 var _solida: bool = false
@@ -34,12 +34,15 @@ func _atualizar(instantaneo: bool = false) -> void:
 	if EstadoPonte.na_main():
 		_solida = true
 		_mostrar(false, 1.0, instantaneo)
+		inteira.acender(instantaneo)  # as placas se acendem uma a uma, da esquerda para a direita
 		forma_bloqueio.set_deferred("disabled", true)
 		if not instantaneo:
 			ponte_concluida.emit()
 	elif EstadoPonte.versionada_em(GameState.branch_ativa):
+		inteira.apagar()
 		_mostrar(true, ALFA_FANTASMA, instantaneo)
 	else:
+		inteira.apagar()
 		_mostrar(true, 0.0, instantaneo)
 
 

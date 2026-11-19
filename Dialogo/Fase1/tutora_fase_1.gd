@@ -158,12 +158,25 @@ func _lista(nomes: Array) -> String:
 func _falar(linhas: Array) -> void:
 	_escrever_no_terminal.bind(linhas).call_deferred()
 
+## Último lote falado e o tamanho do histórico logo depois dele. O histórico do terminal não se apaga
+## ao fechar: se o jogador reabre sem ter feito nada, repetir a mesma fala só duplicaria o texto.
+var _ultimo_lote: Array = []
+var _tamanho_apos_lote: int = -1
+
 func _escrever_no_terminal(linhas: Array) -> void:
 	var ui = get_tree().get_first_node_in_group("terminal_ui")
 	if ui == null:
 		return
-	for linha in linhas:
+	var novas: Array = linhas
+	var acumulado: Array = linhas.duplicate()
+	if ui.historico.get_total_character_count() == _tamanho_apos_lote:
+		# Nada foi escrito desde a última fala da IA: não repete o que ela já disse.
+		novas = linhas.filter(func(l: Variant) -> bool: return not _ultimo_lote.has(l))
+		acumulado = _ultimo_lote + novas
+	for linha in novas:
 		ui.escrever_no_terminal(PREFIXO_TERMINAL + str(linha))
+	_ultimo_lote = acumulado
+	_tamanho_apos_lote = ui.historico.get_total_character_count()
 
 # Frase curta com o próximo passo, no formato de fala do terminal
 func _proximo_passo_terminal(estado: String, forcar_comando: bool = false) -> String:
