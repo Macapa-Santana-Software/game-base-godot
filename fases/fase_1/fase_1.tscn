@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" path="res://Props/Santuario/pedestal.tscn" id="22_pedestal"]
 [ext_resource type="PackedScene" path="res://Props/Santuario/fragmento_flutuante.tscn" id="23_fragmento"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/Manual/manual_sistema.tscn" id="99_manual"]
+[ext_resource type="PackedScene" path="res://itens/coracao_cura.tscn" id="27_coracao"]
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="28_nota"]
 [ext_resource type="Texture2D" path="res://itens/fase1/sprites/arquivo_setup.png" id="24_tex_setup"]
 [ext_resource type="Texture2D" path="res://itens/fase1/sprites/arquivo_readme.png" id="25_tex_readme"]
 [ext_resource type="Texture2D" path="res://itens/fase1/sprites/arquivo_main.png" id="26_tex_main"]
@@ -260,3 +262,29 @@ visible = false
 [node name="DefeatScreen" parent="." instance=ExtResource("14_derrota")]
 
 [node name="VictoryScreen" parent="." instance=ExtResource("16_vitoria")]
+
+[node name="Coracao1" parent="." instance=ExtResource("27_coracao")]
+position = Vector2(800, 240)
+
+[node name="Coracao2" parent="." instance=ExtResource("27_coracao")]
+position = Vector2(1170, 272)
+
+[node name="Coracao3" parent="." instance=ExtResource("27_coracao")]
+position = Vector2(900, 520)
+
+[node name="Coracao4" parent="." instance=ExtResource("27_coracao")]
+position = Vector2(1380, 944)
+
+[node name="NotaPlaca" type="Area2D" parent="."]
+position = Vector2(232, 232)
+script = ExtResource("28_nota")
+id_nota = &"f1_placa_triagem"
+tipo = "placa"
+fase = 1
+
+[node name="NotaCarta" type="Area2D" parent="."]
+position = Vector2(1480, 1000)
+script = ExtResource("28_nota")
+id_nota = &"f1_carta_elian"
+tipo = "carta"
+fase = 1

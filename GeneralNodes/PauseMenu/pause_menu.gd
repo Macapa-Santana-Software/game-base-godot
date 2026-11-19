@@ -9,18 +9,43 @@ const DURACAO_FADE := 0.15
 
 @onready var raiz: Control = %Control
 @onready var continuar_button: Button = %ContinuarButton
+@onready var diario_button: Button = %DiarioButton
+@onready var controles_button: Button = %ControlesButton
 @onready var sair_button: Button = %SairButton
+@onready var painel_principal: Control = $Control/CenterContainer/Painel
+@onready var painel_controles: Control = %PainelControles
+@onready var voltar_button: Button = %VoltarButton
 
 var _pausado_por_outro_sistema: bool = false
 
 func _ready() -> void:
 	hide()
 	continuar_button.pressed.connect(continuar)
+	diario_button.pressed.connect(Diario.abrir_diario)
+	Diario.diario_fechado.connect(_on_diario_fechado)
+	controles_button.pressed.connect(_mostrar_controles.bind(true))
+	voltar_button.pressed.connect(_mostrar_controles.bind(false))
 	sair_button.pressed.connect(sair)
+
+## Alterna entre o menu e a tela de controles (só leitura).
+func _mostrar_controles(mostrar: bool) -> void:
+	painel_controles.visible = mostrar
+	painel_principal.visible = not mostrar
+	if mostrar:
+		voltar_button.grab_focus()
+	else:
+		controles_button.grab_focus()
+
+func _on_diario_fechado() -> void:
+	# Ao fechar o Diário (aberto por este menu) o foco volta para o botão dele.
+	if visible:
+		diario_button.grab_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
-		if visible:
+		if visible and painel_controles.visible:
+			_mostrar_controles(false)  # Esc na tela de controles volta ao menu
+		elif visible:
 			continuar()
 		else:
 			abrir()
@@ -31,6 +56,7 @@ func abrir() -> void:
 	# despausar tudo sozinho ao ser fechado depois.
 	_pausado_por_outro_sistema = get_tree().paused
 	_avisar_sistemas_pausaveis(true)
+	_mostrar_controles(false)
 	show()
 	get_tree().paused = true
 	# Entrada suave e foco no primeiro botão (navegação por teclado/Enter)

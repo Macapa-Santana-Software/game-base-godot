@@ -503,3 +503,39 @@ Ao clonar o projeto, confira em **Projeto → Configurações do Projeto → Map
 - Baseado no estado do repositório em maio/2026 (`fases/fase_1/fase_1.tscn` como exemplo de integração).
 
 Para dúvidas sobre apenas a hotbar, consulte também `info-inventario.txt` na raiz (referência antiga; em caso de conflito, priorize este guia e os arquivos `.gd`).
+
+---
+
+## 8. Notas da história e Diário
+
+As notas (cartas, placas, atas, diários de campo, registros) são o jeito **opcional** de contar a história
+(ver `docs/HISTORIA.md`): o jogador chega perto, aperta **ENTER** e lê. Nunca liberam nada nem ensinam o comando.
+Tudo que foi lido fica no **Diário** (botão "DIÁRIO" do menu de pausa) e é salvo em `user://diario.json`.
+
+| Arquivo (`GeneralNodes/Nota/`) | Papel |
+|---|---|
+| `notas_historia.gd` (`NotasHistoria`) | **Catálogo dos textos.** É aqui que se escreve a história (id, fase, tipo, título, autor, texto com BBCode). |
+| `nota.gd` (`Nota`) | Nó para colocar na cena (Area2D). Ícone provisório que pulsa enquanto não lida. |
+| `diario.gd` (autoload `Diario`) | Guarda o que foi lido, abre a tela, emite `nota_lida(id, primeira_vez)`. |
+| `diario_ui.gd` | Tela de leitura (uma nota) e de lista (menu de pausa). Pausa o jogo e devolve o estado anterior. |
+
+### Colocar uma nota numa fase
+
+1. Escreva a nota em `NotasHistoria.NOTAS` com um id único, por exemplo `&"f2_placa_conselho"`.
+2. Na cena, adicione um nó **`Nota`**, escolha o `tipo` e preencha só o `id_nota`. Posicione-o onde o jogador passa.
+3. (Opcional) conecte `lida(id, primeira_vez)` para a fase ou o Eidolon reagirem à primeira leitura.
+
+Para um teste rápido dá para preencher `titulo`/`texto`/`autor` direto no nó (valem só quando o id não está no catálogo).
+
+### Regras de escrita
+
+- Curtas (até ~6 linhas) e sempre opcionais; a tutora continua guiando o comando.
+- Dão **significado** ao que o jogador faz; não explicam Git.
+- `NOTAS["exemplo_carta"]` é só um exemplo de formato e pode ser apagado.
+
+### API
+
+`Diario.ler(id, dados)` · `Diario.abrir_diario()` · `Diario.fechar()` · `Diario.foi_lida(id)` · `Diario.entradas()` ·
+`Diario.limpar()` (novo jogo/testes). Teste: `test/nota_diario_test.tscn` (26 verificações).
+
+> A Fase 6 ainda não tem o menu de pausa na cena, então o Diário não abre por lá até ela receber o `PauseMenu`.

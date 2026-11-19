@@ -1,0 +1,63 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://GeneralNodes/MenuInicial/menu_inicial.gd" id="1_script"]
+[ext_resource type="Theme" path="res://GeneralNodes/UI/tema_santuario.tres" id="2_tema"]
+
+[node name="MenuInicial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tema")
+script = ExtResource("1_script")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.027, 0.043, 0.086, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TituloLabel" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.21, 0.84, 0.91, 1)
+theme_override_font_sizes/font_size = 24
+text = "BranchSkipper"
+horizontal_alignment = 1
+
+[node name="SubtituloLabel" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.537, 0.392, 0.847, 1)
+theme_override_font_sizes/font_size = 8
+text = "Restaure a realidade, commit por commit."
+horizontal_alignment = 1
+
+[node name="Separador" type="HSeparator" parent="CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="JogarButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "JOGAR"
+
+[node name="SairButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SAIR"

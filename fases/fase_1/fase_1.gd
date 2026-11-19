@@ -12,6 +12,11 @@ var fase_concluida: bool = false
 var _arquivos_requeridos: Array[String] = []
 
 func _ready() -> void:
+	# A Fase 1 sempre começa do zero: ao entrar (jogo novo) ou ao reiniciar depois de uma derrota,
+	# o Git do jogador é esquecido e os itens voltam ao mapa. Sem isso a saída ficaria trancada
+	# para sempre (ela só abre no evento de commit) e o repositório lembraria de itens "perdidos".
+	GameState.resetar_repositorio()
+
 	for item in get_tree().get_nodes_in_group(ItemColetavel.GRUPO_ARQUIVOS):
 		_arquivos_requeridos.append(item.nome_do_item)
 

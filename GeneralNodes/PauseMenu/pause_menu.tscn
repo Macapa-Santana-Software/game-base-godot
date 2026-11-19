@@ -84,6 +84,16 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "CONTINUAR"
 
+[node name="DiarioButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DIÁRIO"
+
+[node name="ControlesButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CONTROLES"
+
 [node name="SairButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -95,3 +105,44 @@ theme_override_colors/font_color = Color(0.357, 0.408, 0.498, 1)
 theme_override_font_sizes/font_size = 8
 text = "Esc para continuar"
 horizontal_alignment = 1
+
+[node name="PainelControles" type="PanelContainer" parent="Control/CenterContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+
+[node name="Margem" type="MarginContainer" parent="Control/CenterContainer/PainelControles"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Control/CenterContainer/PainelControles/Margem"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Cabecalho" type="PanelContainer" parent="Control/CenterContainer/PainelControles/Margem/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("Estilo_cabecalho")
+
+[node name="TituloLabel" type="Label" parent="Control/CenterContainer/PainelControles/Margem/VBox/Cabecalho"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.21, 0.84, 0.91, 1)
+theme_override_font_sizes/font_size = 16
+text = "CONTROLES"
+horizontal_alignment = 1
+
+[node name="ControlesLabel" type="RichTextLabel" parent="Control/CenterContainer/PainelControles/Margem/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 118)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "[table=2][cell][color=#36d6e8]W A S D / Setas[/color][/cell][cell]  Mover[/cell][cell][color=#36d6e8]Espaço[/color][/cell][cell]  Atacar[/cell][cell][color=#36d6e8]Enter[/color][/cell][cell]  Interagir (portas, notas)[/cell][cell][color=#36d6e8]1 / 2 / 3[/color][/cell][cell]  Escolher item do inventário[/cell][cell][color=#36d6e8]T[/color][/cell][cell]  Terminal (perto do Obelisco)[/cell][cell][color=#36d6e8]M[/color][/cell][cell]  Manual dos comandos Git[/cell][cell][color=#36d6e8]Esc[/color][/cell][cell]  Pausar / voltar[/cell][/table]"
+
+[node name="VoltarButton" type="Button" parent="Control/CenterContainer/PainelControles/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "VOLTAR"
