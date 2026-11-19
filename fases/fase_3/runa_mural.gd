@@ -22,6 +22,11 @@ const COR_RUIDO_A := Color("FF2BD6")
 const COR_RUIDO_B := Color("12001A")
 const COR_OFICINA := Color("FF9A3D")
 const COR_PALCO := Color("3DA9FF")
+const COR_TINTA := Color("2B2822")
+const TABLETE: Texture2D = preload("res://fases/fase_3/arte/tablete_runa.png")
+const GLIFOS: Texture2D = preload("res://fases/fase_3/arte/runas_glifos.png")
+## Glifo (quadro do sprite sheet) de cada runa.
+const GLIFO_DE := {"sol": 0, "lua": 1, "estrela": 2, "terra": 3, "mar": 4, "fogo": 5, "vento": 6, "aurora": 7, "eclipse": 8}
 
 @export var nome_arquivo: String = ""
 ## Posições [Oficina, Palco, Arquivo]. Vazio = a runa fica parada onde foi colocada.
@@ -90,6 +95,11 @@ func _draw() -> void:
 	var caixa := Rect2(-TAM / 2.0, -TAM / 2.0, TAM, TAM)
 	var miolo := caixa.grow(-5.0)
 
+	# Sombra no chão e o tablete de pedra; por dentro, a moldura (cor BASE) e o miolo (cor ATUAL)
+	draw_set_transform(Vector2(0, TAM / 2.0 + 3.0), 0.0, Vector2(1.0, 0.3))
+	draw_circle(Vector2.ZERO, TAM / 2.0 + 3.0, Color(0, 0, 0, 0.22))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	draw_texture(TABLETE, Vector2(-17.0, -17.0))
 	draw_rect(caixa, _cor(str(d["base"])))
 	if d["atual"] == ModeloMural.RUIDO:
 		draw_rect(miolo, COR_RUIDO_B)
@@ -99,15 +109,19 @@ func _draw() -> void:
 	else:
 		draw_rect(miolo, _cor(str(d["atual"])))
 
+	# Glifo da runa gravado no miolo
+	var indice: int = GLIFO_DE.get(nome_arquivo.get_basename(), 0)
+	draw_texture_rect_region(GLIFOS, Rect2(-6.0, -6.0, 12.0, 12.0), Rect2(indice * 12.0, 0.0, 12.0, 12.0))
+
 	if _modelo.preparada(nome_arquivo):
-		draw_rect(caixa.grow(2.0), COR_PALCO, false, 2.0)
+		draw_rect(Rect2(-18.0, -18.0, 36.0, 36.0), COR_PALCO, false, 2.0)
 	elif _modelo.modificada(nome_arquivo):
-		draw_rect(caixa.grow(2.0), COR_OFICINA, false, 2.0)
+		draw_rect(Rect2(-18.0, -18.0, 36.0, 36.0), COR_OFICINA, false, 2.0)
 	if _brilho > 0.0:
 		draw_rect(caixa.grow(5.0), Color(1.0, 0.95, 0.4, _brilho), false, 2.0)
 
 	var fonte := ThemeDB.fallback_font
 	var rotulo := nome_arquivo.get_basename()
 	var largura := fonte.get_string_size(rotulo, HORIZONTAL_ALIGNMENT_LEFT, -1, 7).x
-	draw_string(fonte, Vector2(-largura / 2.0, TAM / 2.0 + 10.0), rotulo,
-		HORIZONTAL_ALIGNMENT_LEFT, -1, 7, Color(0.85, 0.9, 0.95))
+	draw_string(fonte, Vector2(-largura / 2.0, TAM / 2.0 + 14.0), rotulo,
+		HORIZONTAL_ALIGNMENT_LEFT, -1, 7, COR_TINTA)

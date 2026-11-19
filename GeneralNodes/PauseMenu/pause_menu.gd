@@ -11,20 +11,25 @@ const DURACAO_FADE := 0.15
 @onready var continuar_button: Button = %ContinuarButton
 @onready var diario_button: Button = %DiarioButton
 @onready var controles_button: Button = %ControlesButton
+@onready var reiniciar_button: Button = %ReiniciarButton
 @onready var sair_button: Button = %SairButton
 @onready var painel_principal: Control = $Control/CenterContainer/Painel
 @onready var painel_controles: Control = %PainelControles
 @onready var voltar_button: Button = %VoltarButton
 
 var _pausado_por_outro_sistema: bool = false
+var _confirmando_reinicio: bool = false
 
 func _ready() -> void:
 	hide()
+	# Foto do jogo no início da fase (garante o reinício mesmo em cenas sem tela de derrota)
+	GameState.guardar_checkpoint()
 	continuar_button.pressed.connect(continuar)
 	diario_button.pressed.connect(Diario.abrir_diario)
 	Diario.diario_fechado.connect(_on_diario_fechado)
 	controles_button.pressed.connect(_mostrar_controles.bind(true))
 	voltar_button.pressed.connect(_mostrar_controles.bind(false))
+	reiniciar_button.pressed.connect(_on_reiniciar_pressed)
 	sair_button.pressed.connect(sair)
 
 ## Alterna entre o menu e a tela de controles (só leitura).
@@ -50,6 +55,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			abrir()
 		get_viewport().set_input_as_handled()
+
+## Reiniciar apaga o progresso da fase: pede um segundo clique para confirmar.
+func _on_reiniciar_pressed() -> void:
+	if not _confirmando_reinicio:
+		_confirmando_reinicio = true
+		reiniciar_button.text = "CONFIRMAR? CLIQUE DE NOVO"
+		get_tree().create_timer(3.0, true, false, true).timeout.connect(_cancelar_confirmacao)
+		return
+	_cancelar_confirmacao()
+	hide()
+	FaseManager.reiniciar_fase_atual()
+
+func _cancelar_confirmacao() -> void:
+	_confirmando_reinicio = false
+	if is_instance_valid(reiniciar_button):
+		reiniciar_button.text = "REINICIAR FASE"
 
 func abrir() -> void:
 	# Se algo (ex.: um diálogo) já tinha pausado a árvore, o menu não deve

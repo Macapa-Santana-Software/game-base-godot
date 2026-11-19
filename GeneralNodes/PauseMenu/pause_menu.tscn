@@ -94,6 +94,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "CONTROLES"
 
+[node name="ReiniciarButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "REINICIAR FASE"
+
 [node name="SairButton" type="Button" parent="Control/CenterContainer/Painel/Margem/VBox"]
 unique_name_in_owner = true
 layout_mode = 2

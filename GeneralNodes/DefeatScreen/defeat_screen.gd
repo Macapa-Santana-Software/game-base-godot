@@ -21,9 +21,7 @@ func _on_reiniciar_pressed() -> void:
 	hide()
 	get_tree().paused = false
 	# Recomeça a fase do zero: Git, inventário e progresso voltam ao que eram ao entrar nela.
-	GameState.restaurar_checkpoint()
-	Diario.descartar_tentativa()  # as notas lidas nesta tentativa voltam a aparecer não lidas no mapa
-	get_tree().reload_current_scene()
+	FaseManager.reiniciar_fase_atual()
 
 func _on_sair_pressed() -> void:
 	get_tree().quit()

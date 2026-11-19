@@ -536,7 +536,7 @@ Para um teste rápido dá para preencher `titulo`/`texto`/`autor` direto no nó 
 ### API
 
 `Diario.ler(id, dados)` · `Diario.abrir_diario()` · `Diario.fechar()` · `Diario.foi_lida(id)` · `Diario.entradas()` ·
-`Diario.limpar()` (novo jogo/testes). Teste: `test/nota_diario_test.tscn` (34 verificações).
+`Diario.limpar()` (novo jogo/testes). O menu de pausa tem **REINICIAR FASE** e a tela de derrota usa a mesma função (`FaseManager.reiniciar_fase_atual()`). Teste: `test/nota_diario_test.tscn` (34 verificações).
 
 **Marca no mapa x Diário.** O Diário guarda tudo o que foi lido, para sempre. A *marca* do ícone no mapa (translúcido com visto) é separada:
 vale na tentativa atual da fase (`Diario.foi_marcada(id)`); se o jogador morre, a tela de derrota chama `Diario.descartar_tentativa()` e a nota volta

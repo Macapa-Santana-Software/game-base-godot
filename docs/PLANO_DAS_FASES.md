@@ -168,7 +168,14 @@ de várias runas por "ruído". Uma mudança, porém, é boa: foi o próprio joga
 **Técnico.** `fases/fase_3/`: `ModeloMural` guarda base/índice/atual de cada runa em `progresso_tutoria` (o `GameState`
 ainda não guarda conteúdo). `RunaMural`, `PortaMural`, `AltarReescrita`, `TutoraMural`.
 
-**Lacuna conhecida.** Esta fase ainda **não tem teste automatizado** (as Fases 4, 5 e 6 têm).
+**História (implementada).** A IA explica o ruído ("o que sobra de trabalho que ninguém registrou") e hesita ("Eu sei disso. Não sei como sei"); a mudança
+boa do mar é de **alguém**; ao fechar a zona 2 a assinatura **W-3** reaparece ao lado do mar; ao limpar o mural o ruído recua e surge a lei
+original ("Registrar não é prender. É lembrar."), e a IA diz "Alguém esteve aqui antes de você, Walker. E fez a coisa certa." Três notas
+(placa dos Escribas, ata do Conselho, folha solta do mar). Texto das notas em `NotasHistoria`.
+
+**Teste.** `test/fase_3_mecanica_test.tscn` (fluxo, armadilha e Altares, história, reinício pelo menu).
+
+**Visual.** "Pedra clara e ouro" (arte em PNG gerada por `tools/gerar_arte_fase_3.gd`); ver `docs/DESIGN_FASES.md`.
 
 **História possível.** Quem é a Corrupção? Ligar ao "ruído" que reaparece na Fase 6 (o commit fantasma ilegível).
 

@@ -55,6 +55,14 @@ func sincronizar_com_cena_atual() -> void:
 	if indice >= 0:
 		current_level_index = indice
 
+## Recomeça a fase atual do zero (menu de pausa e tela de derrota): o Git, o inventário e o progresso
+## voltam ao que eram ao entrar nela, e as notas lidas nesta tentativa voltam a aparecer não lidas.
+func reiniciar_fase_atual() -> void:
+	GameState.restaurar_checkpoint()
+	Diario.descartar_tentativa()
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
 ## A fase atual é a última da sequência?
 func is_last_phase() -> bool:
 	return current_level_index == FASES.size() - 1

@@ -75,6 +75,28 @@ As pontas foram seladas com precisão.
 
 [i](a tinta está quase apagada)[/i]",
 	},
+	# ---- Fase 3 ----
+	&"f3_placa_escribas": {
+		"fase": 3,
+		"tipo": "placa",
+		"titulo": "Mural dos Escribas",
+		"autor": "",
+		"texto": "[b]MURAL DOS ESCRIBAS[/b]\n\nCada runa leva o Selo da lei.\nRuna sem Selo não é lei: é ruído.\n\n[i]Não confunda o que mudou com o que quebrou.[/i]",
+	},
+	&"f3_ata_corrupcao": {
+		"fase": 3,
+		"tipo": "ata",
+		"titulo": "Ata da Corrupção",
+		"autor": "Conselho dos Codex",
+		"texto": "A Corrupção é o resíduo do trabalho não registrado.\n\nRecomenda-se descartar todo estado não registrado, [b]inclusive o que parecer bom[/b].\n\n[b]Parecer: desnecessário.[/b]",
+	},
+	&"f3_diario_mar": {
+		"fase": 3,
+		"tipo": "diario",
+		"titulo": "Folha solta",
+		"autor": "",
+		"texto": "Corrigi a runa do mar. Azul não combinava com ela: era verde.\n\nNinguém vai registrar isto. Se você achar a runa certa, deixe-a como está.\n\n[i]Boa sorte.[/i]",
+	},
 	# EXEMPLO de formato (usado pelo teste das notas).
 	&"exemplo_carta": {
 		"fase": 0,

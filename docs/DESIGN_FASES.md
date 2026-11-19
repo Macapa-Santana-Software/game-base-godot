@@ -62,4 +62,27 @@ Segue o estilo da Fase 1: corações (canto superior esquerdo), aba do Manual (e
 "próximo passo" e "comandos") e inventário (embaixo, centro). Na Fase 2 o painel de objetivos foi retirado: o quadro da IA já diz o próximo passo,
 como na Fase 1. (A classe `PainelObjetivosPonte` continua no projeto porque as fases 3, 5 e 6 ainda a usam.)
 
-Falta: áudio da fase.
+Falta: áudio da fase (adiado para todas as fases).
+
+## Fase 3 — O Mural Corrompido: **Pedra clara e ouro**
+HUD igual à da Fase 1 (painel de objetivos retirado). O cenário é neutro e claro para as cores das runas se destacarem.
+Cores **reservadas pela mecânica**: dourado, prata, azul, verde, roxo e vermelho = valor das runas; **magenta/preto (xadrez) = ruído da Corrupção**
+(também a barreira das portas); laranja = Oficina, azul = Palco, verde = Arquivo.
+
+| Uso | Cor |
+|---|---|
+| Calcário (lajes, paredão) | `#C9C3B4` · `#AAA597` · `#8E897C` · `#6E695C` · `#4A463E` |
+| Ouro (filetes, frisos, candelabros) | `#B8913A` · `#E8B84A` · `#F7DB8A` |
+| Tinta (contornos e textos) | `#2B2822` |
+
+**Cenário:** lajes de calcário em fiadas, paredões com friso de runas douradas e cornija de ouro, selos dourados gravados sob cada Obelisco,
+colunas (inteiras e quebradas) com faixa de ouro, candelabros com chama animada e pedras soltas. As portas são **barreiras de ruído** (glitch
+magenta que pisca e se dissolve ao abrir). As zonas do Palco são faixas do chão com moldura colorida e cantos de ouro. Cada runa é um **tablete
+de pedra** com moldura de ouro e um **glifo gravado** (sol, lua, estrela, terra, mar, fogo, vento, aurora, eclipse); o altar da reescrita tem uma
+bacia dourada. Obelisco, plataforma e portal foram recoloridos para ouro.
+
+**Arte:** `fases/fase_3/arte/`, gerada por `tools/gerar_arte_fase_3.gd` (`godot --headless --path . --script res://tools/gerar_arte_fase_3.gd`).
+
+## Menu de pausa
+Todas as fases com o menu de pausa têm **REINICIAR FASE** (pede um segundo clique): recomeça do zero, como morrer
+(`FaseManager.reiniciar_fase_atual()`). A Fase 6 ainda não tem o menu de pausa na cena.

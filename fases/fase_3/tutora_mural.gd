@@ -108,10 +108,38 @@ func _on_terminal_aberto() -> void:
 	var linhas: Array = []
 	if _primeira_vez("terminal"):
 		linhas.append(INTRO)
+		linhas.append("Isso é o que sobra de trabalho que ninguém registrou. Quando tudo caiu, o que estava só na pasta, sem foto, virou ruído.")
+		linhas.append("Eu sei disso. ... Não sei como sei.")
 		linhas.append("Três lugares importam: a %s (onde se mexe nas runas), o %s (%s: o que vai para o registro) e o %s (o commit, a versão guardada)." % [_conceito("Oficina"), _conceito("Palco"), _conceito("staging area"), _conceito("Arquivo")])
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
+
+
+## Conta uma sequência de falas: no terminal aberto, tudo de uma vez no histórico; fora dele, em balões espaçados.
+func _contar(linhas: Array, intervalo: float = 4.5) -> void:
+	if _terminal_aberto:
+		_falar(linhas)
+		return
+	for i in range(linhas.size()):
+		if i == 0:
+			_dizer(str(linhas[i]))
+		else:
+			get_tree().create_timer(intervalo * i).timeout.connect(_dizer.bind(str(linhas[i])))
+
+
+## A assinatura de quem consertou a runa do mar reapareceu.
+func assinatura_revelada() -> void:
+	_contar(["Olhe ao lado da runa do mar: uma assinatura, %s. Aquela mudança boa era de alguém." % _cmd("W-3")])
+
+
+## O mural foi limpo: o ruído recuou e a lei original apareceu.
+func mural_limpo() -> void:
+	_contar([
+		"Por baixo do ruído estava escrito: \"Registrar não é prender. É lembrar.\"",
+		"...",
+		"Alguém esteve aqui antes de você, Walker. E fez a coisa certa.",
+	])
 
 
 func _on_status_mural() -> void:
@@ -129,7 +157,7 @@ func _on_diff_mural(nomes: Array) -> void:
 	var linhas: Array = []
 	if _primeira_vez("diff"):
 		linhas.append("O %s compara a runa com a versão guardada. %s é como estava; %s é como ficou. As runas que mudaram brilharam no mural." % [_cmd("git diff"), _cmd("-cor"), _cmd("+cor")])
-		linhas.append("Repare: algumas trocaram para %s (a Corrupção), mas uma delas mudou para uma cor de verdade: foi trabalho SEU. O diff serve para não confundir as duas." % _cmd("ruído"))
+		linhas.append("Repare: algumas trocaram para %s (a Corrupção), mas uma delas mudou para uma cor de verdade: é trabalho de ALGUÉM. O diff serve para não confundir as duas." % _cmd("ruído"))
 	elif nomes.is_empty():
 		linhas.append("Sem diferenças aí: nada mudou nesse arquivo.")
 	linhas.append(_proximo_passo_terminal(_estado()))
