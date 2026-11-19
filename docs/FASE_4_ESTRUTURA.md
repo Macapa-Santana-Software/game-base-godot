@@ -272,9 +272,12 @@ passa de Desconforto a Dúvida. Nenhuma fala conclui que integrar é a solução
   `git switch` (1ª troca; 1ª troca dentro da Área 3 = evidência "complementares"; volta a main depois de um
   commit na vida = o arquivo da outra linha não existe aqui), `git add` ("separado não é registrado") e o 1º
   `git commit` na vida (mensagem, id e arquivos do commit REAL).
-- **Fragmentos de memória** (`fragmento_memoria.gd`, 3 em main e 3 na vida): opcionais, texto curto, releíveis.
-  A 1ª leitura é persistida em `branches[x].mundo["fragmentos"]` (nascem apagados após reload), vira evidência e
-  pode gerar uma reação curta (balão com cooldown: se Eidolon falou há pouco, fica em silêncio). Os ecos
+- **Fragmentos de memória = NOTAS** (nó `Nota`, `GeneralNodes/Nota/`; 3 em main, 3 na vida e 1 na Área 1; ids `frag_*`, textos em
+  `NotasHistoria`). Seguem o padrão do resto do jogo: ENTER para ler, entram no **Diário** (releíveis pelo menu de pausa) e a
+  marca "lida" vale por tentativa (voltam a brilhar ao morrer, definitivas ao concluir a fase). O brilho da cena (`Frag_*_Brilho`)
+  apaga ao ler (propriedade `visual` da nota, com `desenhar_icone = false`). O Eidolon escuta `Diario.nota_lida`: a leitura vira
+  evidência e, para as que têm fala no roteiro, gera uma reação curta depois que a tela da nota fecha (balão com cooldown: se
+  Eidolon falou há pouco, fica em silêncio). Teste: `test/fase_4_notas_test.tscn`. Os ecos
   principais (`eco_main`, `eco_vida`) também geram reação (prioridade 3).
 - **Reflexão pelo Atlas:** `AtlasUI.no_inspecionado(no)` (só quando o JOGADOR escolhe um nó; abrir o Atlas
   não conta). Inspecionar a memória da vida faz Eidolon comentar, ao fechar o Atlas, de onde ela nasceu (dados
@@ -293,7 +296,7 @@ um merge REAL confirmado pelo GameState (`convergencia_concluida` é derivada).
 - **Área 4** (`area_4_convergencia.gd`): antes, duas metades (violeta/verde) separadas por uma fenda, com os
   elementos de cada realidade esmaecidos nos slots; Eidolon defende a doutrina (balão ao chegar + 1ª abertura do
   terminal). Depois do merge: a fenda some, os elementos das DUAS realidades acendem e surgem os que COEXISTEM
-  (pedra+copa, ponte de pedra+raízes, os dois ecos), sempre com as duas cores lado a lado. Placeholders de cor lisa.
+  (pedra+copa, ponte de pedra+raízes, os dois ecos), sempre com as duas cores lado a lado. 
   Há um 2º artefato do Atlas na Área 4 (o mesmo `AtlasUI`) para a reflexão sem voltar à Área 1.
 - **Eidolon:** conflito (Área 4) → depois do merge: nota curta no terminal e o **ponto de virada** (2º diálogo
   bloqueante, só abre com tudo fechado) → reflexão pelo Atlas → registro final → **fechamento** (3º diálogo): primeira
@@ -337,8 +340,9 @@ um merge REAL confirmado pelo GameState (`convergencia_concluida` é derivada).
 `git log` e à criação de branch (`branch_criada` com o nome esperado ou outro). Fragmento da Área 1 trocado
 por texto ambíguo. **Etapa 2 (feita):** dicas graduais (acima). **Etapa 3 (feita):** realidades (acima). **Etapa 4 (feita):** convergência (acima). **Etapa 5 (feita):** calibragem final (acima).
 
-Textos provisórios restantes: `ConfiguracaoTerminal`, `AtlasUI` (`_texto_da_dica`), `RegistroFinalFase4`
-e as zonas da cena.
+Textos revisados (`ConfiguracaoTerminal`, `AtlasUI._texto_da_dica`, `RegistroFinalFase4` e as zonas da cena): estão
+coerentes com o roteiro e com os dados reais do repositório; não há mais texto provisório. Teste do Eidolon, da HUD e do
+reinício: `test/fase_4_eidolon_test.tscn`.
 
 ## Acabamento visual das Áreas 1, 2 e 5 (realidade neutra)
 

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/barreira.tscn" id="r6"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/prop_fase_4.tscn" id="r7"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/zona_interacao.tscn" id="r8"]
-[ext_resource type="Script" path="res://fases/fase_4/componentes/fragmento_memoria.gd" id="r9"]
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="nota_script_f4"]
 [ext_resource type="TileSet" path="res://fases/fase_4/arte/tilesets/tileset_fase_4.tres" id="r10"]
 [ext_resource type="TileSet" path="res://fases/fase_4/arte/tilesets/tileset_paredes_fase_4.tres" id="r11"]
 [ext_resource type="Texture2D" path="res://fases/fase_4/arte/main/props/coluna_main.png" id="tx_coluna_main"]
@@ -360,13 +360,14 @@ cor = Color(0.8039, 0.7216, 1.0000, 0.9)
 textura = SubResource("at_frag1")
 
 [node name="Frag_M1" parent="Interacoes" instance=ExtResource("r8")]
-script = ExtResource("r9")
+script = ExtResource("nota_script_f4")
 position = Vector2(624, 57.6)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "Registro de poda nº 4: linha encerrada por divergência. Assinado: Conselho de Unificação."
-uma_vez = false
-id_fragmento = &"frag_m1"
+texto_prompt = "Ler"
+id_nota = &"frag_m1"
+tipo = "registro"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_M1_Brilho")
 
 [node name="Frag_M2_Brilho" parent="Objetos" instance=ExtResource("r7")]
@@ -377,13 +378,14 @@ cor = Color(0.8039, 0.7216, 1.0000, 0.9)
 textura = SubResource("at_frag1")
 
 [node name="Frag_M2" parent="Interacoes" instance=ExtResource("r8")]
-script = ExtResource("r9")
+script = ExtResource("nota_script_f4")
 position = Vector2(384, 243.2)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "A ponte não ruiu: foi desligada. Anotação: \"o outro lado não será necessário\"."
-uma_vez = false
-id_fragmento = &"frag_m2"
+texto_prompt = "Ler"
+id_nota = &"frag_m2"
+tipo = "placa"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_M2_Brilho")
 
 [node name="Frag_M3_Brilho" parent="Objetos" instance=ExtResource("r7")]
@@ -394,13 +396,14 @@ cor = Color(0.8039, 0.7216, 1.0000, 0.9)
 textura = SubResource("at_frag1")
 
 [node name="Frag_M3" parent="Interacoes" instance=ExtResource("r8")]
-script = ExtResource("r9")
+script = ExtResource("nota_script_f4")
 position = Vector2(268.8, 582.4)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "Ata, trecho legível: \"o arquivista E. pede que a ramificação seja preservada.\" O resto está corrompido."
-uma_vez = false
-id_fragmento = &"frag_m3"
+texto_prompt = "Ler"
+id_nota = &"frag_m3"
+tipo = "ata"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_M3_Brilho")
 
 [node name="Pilar_Saida_1" parent="Objetos" instance=ExtResource("r7")]

@@ -101,8 +101,8 @@ func _ready() -> void:
 		var area := no as AreaFase4
 		area.jogador_entrou.connect(_on_jogador_entrou)
 		area.jogador_saiu.connect(_on_jogador_saiu)
-	for no in get_tree().get_nodes_in_group(FragmentoMemoria.GRUPO):
-		(no as FragmentoMemoria).lido.connect(_on_fragmento_lido)
+	# Os antigos "fragmentos de memória" agora são NOTAS (Diário): o Eidolon reage quando uma delas é lida.
+	Diario.nota_lida.connect(_on_nota_lida)
 	for no in get_tree().get_nodes_in_group(RegistroFinalFase4.GRUPO):
 		(no as RegistroFinalFase4).observado.connect(_on_registro_observado)
 		(no as RegistroFinalFase4).consulta_sem_reflexao.connect(_on_registro_sem_reflexao)
@@ -122,6 +122,7 @@ func _exit_tree() -> void:
 		[GameState.arquivos_preparados, _on_arquivos_preparados],
 		[GameState.commit_realizado, _on_commit_realizado],
 		[GameState.merge_realizado, _on_merge_realizado],
+		[Diario.nota_lida, _on_nota_lida],
 	]
 	for par in sinais:
 		if par[0].is_connected(par[1]):
@@ -446,10 +447,17 @@ func _juntar(nomes: Array) -> String:
 
 
 # --- Etapa 3: fragmentos de memória e ecos -------------------------------------------------------------
-func _on_fragmento_lido(id: StringName, texto: String) -> void:
-	# A leitura em si já é a evidência (mesmo que a reação seja descartada por estar quieto).
+## Uma nota foi lida. Só as que têm reação no roteiro (os fragmentos frag_*) interessam ao Eidolon. A leitura
+## em si já é a evidência (mesmo que a reação seja descartada por estar quieto); a reação vem depois que a
+## tela da nota fecha. Relê-la não repete a fala (as reações são "únicas"), e depois de uma derrota ela volta
+## a valer, porque o estado do Eidolon volta ao início da fase.
+func _on_nota_lida(id: StringName, _primeira_vez: bool) -> void:
+	if RoteiroEidolonFase4.obter(id).is_empty():
+		return
 	EidolonEstado.registrar_evidencia(id)
-	_solicitar_depois(id, {}, _duracao_da_leitura(texto))
+	if Diario.ocupado():
+		await Diario.diario_fechado
+	_solicitar_depois(id, {}, 1.2)
 
 
 func _on_flag_alterada(nome: StringName, valor: bool) -> void:

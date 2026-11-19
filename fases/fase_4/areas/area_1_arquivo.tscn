@@ -1,5 +1,6 @@
 [gd_scene format=3]
 
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="nota_script_f4"]
 [ext_resource type="Script" path="res://fases/fase_4/areas/area_fase_4.gd" id="r1"]
 [ext_resource type="Script" path="res://fases/fase_4/componentes/conexao_fase_4.gd" id="r2"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/prop_fase_4.tscn" id="r3"]
@@ -278,11 +279,15 @@ cor = Color(0.8039, 0.7216, 1.0000, 0.8)
 textura = SubResource("at_frag1")
 
 [node name="Fragmento_Memoria_Zona" parent="Interacoes" instance=ExtResource("r5")]
+script = ExtResource("nota_script_f4")
 position = Vector2(-32, 192)
 tamanho = Vector2(64, 80)
-texto_prompt = "Examinar fragmento"
-mensagem = "[Fragmento de memória] \"Toda memória preserva uma origem. Nem toda origem conduz ao mesmo destino.\""
-uma_vez = false
+texto_prompt = "Ler"
+id_nota = &"frag_origem"
+tipo = "registro"
+fase = 4
+desenhar_icone = false
+visual = NodePath("../../Objetos/Fragmento_Memoria")
 
 [node name="ParedesTiles" type="TileMapLayer" parent="Paredes"]
 tile_set = ExtResource("r10")

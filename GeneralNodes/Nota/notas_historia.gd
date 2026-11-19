@@ -141,6 +141,56 @@ As pontas foram seladas com precisão.
 		"autor": "Conselho dos Codex",
 		"texto": "Para estados divergentes que não se deixam corrigir, o instrumento adequado é o [b]reset --hard[/b].\n\nO que for apagado deixa de ser problema.\n\n[b]Parecer: desnecessário.[/b]",
 	},
+	# ---- Fase 4 (os antigos "fragmentos de memória"; os ids frag_* são os mesmos do roteiro do Eidolon) ----
+	&"frag_origem": {
+		"fase": 4,
+		"tipo": "registro",
+		"titulo": "Fragmento de memória",
+		"autor": "",
+		"texto": "\"Toda memória preserva uma origem. Nem toda origem conduz ao mesmo destino.\"",
+	},
+	&"frag_m1": {
+		"fase": 4,
+		"tipo": "registro",
+		"titulo": "Registro de poda nº 4",
+		"autor": "Conselho de Unificação",
+		"texto": "[b]Registro de poda nº 4[/b]\n\nLinha encerrada por divergência.\n\n[i]Assinado: Conselho de Unificação.[/i]",
+	},
+	&"frag_m2": {
+		"fase": 4,
+		"tipo": "placa",
+		"titulo": "Anotação da ponte",
+		"autor": "",
+		"texto": "A ponte não ruiu: foi [b]desligada[/b].\n\nAnotação: \"o outro lado não será necessário\".",
+	},
+	&"frag_m3": {
+		"fase": 4,
+		"tipo": "ata",
+		"titulo": "Ata, trecho legível",
+		"autor": "Conselho de Unificação",
+		"texto": "Trecho legível: \"o arquivista [b]E.[/b] pede que a ramificação seja preservada.\"\n\n[i]O resto está corrompido.[/i]",
+	},
+	&"frag_v1": {
+		"fase": 4,
+		"tipo": "placa",
+		"titulo": "Etiqueta das raízes",
+		"autor": "",
+		"texto": "Cada raiz traz uma etiqueta:\n\n[b]catalogada, não esquecida.[/b]\n\nAlguém cuidou desta realidade.",
+	},
+	&"frag_v2": {
+		"fase": 4,
+		"tipo": "diario",
+		"titulo": "Diário de campo",
+		"autor": "",
+		"texto": "\"Mesma sala, dois ramos. Num a ponte ruiu; no outro, raízes a sustentam. [b]Catalogar ambos.[/b]\"",
+	},
+	&"frag_v3": {
+		"fase": 4,
+		"tipo": "ata",
+		"titulo": "Integração experimental nº 2",
+		"autor": "Conselho de Unificação",
+		"texto": "Integração experimental nº 2: concluída em escala reduzida.\n\nAmpliar?\n\n[b]Parecer pendente.[/b]",
+	},
 	# EXEMPLO de formato (usado pelo teste das notas).
 	&"exemplo_carta": {
 		"fase": 0,

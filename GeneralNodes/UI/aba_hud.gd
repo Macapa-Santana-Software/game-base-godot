@@ -53,9 +53,10 @@ static func _atualizar(aba: Button) -> void:
 		bool(aba.get_meta(&"hud_terminal", false)),
 		bool(aba.get_meta(&"hud_chamando", false)),
 		bool(aba.get_meta(&"hud_hover", false)))
-	var anterior: Variant = aba.get_meta(&"hud_tween", null)
-	if anterior is Tween and (anterior as Tween).is_valid():
-		(anterior as Tween).kill()
+	if aba.has_meta(&"hud_tween"):
+		var anterior: Variant = aba.get_meta(&"hud_tween")
+		if anterior is Tween and (anterior as Tween).is_valid():
+			(anterior as Tween).kill()
 	var tween := aba.create_tween()
 	tween.tween_property(aba, "modulate:a", alfa, DURACAO)
 	aba.set_meta(&"hud_tween", tween)

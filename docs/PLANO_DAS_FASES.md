@@ -191,7 +191,7 @@ original ("Registrar não é prender. É lembrar."), e a IA diz "Alguém esteve 
 **Comandos.** `log`, `branch`, `switch`, `add`, `commit`, `merge` (sem conflito), com orientação gradual do Eidolon (dicas em níveis: orientação, conceito, prática) em vez de passos prontos.
 
 **História (existente).** O jogador explora o **Atlas das Ramificações** e conhece o **Eidolon**: a consciência fragmentada
-de um arquivista Codex, que defende a **doutrina de não integrar** (as realidades devem ficar separadas). O arco do Eidolon
+de um arquivista Codex, que defende a **doutrina "uma linha deve prevalecer"** (as realidades não se misturam). O arco do Eidolon
 tem 5 etapas: certeza → desconforto → dúvida → conflito → reinterpretação parcial. Ao fim, o merge prova que as duas
 realidades coexistem. O Eidolon tem uma **lacuna de memória** que ele não explica, e a fase termina com o gancho
 "outros registros" e a **porta de vidro**, sem explicar a Catástrofe.
@@ -290,7 +290,7 @@ Roteiro: `tutora_retorno.gd`, `eco_eidolon.gd`. Teste: `test/fase_6_historia_tes
 ### O que já está plantado
 
 - **IA assistente** (Fases 1, 2, 3, 5, 6): ajuda o Walker; o que "sobrou" de um sistema que colapsou.
-- **Eidolon** (Fase 4): arquivista fragmentado, doutrina de não integrar, **lacuna de memória** que ele não explica.
+- **Eidolon** (Fase 4): arquivista fragmentado, doutrina "uma linha deve prevalecer", **lacuna de memória** que ele não explica.
 - **Porta de vidro / "outros registros"** (fim da Fase 4): o gancho para o que vem depois.
 - **Commit fantasma ilegível** (fim da Fase 6): um registro que ninguém criou e nenhuma branch alcança.
 
@@ -357,9 +357,9 @@ das fases 1 a 6 (hoje há testes para 4, 5, 6 e o fluxo entre fases).
 
 ## 9. Decisões em aberto
 
-- [ ] Fase 3: criar teste automatizado (lacuna).
-- [ ] Fase 5: escrever o abalo do Eidolon (a doutrina de não integrar falhando) ou manter como tutorial puro?
-- [ ] Fase 6: o fantasma ilegível é **do Eidolon**? (Define a ligação com a Fase 4 e a revelação da Fase 7.)
+- [x] Fase 3: teste automatizado criado (`test/fase_3_mecanica_test.tscn`).
+- [x] Fase 5: o abalo do Eidolon foi escrito (diálogo obrigatório; ver `roteiro_conflito.gd`).
+- [x] Fase 6: o fantasma ilegível é de **E.** (autor `RS4=`, base64); o Eidolon o reconhece ("Esse hash... eu o conheço"). A Fase 7 o decifra.
 - [ ] Fase 7: manter `rebase` e a escolha final `rebase` vs `merge`, ou simplificar?
 - [ ] Chefe da Fase 7: ação, puzzle de comandos, ou mistura (sugestão: mistura).
 - [ ] Unificar os modelos locais ao `GameState` agora ou só na Fase 7?
@@ -375,9 +375,17 @@ Rode a cena no editor (F6) ou em modo headless; cada teste sai com código 1 se 
 
 | Teste | O que cobre |
 |---|---|
+| `test/fase_1_polimento_test.tscn` | Fase 1: recomeço do zero, corações, notas, controles e menu inicial (25) |
+| `test/fase_3_mecanica_test.tscn` | Fase 3: fluxo, armadilha e Altares, história, reinício pelo menu (27) |
 | `test/fase_4_progressao_test.tscn` | Jornada da Fase 4 pelas operações reais do `GameState` (48 verificações) |
-| `test/fase_5_gamestate_test.tscn` | Novas capacidades do `GameState` + a Fase 5 inteira pelo terminal (61 verificações) |
+| `test/fase_4_notas_test.tscn` | Fase 4: os fragmentos como notas (Diário, brilho, reação do Eidolon, reinício) (26) |
+| `test/fase_4_eidolon_test.tscn` | Fase 4: estado do Eidolon, despertar, diálogo que espera o terminal, HUD e reinício (14) |
+| `test/fase_5_gamestate_test.tscn` | Novas capacidades do `GameState` + a Fase 5 inteira pelo terminal (62 verificações) |
+| `test/fase_5_historia_test.tscn` | Fase 5: escolha permanente, abalo do Eidolon, vozes, notas e a parede (28) |
 | `test/fase_6_fluxo_test.tscn` | A Fase 6 inteira pelo terminal, com os erros típicos (44 verificações) |
+| `test/fase_6_historia_test.tscn` | Fase 6: escolha atravessa a montagem, fantasma no log, poeira, Eidolon e notas (24) |
+| `test/nota_diario_test.tscn` | Notas, Diário e marca por tentativa (34) |
+| `test/hud_abas_test.tscn` | HUD recolhível: transparência das abas e quadro da IA (12) |
 | `test/fluxo_fases_test.tscn` | Saída/entrada entre as 6 fases e o fim de jogo (48 verificações) |
 | `test/game_state_sinais_test.tscn` | Sinais do `GameState` (manual: lê-se o Output) |
 | `test/fase_6_captura.tscn` | Gera PNGs da Fase 6 (precisa de janela) |

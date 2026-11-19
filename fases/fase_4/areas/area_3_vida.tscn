@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/parede.tscn" id="r5"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/prop_fase_4.tscn" id="r6"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/zona_interacao.tscn" id="r7"]
-[ext_resource type="Script" path="res://fases/fase_4/componentes/fragmento_memoria.gd" id="r8"]
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="nota_script_f4"]
 [ext_resource type="PackedScene" path="res://fases/fase_4/componentes/barreira.tscn" id="r9"]
 [ext_resource type="Texture2D" path="res://fases/fase_4/arte/vida/tiles/piso_vida.png" id="nv_1"]
 [ext_resource type="Texture2D" path="res://fases/fase_4/arte/vida/tiles/muro_vida.png" id="nv_2"]
@@ -424,13 +424,14 @@ cor = Color(0.7137, 1.0000, 0.8510, 0.9)
 textura = ExtResource("nv_20")
 
 [node name="Frag_V1" parent="Interacoes" instance=ExtResource("r7")]
-script = ExtResource("r8")
+script = ExtResource("nota_script_f4")
 position = Vector2(160, 64)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "Cada raiz traz uma etiqueta: catalogada, não esquecida. Alguém cuidou desta realidade."
-uma_vez = false
-id_fragmento = &"frag_v1"
+texto_prompt = "Ler"
+id_nota = &"frag_v1"
+tipo = "placa"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_V1_Brilho")
 
 [node name="Frag_V2_Brilho" parent="Objetos" instance=ExtResource("r6")]
@@ -441,13 +442,14 @@ cor = Color(0.7137, 1.0000, 0.8510, 0.9)
 textura = ExtResource("nv_20")
 
 [node name="Frag_V2" parent="Interacoes" instance=ExtResource("r7")]
-script = ExtResource("r8")
+script = ExtResource("nota_script_f4")
 position = Vector2(409.6, 252.8)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "Diário de campo: \"Mesma sala, dois ramos. Num a ponte ruiu; no outro, raízes a sustentam. Catalogar ambos.\""
-uma_vez = false
-id_fragmento = &"frag_v2"
+texto_prompt = "Ler"
+id_nota = &"frag_v2"
+tipo = "diario"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_V2_Brilho")
 
 [node name="Frag_V3_Brilho" parent="Objetos" instance=ExtResource("r6")]
@@ -458,13 +460,14 @@ cor = Color(0.7137, 1.0000, 0.8510, 0.9)
 textura = ExtResource("nv_20")
 
 [node name="Frag_V3" parent="Interacoes" instance=ExtResource("r7")]
-script = ExtResource("r8")
+script = ExtResource("nota_script_f4")
 position = Vector2(748.8, 524.8)
 tamanho = Vector2(56, 56)
-texto_prompt = "Examinar fragmento"
-mensagem = "Integração experimental nº 2: concluída em escala reduzida. Ampliar? Parecer pendente."
-uma_vez = false
-id_fragmento = &"frag_v3"
+texto_prompt = "Ler"
+id_nota = &"frag_v3"
+tipo = "ata"
+fase = 4
+desenhar_icone = false
 visual = NodePath("../../Objetos/Frag_V3_Brilho")
 
 [node name="Cristal_Saida_1" parent="Objetos" instance=ExtResource("r6")]

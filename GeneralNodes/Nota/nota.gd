@@ -40,6 +40,11 @@ const ICONES := {
 @export var titulo: String = ""
 @export var autor: String = ""
 @export_multiline var texto: String = ""
+@export_group("Visual externo")
+## (Opcional) Nó da cena (caminho relativo a esta nota) que brilha enquanto a nota não foi lida e fica apagado
+## depois. Para quando o desenho da nota é uma arte da própria fase: use junto com `desenhar_icone = false`.
+@export var visual: NodePath = NodePath()
+@export_range(0.0, 1.0) var alfa_lida: float = 0.35
 @export_group("Interação")
 @export var texto_prompt: String = "Ler"
 ## Tamanho da área onde o jogador pode ler.
@@ -77,6 +82,8 @@ func _ready() -> void:
 	_criar_rotulo()
 	body_entered.connect(_on_body_entered)
 	Diario.diario_mudou.connect(queue_redraw)  # a nota se redesenha se o Diário mudar (lida/limpo)
+	Diario.diario_mudou.connect(_atualizar_visual_externo)
+	_atualizar_visual_externo()
 	body_exited.connect(_on_body_exited)
 	if id_nota == &"":
 		push_warning("Nota '%s' sem id_nota: ela não vai aparecer direito no Diário." % name)
@@ -92,6 +99,14 @@ func interagir() -> void:
 	var primeira: bool = Diario.ler(id, dados)
 	lida.emit(id, primeira)
 	queue_redraw()
+
+
+func _atualizar_visual_externo() -> void:
+	if visual.is_empty():
+		return
+	var no := get_node_or_null(visual) as CanvasItem
+	if no:
+		no.modulate.a = alfa_lida if _ja_lida() else 1.0
 
 
 func jogador_dentro() -> bool:
