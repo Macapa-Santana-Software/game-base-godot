@@ -61,6 +61,7 @@ func _ready() -> void:
 	# Adiado: a tutora da fase ainda está preparando a lista de comandos liberados neste frame.
 	_atualizar_disponiveis.call_deferred()
 	_fixar_tamanhos.call_deferred()
+	_reaplicar_aba.call_deferred()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -162,10 +163,17 @@ func _marcar_visto(comando: String) -> void:
 
 func _on_terminal_aberto() -> void:
 	_terminal_aberto = true
+	_reaplicar_aba()
 
 
 func _on_terminal_fechado() -> void:
 	_terminal_aberto = false
+	_reaplicar_aba()
+
+
+## A aba fica translúcida com o painel recolhido (e mais ainda dentro do terminal).
+func _reaplicar_aba() -> void:
+	AbaHud.aplicar(_aba, _aberto, _terminal_aberto, _selo != null and _selo.visible)
 
 
 # ---------------------------------------------------------------- interface
@@ -256,6 +264,7 @@ func _montar() -> void:
 	_aba.add_theme_font_size_override("font_size", 7)
 	_estilizar_botao(_aba, 4, 3)
 	_aba.pressed.connect(alternar)
+	AbaHud.configurar(_aba)
 	_raiz.add_child(_aba)
 
 	_selo = ColorRect.new()
@@ -368,6 +377,7 @@ func _atualizar_selo() -> void:
 		_tween_selo = create_tween().set_loops()
 		_tween_selo.tween_property(_selo, "modulate:a", 0.25, 0.6)
 		_tween_selo.tween_property(_selo, "modulate:a", 1.0, 0.6)
+	_reaplicar_aba()
 
 
 func _atualizar_nota() -> void:

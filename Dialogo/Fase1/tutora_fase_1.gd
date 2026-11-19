@@ -20,6 +20,12 @@ const COR_CONCEITO := "#9AD1FF"
 const PREFIXO_TERMINAL := "[color=#51CF66][IA][/color] "
 
 const LARGURA_QUADRO := 130.0
+const LARGURA_ABA := 40.0
+const TOPO_QUADRO := 6.0
+const DURACAO_PAINEL := 0.18
+const TEMA := preload("res://GeneralNodes/UI/tema_santuario.tres")
+## Lembra se o quadro estava aberto ao recarregar a cena na mesma sessão (começa aberto).
+static var _aberto_na_sessao: bool = true
 const MARGEM := 6.0
 const TAMANHO_FONTE := 6
 ## Falhas seguidas a partir das quais a IA deixa de dar pista e entrega o comando.
@@ -34,6 +40,12 @@ var arquivos_requeridos: Array[String] = []
 
 var _raiz: Control
 var _painel: PanelContainer
+var _aba: Button
+var _selo: ColorRect
+var _aberto: bool = true
+var _tween_painel: Tween
+var _tween_selo: Tween
+var _aviso_pendente: bool = false
 var _texto_passo: RichTextLabel
 var _separador_comandos: HSeparator
 var _titulo_comandos: Label
@@ -46,8 +58,7 @@ var _balao_tween: Tween
 var _terminal_aberto: bool = false
 
 func _ready() -> void:
-	# Camada abaixo do terminal: quando o terminal abre, ele cobre o quadro.
-	layer = 0
+	layer = 1  # acima do terminal: a aba continua visível (translúcida) lá dentro
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	_montar_quadro()
@@ -390,29 +401,25 @@ func _montar_quadro() -> void:
 	get_viewport().size_changed.connect(_ajustar_raiz)
 	_ajustar_raiz()
 
-	var estilo := StyleBoxFlat.new()
-	estilo.bg_color = Color(0, 0, 0, 0.784)
-	estilo.border_color = Color(COR_IA)
-	estilo.set_border_width_all(1)
-	estilo.set_corner_radius_all(4)
-	estilo.set_content_margin_all(5)
+	_aberto = _aberto_na_sessao
 
 	_painel = PanelContainer.new()
-	_painel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_painel.add_theme_stylebox_override("panel", estilo)
-	_painel.anchor_left = 1.0
-	_painel.anchor_right = 1.0
-	_painel.offset_left = -(LARGURA_QUADRO + MARGEM)
-	_painel.offset_right = -MARGEM
-	_painel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	_painel.mouse_filter = Control.MOUSE_FILTER_STOP
+	_painel.theme = TEMA
+	_painel.custom_minimum_size = Vector2(LARGURA_QUADRO, 0)
+	_painel.position = Vector2(0, TOPO_QUADRO)
 	_raiz.add_child(_painel)
+
+	var margem := MarginContainer.new()
+	for lado in ["left", "top", "right", "bottom"]:
+		margem.add_theme_constant_override("margin_" + lado, 5)
+	_painel.add_child(margem)
 
 	var coluna := VBoxContainer.new()
 	coluna.add_theme_constant_override("separation", 3)
-	_painel.add_child(coluna)
+	margem.add_child(coluna)
 
-	coluna.add_child(_criar_titulo("IA - PRÓXIMO PASSO"))
-	coluna.add_child(HSeparator.new())
+	coluna.add_child(_montar_cabecalho_quadro())
 	_texto_passo = _criar_texto()
 	coluna.add_child(_texto_passo)
 
@@ -423,9 +430,126 @@ func _montar_quadro() -> void:
 	_texto_comandos = _criar_texto()
 	coluna.add_child(_texto_comandos)
 
+	# Aba na borda direita (acompanha o painel ao abrir)
+	_aba = Button.new()
+	_aba.text = "IA\n[I]"
+	_aba.focus_mode = Control.FOCUS_NONE        # não rouba o foco do campo de texto do terminal
+	_aba.custom_minimum_size = Vector2(LARGURA_ABA, 28)
+	_aba.size = _aba.custom_minimum_size
+	_aba.add_theme_font_size_override("font_size", 7)
+	AbaHud.estilizar(_aba, 4, 3)
+	_aba.pressed.connect(alternar_quadro)
+	AbaHud.configurar(_aba)
+	_raiz.add_child(_aba)
+
+	_selo = ColorRect.new()
+	_selo.color = Color("D94C91")
+	_selo.size = Vector2(6, 6)
+	_selo.position = Vector2(-3.0, -3.0)
+	_selo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_selo.visible = false
+	_aba.add_child(_selo)
+
+	# Adiado: só depois que _on_terminal_aberto/_fechado atualizaram _terminal_aberto
+	GameState.terminal_aberto.connect(_reaplicar_aba, CONNECT_DEFERRED)
+	GameState.terminal_fechado.connect(_reaplicar_aba, CONNECT_DEFERRED)
+	_aplicar_posicao(false)
+	_reaplicar_aba()
+
 	_montar_balao()
 
 	_reposicionar()
+
+func _montar_cabecalho_quadro() -> Control:
+	var faixa := PanelContainer.new()
+	var estilo := StyleBoxFlat.new()
+	estilo.bg_color = Color(0.11, 0.153, 0.259)
+	estilo.border_width_bottom = 2
+	estilo.border_color = Color(COR_IA)
+	estilo.content_margin_left = 5.0
+	estilo.content_margin_right = 3.0
+	estilo.content_margin_top = 2.0
+	estilo.content_margin_bottom = 2.0
+	faixa.add_theme_stylebox_override("panel", estilo)
+	var linha := HBoxContainer.new()
+	faixa.add_child(linha)
+	var titulo := Label.new()
+	titulo.text = "IA - PRÓXIMO PASSO"
+	titulo.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	titulo.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	titulo.add_theme_font_override("font", FONTE)
+	titulo.add_theme_font_size_override("font_size", 6)
+	titulo.add_theme_color_override("font_color", Color(COR_IA))
+	linha.add_child(titulo)
+	var fechar_botao := Button.new()
+	fechar_botao.text = "X"
+	fechar_botao.focus_mode = Control.FOCUS_NONE
+	fechar_botao.custom_minimum_size = Vector2(14, 14)
+	fechar_botao.add_theme_font_size_override("font_size", 7)
+	AbaHud.estilizar(fechar_botao, 2, 1)
+	fechar_botao.pressed.connect(func() -> void:
+		if _aberto:
+			alternar_quadro())
+	linha.add_child(fechar_botao)
+	return faixa
+
+
+## Abre/recolhe o quadro da IA (aba "IA" ou tecla I). Recolhido, a aba fica translúcida.
+func alternar_quadro() -> void:
+	_aberto = not _aberto
+	_aberto_na_sessao = _aberto
+	if _aberto:
+		_aviso_pendente = false
+	_aplicar_posicao(true)
+	_atualizar_selo()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_I:
+		if event.ctrl_pressed or event.alt_pressed or event.meta_pressed:
+			return
+		# Diálogo/menu pausam a árvore: o quadro fica quieto. O terminal também pausa, mas ali ele ajuda.
+		if get_tree().paused and not _terminal_aberto:
+			return
+		alternar_quadro()
+		get_viewport().set_input_as_handled()
+
+
+func _aplicar_posicao(animar: bool) -> void:
+	if _painel == null or _aba == null:
+		return
+	var vw := _raiz.size.x
+	var x_painel := vw - LARGURA_QUADRO - MARGEM if _aberto else vw + 4.0
+	var x_aba := x_painel - LARGURA_ABA if _aberto else vw - LARGURA_ABA
+	_aba.position.y = TOPO_QUADRO
+	if _tween_painel:
+		_tween_painel.kill()
+	if not animar:
+		_painel.position.x = x_painel
+		_aba.position.x = x_aba
+		return
+	_tween_painel = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_tween_painel.tween_property(_painel, "position:x", x_painel, DURACAO_PAINEL)
+	_tween_painel.tween_property(_aba, "position:x", x_aba, DURACAO_PAINEL)
+	_reaplicar_aba()
+
+
+## Aviso na aba quando o próximo passo muda com o quadro recolhido.
+func _atualizar_selo() -> void:
+	_selo.visible = _aviso_pendente and not _aberto
+	if _tween_selo:
+		_tween_selo.kill()
+	_selo.modulate.a = 1.0
+	if _selo.visible:
+		_tween_selo = create_tween().set_loops()
+		_tween_selo.tween_property(_selo, "modulate:a", 0.25, 0.6)
+		_tween_selo.tween_property(_selo, "modulate:a", 1.0, 0.6)
+	_reaplicar_aba()
+
+
+## A aba fica translúcida com o quadro recolhido (e mais ainda dentro do terminal).
+func _reaplicar_aba() -> void:
+	AbaHud.aplicar(_aba, _aberto, _terminal_aberto, _selo != null and _selo.visible)
 
 # Balão de fala não bloqueante: aparece no topo, some sozinho e não pausa o jogo
 func _montar_balao() -> void:
@@ -501,11 +625,12 @@ func _criar_texto() -> RichTextLabel:
 func _ajustar_raiz() -> void:
 	_raiz.position = Vector2.ZERO
 	_raiz.size = get_viewport().get_visible_rect().size
+	_aplicar_posicao(false)
 
-# O quadro fica no canto superior direito (o painel de objetivos antigo foi removido)
+# O quadro fica no canto superior direito; ao mudar o texto ele recalcula a altura
 func _reposicionar() -> void:
-	_painel.offset_top = MARGEM
-	_painel.offset_bottom = MARGEM
+	_painel.reset_size()
+	_aplicar_posicao(false)
 
 func _atualizar_quadro() -> void:
 	_sincronizar_comandos()
@@ -573,6 +698,11 @@ func _comandos_revelados(estado: String) -> Array[String]:
 func _piscar() -> void:
 	if _piscar_tween:
 		_piscar_tween.kill()
+	if not _aberto:
+		# Recolhido: em vez de piscar o quadro, a aba chama a atenção
+		_aviso_pendente = true
+		_atualizar_selo()
+		return
 	_painel.modulate = Color(1.7, 1.7, 1.0)
 	_piscar_tween = create_tween()
 	_piscar_tween.tween_property(_painel, "modulate", Color.WHITE, 0.6)

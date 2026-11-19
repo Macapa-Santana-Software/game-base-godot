@@ -83,6 +83,13 @@ bacia dourada. Obelisco, plataforma e portal foram recoloridos para ouro.
 
 **Arte:** `fases/fase_3/arte/`, gerada por `tools/gerar_arte_fase_3.gd` (`godot --headless --path . --script res://tools/gerar_arte_fase_3.gd`).
 
+## HUD recolhível (todas as fases)
+O estilo da HUD da Fase 4 vale para todas: painéis **recolhíveis** com uma aba na borda. Hoje: **Manual** (tecla M, esquerda) e **Quadro da IA**
+(tecla I, direita; Fases 1, 2, 3, 5 e 6), além dos painéis de Objetivos (O) e Conceitos (C) da Fase 4. O quadro da IA começa aberto e lembra a escolha
+na sessão; ao mudar o próximo passo com ele recolhido, a aba mostra um selo piscando.
+**Transparência:** com o painel recolhido ("para dentro") a aba fica translúcida (40%) e ainda mais dentro do terminal (28%); volta a ficar opaca
+com o mouse em cima ou com o painel aberto. Regra única em `GeneralNodes/UI/aba_hud.gd` (`AbaHud`); teste: `test/hud_abas_test.tscn`.
+
 ## Menu de pausa
 Todas as fases com o menu de pausa têm **REINICIAR FASE** (pede um segundo clique): recomeça do zero, como morrer
 (`FaseManager.reiniciar_fase_atual()`). A Fase 6 ainda não tem o menu de pausa na cena.

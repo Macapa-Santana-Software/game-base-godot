@@ -86,10 +86,17 @@ func alternar() -> void:
 
 func _on_terminal_aberto() -> void:
 	_terminal_aberto = true
+	_reaplicar_aba()
 
 
 func _on_terminal_fechado() -> void:
 	_terminal_aberto = false
+	_reaplicar_aba()
+
+
+## A aba fica translúcida com o painel recolhido (e mais ainda dentro do terminal).
+func _reaplicar_aba() -> void:
+	AbaHud.aplicar(_aba, _aberto, _terminal_aberto)
 
 
 # ---------------------------------------------------------------- interface
@@ -112,6 +119,7 @@ func _ajustar_raiz() -> void:
 
 
 func _aplicar_posicao(animar: bool) -> void:
+	_reaplicar_aba()
 	var vw := _largura_tela()
 	var x_painel := vw - LARGURA if _aberto else vw + 4.0
 	var x_aba := vw - LARGURA - LARGURA_ABA if _aberto else vw - LARGURA_ABA
@@ -186,6 +194,7 @@ func _montar() -> void:
 	_aba.add_theme_font_size_override("font_size", 7)
 	_estilizar_botao(_aba, 4, 3)
 	_aba.pressed.connect(alternar)
+	AbaHud.configurar(_aba)
 	_raiz.add_child(_aba)
 
 

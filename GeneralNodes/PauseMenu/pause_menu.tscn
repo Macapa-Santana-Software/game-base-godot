@@ -141,11 +141,11 @@ horizontal_alignment = 1
 
 [node name="ControlesLabel" type="RichTextLabel" parent="Control/CenterContainer/PainelControles/Margem/VBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 118)
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
-text = "[table=2][cell][color=#36d6e8]W A S D / Setas[/color][/cell][cell]  Mover[/cell][cell][color=#36d6e8]Espaço[/color][/cell][cell]  Atacar[/cell][cell][color=#36d6e8]Enter[/color][/cell][cell]  Interagir (portas, notas)[/cell][cell][color=#36d6e8]1 / 2 / 3[/color][/cell][cell]  Escolher item do inventário[/cell][cell][color=#36d6e8]T[/color][/cell][cell]  Terminal (perto do Obelisco)[/cell][cell][color=#36d6e8]M[/color][/cell][cell]  Manual dos comandos Git[/cell][cell][color=#36d6e8]Esc[/color][/cell][cell]  Pausar / voltar[/cell][/table]"
+text = "[table=2][cell][color=#36d6e8]W A S D / Setas[/color][/cell][cell]  Mover[/cell][cell][color=#36d6e8]Espaço[/color][/cell][cell]  Atacar[/cell][cell][color=#36d6e8]Enter[/color][/cell][cell]  Interagir (portas, notas)[/cell][cell][color=#36d6e8]1 / 2 / 3[/color][/cell][cell]  Escolher item do inventário[/cell][cell][color=#36d6e8]T[/color][/cell][cell]  Terminal (perto do Obelisco)[/cell][cell][color=#36d6e8]M[/color][/cell][cell]  Manual dos comandos Git[/cell][cell][color=#36d6e8]I[/color][/cell][cell]  Quadro da IA (recolher/abrir)[/cell][cell][color=#36d6e8]Esc[/color][/cell][cell]  Pausar / voltar[/cell][/table]"
 
 [node name="VoltarButton" type="Button" parent="Control/CenterContainer/PainelControles/Margem/VBox"]
 unique_name_in_owner = true
