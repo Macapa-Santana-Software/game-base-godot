@@ -6,13 +6,13 @@ class_name InteracaoRetorno extends Area2D
 ##   altar     o Altar de Retorno: rede de segurança da Câmara do Reset. Se um `reset` deixou a
 ##             câmara sem saída (ex.: um --hard destruiu a planta), ele a recoloca como estava.
 ##
-## Estrutura esperada: filhos `Marca` (ColorRect) e `Aviso` (Label).
+## Estrutura esperada: filhos `Marca` (Sprite2D: a alavanca tem 2 quadros, erguida e puxada) e `Aviso` (Label).
 
 @export_enum("alavanca", "altar") var tipo: String = "alavanca"
 @export var texto_aviso: String = "ENTER"
 
 @onready var _aviso: Label = $Aviso
-@onready var _marca: ColorRect = $Marca
+@onready var _marca: CanvasItem = $Marca
 
 var _player_perto: bool = false
 
@@ -47,8 +47,8 @@ func _atualizar() -> void:
 	var ativo := _ativo()
 	_aviso.visible = _player_perto and ativo
 	_marca.modulate = Color(1, 1, 1, 1.0 if ativo else 0.35)
-	if tipo == "alavanca" and EstadoRetorno.flag("emergencia"):
-		_marca.color = Color(0.24, 0.86, 0.48)
+	if tipo == "alavanca" and EstadoRetorno.flag("emergencia") and _marca is Sprite2D:
+		(_marca as Sprite2D).frame = 1  # alavanca puxada
 
 
 func _process(_delta: float) -> void:

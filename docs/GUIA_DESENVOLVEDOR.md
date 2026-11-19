@@ -543,4 +543,4 @@ vale na tentativa atual da fase (`Diario.foi_marcada(id)`); se o jogador morre, 
 a aparecer não lida (a entrada no Diário continua); ao concluir a fase, `FaseManager.concluir_fase_e_avancar()` chama `Diario.confirmar_tentativa()`
 e a marca fica definitiva. O botão JOGAR do menu inicial chama `Diario.limpar()` (jogo novo = Diário vazio).
 
-> A Fase 6 ainda não tem o menu de pausa na cena, então o Diário não abre por lá até ela receber o `PauseMenu`.
+> Todas as fases (1 a 6) têm o menu de pausa, então o Diário abre por ele em qualquer uma.

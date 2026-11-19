@@ -275,7 +275,11 @@ histórico, na caixa, soltos ou destruídos. O **commit fantasma ilegível** apa
 (`reverter`, `resetar_para`, `guardar_stash`, `aplicar_stash`). Ao entrar, a fase **zera o repositório** se ainda não foi montada
 (cada tutorial é independente). Teste: `test/fase_6_fluxo_test.tscn`; captura visual: `test/fase_6_captura.tscn`.
 
-**História possível.** O commit fantasma é a ponte para a **Catástrofe** (seção 6).
+**História (implementada).** A IA comenta o `revert` ("o jeito honesto"), o `stash` ("adiar não é abandonar") e, ao ver o arquivo virar **poeira** no `reset --hard`, diz
+"Sentiu isso? É assim que eles faziam." e "Desculpa. Eu não sei por que disse isso." (a Purga). O **Eidolon** é só um **eco** ciano que foge do jogador no corredor
+e, no fim, aparece e diz "Esse hash... eu o conheço." (diálogo). O **commit fantasma** aparece no `git log` como **órfão**, com o autor `RS4=` (base64 de "E.").
+A IA lembra, em uma frase, a escolha do conflito da Fase 5. Três notas. A tela final não promete continuação: "Um registro ficou para trás. Nenhuma branch aponta para ele."
+Roteiro: `tutora_retorno.gd`, `eco_eidolon.gd`. Teste: `test/fase_6_historia_test.tscn`. **Visual:** "Concreto brutalista com sinalização" (ver `docs/DESIGN_FASES.md`).
 
 **Ideias.** Um **segundo fantasma** legível só depois de `reflog` (Fase 7); a linha do tempo clicável (viajar até um commit).
 
@@ -381,7 +385,7 @@ Rode a cena no editor (F6) ou em modo headless; cada teste sai com código 1 se 
 ### Checklist para uma fase nova
 
 1. Criar `fases/fase_N/` com a cena, o script da fase e (para tutorial) uma tutora (`extends TutoraFase1`) e um painel de
-   objetivos (`extends PainelObjetivosPonte`). Copiar o padrão de `fases/fase_5/` (sala única) ou `fases/fase_3/` (zonas).
+   objetivos (a HUD das fases segue o padrão da Fase 1: quadro da IA recolhível, sem painel de objetivos). Copiar o padrão de `fases/fase_5/` (sala única) ou `fases/fase_3/` (zonas).
 2. Se precisar de um comando novo: classe em `terminal/Commands/`, registro em `terminal_command_interpreter.gd`, entradas em
    `git_command_help.gd` e `manual_comandos.gd`, e um `terminal/config/terminal_fase_N.tres`.
 3. Acrescentar a cena ao **fim** de `FaseManager.FASES` e um resumo em `RESUMOS` (`victory_screen.gd`).

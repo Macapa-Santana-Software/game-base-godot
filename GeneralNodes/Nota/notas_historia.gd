@@ -119,6 +119,28 @@ As pontas foram seladas com precisão.
 		"autor": "Conselho dos Codex",
 		"texto": "Em caso de divergência entre linhas, prevalece a versão da linha principal.\n\nNão é necessário examinar a outra.\n\n[b]Parecer: desnecessário.[/b]",
 	},
+	# ---- Fase 6 ----
+	&"f6_placa_estacao": {
+		"fase": 6,
+		"tipo": "placa",
+		"titulo": "Estação de Retorno nº 3",
+		"autor": "",
+		"texto": "[b]ESTAÇÃO DE RETORNO Nº 3[/b]\n\nTodo erro será corrigido.\nTodo estado será revisado.\n\n[i](alguém riscou \"revisado\" e escreveu, por cima, \"lembrado\")[/i]",
+	},
+	&"f6_carta_revert": {
+		"fase": 6,
+		"tipo": "carta",
+		"titulo": "Carta sobre desfazer",
+		"autor": "E.",
+		"texto": "Quem desfaz com [b]revert[/b] admite o erro e o deixa à vista.\nQuem desfaz com [b]reset[/b] finge que ele nunca existiu.\n\nNão confunda corrigir com esquecer.\n\n[i]— E.[/i]",
+	},
+	&"f6_ata_purga": {
+		"fase": 6,
+		"tipo": "ata",
+		"titulo": "Ata da Purga",
+		"autor": "Conselho dos Codex",
+		"texto": "Para estados divergentes que não se deixam corrigir, o instrumento adequado é o [b]reset --hard[/b].\n\nO que for apagado deixa de ser problema.\n\n[b]Parecer: desnecessário.[/b]",
+	},
 	# EXEMPLO de formato (usado pelo teste das notas).
 	&"exemplo_carta": {
 		"fase": 0,

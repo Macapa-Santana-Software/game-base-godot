@@ -60,7 +60,7 @@ Os tocos da ponte, o cenário e os adereços são nós normais na `fase_2.tscn` 
 ## HUD
 Segue o estilo da Fase 1: corações (canto superior esquerdo), aba do Manual (esquerda), quadro da IA verde (superior direito, com
 "próximo passo" e "comandos") e inventário (embaixo, centro). Na Fase 2 o painel de objetivos foi retirado: o quadro da IA já diz o próximo passo,
-como na Fase 1. (A classe `PainelObjetivosPonte` continua no projeto porque as fases 3, 5 e 6 ainda a usam.)
+como na Fase 1. Hoje só a Fase 4 tem painéis de Objetivos e Conceitos (recolhíveis).
 
 Falta: áudio da fase (adiado para todas as fases).
 
@@ -101,6 +101,22 @@ Cada pedestal tem uma gema da cor da escolha (dourada, azul ou as duas). Obelisc
 e então cai. Como a cena pausa durante o terminal e o diálogo do abalo, a animação toca depois que eles terminam.
 **Arte:** `fases/fase_5/arte/`, gerada por `tools/gerar_arte_fase_5.gd`.
 
+## Fase 6 — Ponto de Retorno: **Concreto brutalista com sinalização**
+Estação de controle do Conselho: concreto cinza-quente com faixas de alerta amarelo-preto. Cores de **significado** reservadas: **ciano** (o commit do revert e o Eidolon),
+**magenta** (o commit fantasma e o glitch das tábuas ruins) e **vermelho** (a emergência: giroflex e alavanca).
+
+| Uso | Cor |
+|---|---|
+| Concreto (chão, paredões) | `#1D1C19` · `#2E2C28` · `#4A4741` · `#6A665E` · `#8B867C` · `#A8A398` · `#C4BFB2` |
+| Sinalização de alerta | `#F2C230` e preto `#1B1A18` |
+| Emergência | `#D8423A` |
+
+**Cenário:** lajes de concreto com juntas e manchas, paredões de concreto moldado com furos de fôrma e faixa de alerta, o poço da Área 1 com canos e luzinhas de serviço,
+passarela de aço (toco, tábuas ruins em glitch e passarela inteira), portões de aço (amarelo-preto na inspeção, luz vermelha na câmara), prateleira do stash com caixotes,
+cartuchos de aço para os arquivos (planta e experimento), alavanca (2 quadros), altar de retorno, pilares, barreiras, caixotes, giroflex e números "1, 2, 3" pintados no chão.
+O **experimento** deixou de ser magenta (o magenta é do fantasma): agora é vermelho. Quando um arquivo é destruído por `reset --hard`, **vira poeira** (partículas).
+**Arte:** `fases/fase_6/arte/`, gerada por `tools/gerar_arte_fase_6.gd`.
+
 ## HUD recolhível (todas as fases)
 O estilo da HUD da Fase 4 vale para todas: painéis **recolhíveis** com uma aba na borda. Hoje: **Manual** (tecla M, esquerda) e **Quadro da IA**
 (tecla I, direita; Fases 1, 2, 3, 5 e 6), além dos painéis de Objetivos (O) e Conceitos (C) da Fase 4. O quadro da IA começa aberto e lembra a escolha
@@ -110,4 +126,4 @@ com o mouse em cima ou com o painel aberto. Regra única em `GeneralNodes/UI/aba
 
 ## Menu de pausa
 Todas as fases com o menu de pausa têm **REINICIAR FASE** (pede um segundo clique): recomeça do zero, como morrer
-(`FaseManager.reiniciar_fase_atual()`). A Fase 6 ainda não tem o menu de pausa na cena.
+(`FaseManager.reiniciar_fase_atual()`). Todas as fases (1 a 6) têm o menu de pausa.

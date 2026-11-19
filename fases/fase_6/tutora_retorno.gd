@@ -29,6 +29,9 @@ func _ready() -> void:
 	if _fase:
 		_fase.mudou.connect(_atualizar_quadro)
 		_fase.evento.connect(_on_evento)
+		var eco := _fase.get_node_or_null("EcoEidolon") as EcoEidolon
+		if eco:
+			eco.fugiu.connect(_on_eco_fugiu)
 	_dizer.call_deferred(INTRO + " Abra o terminal no Obelisco (T).")
 
 
@@ -98,9 +101,30 @@ func _on_terminal_aberto() -> void:
 	if _primeira_vez("terminal"):
 		linhas.append(INTRO)
 		linhas.append("A linha do tempo, embaixo, mostra os commits. %s é onde você está agora; fantasmas são marcos que ficaram para trás." % _conceito("HEAD"))
+		var lembranca := _lembrar_escolha()
+		if not lembranca.is_empty():
+			linhas.append(lembranca)
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
+
+
+## A IA lembra, em uma frase, como o jogador resolveu o conflito da Fase 5 ("" se ainda não houve escolha).
+func _lembrar_escolha() -> String:
+	match GameState.escolha_historia(GameState.ESCOLHA_CONFLITO):
+		"minha":
+			return "Lembra do selo, na fase passada? Você ficou com a sua versão. Hoje o assunto é outro tipo de escolha: voltar atrás."
+		"deles":
+			return "Lembra do selo, na fase passada? Você aceitou a versão deles. Hoje o assunto é parecido: voltar atrás também é decidir."
+		"ambas":
+			return "Lembra do selo, na fase passada? Você juntou as duas versões. Eu ainda penso nisso. Hoje é sobre voltar atrás."
+	return ""
+
+
+## O vulto que some quando o jogador chega perto: o Eidolon, que desde o selo evita o jogador.
+func _on_eco_fugiu() -> void:
+	if _primeira_vez("eco_eidolon"):
+		_dizer("Aquele vulto... É o Eidolon. Ele está nos evitando desde o selo.")
 
 
 func _on_log(_branch: String) -> void:
@@ -128,6 +152,8 @@ func _on_revert(original: String, _novo: String) -> void:
 	var linhas: Array = []
 	if EstadoRetorno.flag("z1_ok"):
 		linhas.append("O %s NÃO apagou o commit ruim: criou um commit NOVO que o desfaz (veja o nó ciano na linha do tempo). A história continua inteira, o que é seguro para quem trabalha em equipe." % _cmd("git revert"))
+		if _primeira_vez("revert_honesto"):
+			linhas.append("Esse é o jeito honesto. Você admite o erro e conserta à vista de todo mundo.")
 	else:
 		linhas.append("O revert desfez o commit %s, mas ele não era o ruim. Isso também fica registrado." % _cmd(original))
 	linhas.append(_proximo_passo_terminal(_estado()))
@@ -140,6 +166,7 @@ func _on_stash_guardado(_arquivos: Array) -> void:
 	var linhas: Array = []
 	if _primeira_vez("stash"):
 		linhas.append("O %s guardou o trabalho pela metade na prateleira e deixou a pasta limpa, sem precisar de um commit. O portão de inspeção reconheceu a pasta limpa e abriu." % _cmd("git stash"))
+		linhas.append("Adiar não é abandonar: o trabalho está guardado, e volta quando você quiser.")
 	else:
 		linhas.append("Trabalho guardado na prateleira.")
 	linhas.append(_proximo_passo_terminal(_estado()))
@@ -167,6 +194,11 @@ func _on_reset(modo: String, _de: String, _para: String) -> void:
 		"hard":
 			if _primeira_vez("reset_hard"):
 				linhas.append("O %s voltou o ponteiro E apagou o trabalho dos commits descartados. Diferente do revert, aqui o conteúdo some de verdade." % _cmd("git reset --hard"))
+				# O jogador acabou de ver o arquivo virar poeira: a IA reage como quem já viu isso (a Purga).
+				_conversar.call_deferred([
+					{"quem": "IA", "texto": "Sentiu isso? É assim que eles faziam."},
+					{"quem": "IA", "texto": "Desculpa. Eu não sei por que disse isso."},
+				], 4.0)
 		_:
 			if _primeira_vez("reset_mixed"):
 				linhas.append("O %s voltou o ponteiro e esvaziou a caixa: o trabalho ficou solto na pasta, sem ser acompanhado." % _cmd("git reset --mixed"))
@@ -206,6 +238,7 @@ func _on_evento(nome: String) -> void:
 			linhas.append(_proximo_passo_terminal(_estado()))
 		"hard_ok":
 			linhas.append("O experimento sumiu de vez. Veja a linha do tempo: um marco deixado para trás não desaparece, vira fantasma. E há um fantasma que NÃO é seu, com a mensagem ilegível.")
+			linhas.append("Dê um %s: o hash existe, mas nenhuma branch aponta para ele." % _cmd("git log"))
 			linhas.append("Isso não era nosso... Mas fica para depois. Por hoje, vá até o portal.")
 		"restaurou":
 			linhas.append("A câmara voltou ao começo. Sem problema: errar faz parte, e agora você viu o que o reset faz.")

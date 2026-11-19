@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://fases/fase_6/objeto_retorno.gd" id="4_objeto"]
 [ext_resource type="Script" path="res://fases/fase_6/interacao_retorno.gd" id="5_interacao"]
 [ext_resource type="Script" path="res://fases/fase_6/prateleira_stash.gd" id="6_prateleira"]
-[ext_resource type="Script" path="res://fases/fase_6/painel_objetivos_retorno.gd" id="7_objetivos"]
 [ext_resource type="Script" path="res://fases/fase_6/linha_do_tempo.gd" id="8_tempo"]
 [ext_resource type="Resource" path="res://terminal/config/terminal_fase_6.tres" id="9_config"]
 [ext_resource type="FontFile" uid="uid://btp4slsouuu3s" path="res://Dialogo/MonospacePixel.ttf" id="10_fonte"]
@@ -20,6 +19,63 @@
 [ext_resource type="PackedScene" path="res://GeneralNodes/PauseMenu/pause_menu.tscn" id="18_pausa"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/DefeatScreen/defeat_screen.tscn" id="19_derrota"]
 [ext_resource type="PackedScene" path="res://GeneralNodes/VictoryScreen/victory_screen.tscn" id="20_vitoria"]
+
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/piso_concreto.png" id="400_piso"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/parede_concreto.png" id="401_parede"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/poco_abismo.png" id="402_poco"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/borda_poco.png" id="403_borda"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/ponte_toco.png" id="404_toco"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/ponte_ruim.png" id="405_ruim"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/ponte_solida.png" id="406_solida"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/portao_inspecao.png" id="407_pinsp"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/portao_camara.png" id="408_pcam"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/alavanca.png" id="409_alav"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/altar_retorno.png" id="410_altar"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/eidolon_eco.png" id="411_eco"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/pilar_concreto.png" id="412_pilar"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/barreira_jersey.png" id="413_jersey"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/caixa_1.png" id="414_cx1"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/caixa_2.png" id="415_cx2"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/luz_emergencia.png" id="416_luz"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/estencil_1.png" id="417_e1"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/estencil_2.png" id="418_e2"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/estencil_3.png" id="419_e3"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/brilho_amarelo.png" id="420_bam"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/brilho_vermelho.png" id="421_bve"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/brilho_ciano.png" id="422_bci"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/obelisco_inativo_concreto.png" id="423_obi"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/obelisco_ativo_concreto.png" id="424_oba"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/plataforma_terminal_concreto.png" id="425_plat"]
+[ext_resource type="Texture2D" path="res://fases/fase_6/arte/portal_saida_concreto.png" id="426_portal"]
+[ext_resource type="Script" uid="uid://5ow6mtvr4agk" path="res://GeneralNodes/Nota/nota.gd" id="900_nota"]
+[ext_resource type="PackedScene" uid="uid://b2u31t7ogjuew" path="res://Dialogo/CaixaDialogo.tscn" id="901_caixa"]
+[ext_resource type="Script" path="res://fases/fase_6/eco_eidolon.gd" id="902_eco"]
+
+[sub_resource type="CanvasItemMaterial" id="Mat_soma"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Anim_girar"]
+resource_name = "girar"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="Lib_girar"]
+_data = {
+&"girar": SubResource("Anim_girar")
+}
 
 [sub_resource type="RectangleShape2D" id="Forma_cima"]
 size = Vector2(1404, 32)
@@ -45,61 +101,123 @@ size = Vector2(36, 36)
 [node name="Fase6" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_fase")
+textura_plataforma = ExtResource("425_plat")
+textura_portal = ExtResource("426_portal")
 
-[node name="Fundo" type="ColorRect" parent="."]
+[node name="Cenario" type="Node2D" parent="."]
 z_index = -12
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 1404.0
-offset_bottom = 320.0
-mouse_filter = 2
-color = Color(0.0196, 0.0157, 0.0392, 1)
 
-[node name="ChaoArea1" type="ColorRect" parent="."]
-z_index = -10
-offset_right = 200.0
-offset_bottom = 256.0
+[node name="Fundo" type="ColorRect" parent="Cenario"]
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 1420.0
+offset_bottom = 340.0
 mouse_filter = 2
-color = Color(0.165, 0.145, 0.263, 1)
+color = Color(0.1137, 0.1098, 0.098, 1)
 
-[node name="ChaoArea1Direito" type="ColorRect" parent="."]
-z_index = -10
-offset_left = 360.0
-offset_right = 440.0
-offset_bottom = 256.0
+[node name="PisoArea1" type="TextureRect" parent="Cenario"]
+offset_left = 0
+offset_top = 0
+offset_right = 200
+offset_bottom = 256
 mouse_filter = 2
-color = Color(0.165, 0.145, 0.263, 1)
+texture = ExtResource("400_piso")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="Abismo" type="ColorRect" parent="."]
-z_index = -10
-offset_left = 200.0
-offset_right = 360.0
-offset_bottom = 256.0
+[node name="PisoArea1Direito" type="TextureRect" parent="Cenario"]
+offset_left = 360
+offset_top = 0
+offset_right = 440
+offset_bottom = 256
 mouse_filter = 2
-color = Color(0.008, 0.008, 0.02, 1)
+texture = ExtResource("400_piso")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="ChaoArea2" type="ColorRect" parent="."]
-z_index = -10
-offset_left = 440.0
-offset_right = 840.0
-offset_bottom = 256.0
+[node name="PisoArea2" type="TextureRect" parent="Cenario"]
+offset_left = 440
+offset_top = 0
+offset_right = 840
+offset_bottom = 256
 mouse_filter = 2
-color = Color(0.19, 0.165, 0.25, 1)
+texture = ExtResource("400_piso")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="ChaoArea3" type="ColorRect" parent="."]
-z_index = -10
-offset_left = 840.0
-offset_right = 1340.0
-offset_bottom = 256.0
+[node name="PisoArea3" type="TextureRect" parent="Cenario"]
+offset_left = 840
+offset_top = 0
+offset_right = 1340
+offset_bottom = 256
 mouse_filter = 2
-color = Color(0.145, 0.165, 0.265, 1)
+texture = ExtResource("400_piso")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Poco" type="Sprite2D" parent="Cenario"]
+position = Vector2(200, 0)
+centered = false
+texture = ExtResource("402_poco")
+
+[node name="BordaPocoEsquerda" type="Sprite2D" parent="Cenario"]
+position = Vector2(176, 0)
+centered = false
+texture = ExtResource("403_borda")
+
+[node name="BordaPocoDireita" type="Sprite2D" parent="Cenario"]
+position = Vector2(352, 0)
+centered = false
+texture = ExtResource("403_borda")
+flip_h = true
+
+[node name="ParedeCima" type="TextureRect" parent="Cenario"]
+offset_left = -80
+offset_top = -64
+offset_right = 1420
+offset_bottom = 0
+mouse_filter = 2
+texture = ExtResource("401_parede")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ParedeBaixo" type="TextureRect" parent="Cenario"]
+offset_left = -80
+offset_top = 320
+offset_right = 1420
+offset_bottom = 384
+scale = Vector2(1, -1)
+mouse_filter = 2
+texture = ExtResource("401_parede")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Estencil1" type="Sprite2D" parent="Cenario"]
+position = Vector2(150, 196)
+centered = false
+texture = ExtResource("417_e1")
+z_index = 2
+
+[node name="Estencil2" type="Sprite2D" parent="Cenario"]
+position = Vector2(590, 130)
+centered = false
+texture = ExtResource("418_e2")
+z_index = 2
+
+[node name="Estencil3" type="Sprite2D" parent="Cenario"]
+position = Vector2(890, 170)
+centered = false
+texture = ExtResource("419_e3")
+z_index = 2
 
 [node name="Placa1" type="Label" parent="."]
 offset_left = 8.0
 offset_top = 6.0
 offset_right = 430.0
 offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("10_fonte")
 theme_override_font_sizes/font_size = 6
 text = "PONTO DE RETORNO - Todo commit e um marco no tempo. A ponte foi sabotada
@@ -111,7 +229,9 @@ offset_left = 448.0
 offset_top = 6.0
 offset_right = 832.0
 offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("10_fonte")
 theme_override_font_sizes/font_size = 6
 text = "O CORREDOR - A lanterna esta na caixa (trabalho pela metade) e o portao
@@ -123,7 +243,9 @@ offset_left = 848.0
 offset_top = 6.0
 offset_right = 1332.0
 offset_bottom = 30.0
-theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("10_fonte")
 theme_override_font_sizes/font_size = 6
 text = "CAMARA DO RESET - Dois commits apressados, dois destinos: um deve voltar
@@ -165,36 +287,29 @@ script = ExtResource("2_ponte")
 
 [node name="Quebrada" type="Node2D" parent="Ponte"]
 
-[node name="TocoEsquerdo" type="ColorRect" parent="Ponte/Quebrada"]
-offset_right = 40.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.42, 0.28, 0.17, 1)
+[node name="TocoEsquerdo" type="Sprite2D" parent="Ponte/Quebrada"]
+centered = false
+texture = ExtResource("404_toco")
 
-[node name="TocoDireito" type="ColorRect" parent="Ponte/Quebrada"]
-offset_left = 120.0
-offset_right = 160.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.42, 0.28, 0.17, 1)
+[node name="TocoDireito" type="Sprite2D" parent="Ponte/Quebrada"]
+position = Vector2(120, 0)
+centered = false
+texture = ExtResource("404_toco")
+flip_h = true
 
 [node name="Ruim" type="Node2D" parent="Ponte"]
 
-[node name="Tabuas" type="ColorRect" parent="Ponte/Ruim"]
-offset_left = 40.0
-offset_right = 120.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.85, 0.17, 0.84, 0.55)
+[node name="Tabuas" type="Sprite2D" parent="Ponte/Ruim"]
+position = Vector2(40, 0)
+centered = false
+texture = ExtResource("405_ruim")
 
 [node name="Solida" type="Node2D" parent="Ponte"]
 visible = false
 
-[node name="Tabuas" type="ColorRect" parent="Ponte/Solida"]
-offset_right = 160.0
-offset_bottom = 64.0
-mouse_filter = 2
-color = Color(0.62, 0.43, 0.23, 1)
+[node name="Tabuas" type="Sprite2D" parent="Ponte/Solida"]
+centered = false
+texture = ExtResource("406_solida")
 
 [node name="Bloqueio" type="StaticBody2D" parent="Ponte"]
 collision_layer = 16
@@ -215,16 +330,20 @@ script = ExtResource("3_porta")
 [node name="Forma" type="CollisionShape2D" parent="Portas/PortaInspecao"]
 shape = SubResource("Forma_porta")
 
-[node name="Visual" type="ColorRect" parent="Portas/PortaInspecao"]
+[node name="Visual" type="TextureRect" parent="Portas/PortaInspecao"]
 z_index = -8
 offset_left = -8.0
 offset_top = -128.0
 offset_right = 8.0
 offset_bottom = 128.0
 mouse_filter = 2
-color = Color(0.85, 0.55, 0.17, 0.85)
+texture = ExtResource("407_pinsp")
+expand_mode = 1
 
 [node name="Rotulo" type="Label" parent="Portas/PortaInspecao/Visual"]
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 layout_mode = 0
 offset_left = -34.0
 offset_top = 96.0
@@ -245,14 +364,15 @@ script = ExtResource("3_porta")
 [node name="Forma" type="CollisionShape2D" parent="Portas/PortaCamara"]
 shape = SubResource("Forma_porta")
 
-[node name="Visual" type="ColorRect" parent="Portas/PortaCamara"]
+[node name="Visual" type="TextureRect" parent="Portas/PortaCamara"]
 z_index = -8
 offset_left = -8.0
 offset_top = -128.0
 offset_right = 8.0
 offset_bottom = 128.0
 mouse_filter = 2
-color = Color(0.85, 0.3, 0.7, 0.85)
+texture = ExtResource("408_pcam")
+expand_mode = 1
 
 [node name="Limites" type="Node2D" parent="."]
 
@@ -278,8 +398,9 @@ position = Vector2(1110, 100)
 script = ExtResource("4_objeto")
 arquivo = "experimento.map"
 aparece_apos = "z3b_setup"
-cor = Color(0.85, 0.17, 0.84, 1)
+cor = Color(0.85, 0.26, 0.23, 1)
 rotulo = "experimento.map"
+glifo = 1
 
 [node name="Alavanca" type="Area2D" parent="."]
 position = Vector2(760, 70)
@@ -290,15 +411,15 @@ texto_aviso = "ENTER: puxar a alavanca"
 [node name="Forma" type="CollisionShape2D" parent="Alavanca"]
 shape = SubResource("Forma_interacao")
 
-[node name="Marca" type="ColorRect" parent="Alavanca"]
-offset_left = -7.0
-offset_top = -7.0
-offset_right = 7.0
-offset_bottom = 7.0
-mouse_filter = 2
-color = Color(0.9, 0.35, 0.3, 1)
+[node name="Marca" type="Sprite2D" parent="Alavanca"]
+position = Vector2(0, -6)
+texture = ExtResource("409_alav")
+hframes = 2
 
 [node name="Aviso" type="Label" parent="Alavanca"]
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 offset_left = -90.0
 offset_top = -34.0
 offset_right = 90.0
@@ -316,15 +437,14 @@ texto_aviso = "ENTER: Altar de Retorno (desfaz o erro)"
 [node name="Forma" type="CollisionShape2D" parent="AltarRetorno"]
 shape = SubResource("Forma_interacao")
 
-[node name="Marca" type="ColorRect" parent="AltarRetorno"]
-offset_left = -7.0
-offset_top = -7.0
-offset_right = 7.0
-offset_bottom = 7.0
-mouse_filter = 2
-color = Color(0.9, 0.75, 0.3, 1)
+[node name="Marca" type="Sprite2D" parent="AltarRetorno"]
+position = Vector2(0, -6)
+texture = ExtResource("410_altar")
 
 [node name="Aviso" type="Label" parent="AltarRetorno"]
+theme_override_colors/font_color = Color(0.1, 0.09, 0.08, 1)
+theme_override_colors/font_outline_color = Color(0.93, 0.9, 0.82, 1)
+theme_override_constants/outline_size = 3
 offset_left = -100.0
 offset_top = -34.0
 offset_right = 100.0
@@ -335,18 +455,188 @@ horizontal_alignment = 1
 
 [node name="ObeliscoArea1" parent="." instance=ExtResource("14_obelisco")]
 position = Vector2(110, 128)
+textura_inativa = ExtResource("423_obi")
+textura_ativa = ExtResource("424_oba")
 
 [node name="ObeliscoArea2" parent="." instance=ExtResource("14_obelisco")]
 position = Vector2(520, 190)
+textura_inativa = ExtResource("423_obi")
+textura_ativa = ExtResource("424_oba")
 
 [node name="ObeliscoArea2B" parent="." instance=ExtResource("14_obelisco")]
 position = Vector2(720, 190)
+textura_inativa = ExtResource("423_obi")
+textura_ativa = ExtResource("424_oba")
 
 [node name="ObeliscoArea3" parent="." instance=ExtResource("14_obelisco")]
 position = Vector2(950, 200)
+textura_inativa = ExtResource("423_obi")
+textura_ativa = ExtResource("424_oba")
 
 [node name="PortalSaida" parent="." instance=ExtResource("15_saida")]
 position = Vector2(1290, 128)
+
+[node name="Jersey1" type="Sprite2D" parent="."]
+position = Vector2(180, 90)
+texture = ExtResource("413_jersey")
+offset = Vector2(0, -9.0)
+
+[node name="Jersey2" type="Sprite2D" parent="."]
+position = Vector2(180, 174)
+texture = ExtResource("413_jersey")
+offset = Vector2(0, -9.0)
+
+[node name="Jersey3" type="Sprite2D" parent="."]
+position = Vector2(380, 90)
+texture = ExtResource("413_jersey")
+offset = Vector2(0, -9.0)
+
+[node name="Jersey4" type="Sprite2D" parent="."]
+position = Vector2(380, 174)
+texture = ExtResource("413_jersey")
+offset = Vector2(0, -9.0)
+
+[node name="Pilar1" type="Sprite2D" parent="."]
+position = Vector2(420, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Pilar2" type="Sprite2D" parent="."]
+position = Vector2(500, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Pilar3" type="Sprite2D" parent="."]
+position = Vector2(780, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Pilar4" type="Sprite2D" parent="."]
+position = Vector2(870, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Pilar5" type="Sprite2D" parent="."]
+position = Vector2(1100, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Pilar6" type="Sprite2D" parent="."]
+position = Vector2(1250, 248)
+texture = ExtResource("412_pilar")
+offset = Vector2(0, -26.0)
+
+[node name="Caixa1" type="Sprite2D" parent="."]
+position = Vector2(470, 205)
+texture = ExtResource("414_cx1")
+offset = Vector2(0, -8.0)
+
+[node name="Caixa2" type="Sprite2D" parent="."]
+position = Vector2(810, 215)
+texture = ExtResource("415_cx2")
+offset = Vector2(0, -8.0)
+
+[node name="Caixa3" type="Sprite2D" parent="."]
+position = Vector2(860, 60)
+texture = ExtResource("414_cx1")
+offset = Vector2(0, -8.0)
+
+[node name="Caixa4" type="Sprite2D" parent="."]
+position = Vector2(1250, 222)
+texture = ExtResource("415_cx2")
+offset = Vector2(0, -8.0)
+
+[node name="Caixa5" type="Sprite2D" parent="."]
+position = Vector2(90, 215)
+texture = ExtResource("414_cx1")
+offset = Vector2(0, -8.0)
+
+[node name="LuzEmergencia1" type="Sprite2D" parent="."]
+position = Vector2(742, 50)
+texture = ExtResource("416_luz")
+offset = Vector2(0, -6.0)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LuzEmergencia1"]
+libraries = {
+&"": SubResource("Lib_girar")
+}
+autoplay = "girar"
+
+[node name="Brilho" type="Sprite2D" parent="LuzEmergencia1"]
+material = SubResource("Mat_soma")
+position = Vector2(0, -7.199999999999999)
+modulate = Color(1, 1, 1, 0.55)
+texture = ExtResource("421_bve")
+
+[node name="LuzEmergencia2" type="Sprite2D" parent="."]
+position = Vector2(470, 40)
+texture = ExtResource("416_luz")
+offset = Vector2(0, -6.0)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LuzEmergencia2"]
+libraries = {
+&"": SubResource("Lib_girar")
+}
+autoplay = "girar"
+
+[node name="Brilho" type="Sprite2D" parent="LuzEmergencia2"]
+material = SubResource("Mat_soma")
+position = Vector2(0, -7.199999999999999)
+modulate = Color(1, 1, 1, 0.55)
+texture = ExtResource("421_bve")
+
+[node name="LuzEmergencia3" type="Sprite2D" parent="."]
+position = Vector2(812, 40)
+texture = ExtResource("416_luz")
+offset = Vector2(0, -6.0)
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LuzEmergencia3"]
+libraries = {
+&"": SubResource("Lib_girar")
+}
+autoplay = "girar"
+
+[node name="Brilho" type="Sprite2D" parent="LuzEmergencia3"]
+material = SubResource("Mat_soma")
+position = Vector2(0, -7.199999999999999)
+modulate = Color(1, 1, 1, 0.55)
+texture = ExtResource("421_bve")
+
+[node name="EcoEidolon" type="Sprite2D" parent="."]
+position = Vector2(700, 130)
+texture = ExtResource("411_eco")
+offset = Vector2(0, -16)
+script = ExtResource("902_eco")
+pontos = PackedVector2Array(500, 130, 610, 205, 710, 110, 800, 200)
+
+[node name="DialogoHistoria" type="CanvasLayer" parent="."]
+layer = 80
+
+[node name="CaixaDialogo" parent="DialogoHistoria" instance=ExtResource("901_caixa")]
+
+[node name="NotaPlaca" type="Area2D" parent="."]
+position = Vector2(70, 200)
+script = ExtResource("900_nota")
+id_nota = &"f6_placa_estacao"
+tipo = "placa"
+fase = 6
+
+[node name="NotaCarta" type="Area2D" parent="."]
+position = Vector2(560, 150)
+script = ExtResource("900_nota")
+id_nota = &"f6_carta_revert"
+tipo = "carta"
+fase = 6
+
+[node name="NotaAta" type="Area2D" parent="."]
+position = Vector2(1190, 60)
+script = ExtResource("900_nota")
+id_nota = &"f6_ata_purga"
+tipo = "ata"
+fase = 6
 
 [node name="Player" parent="." instance=ExtResource("11_player")]
 position = Vector2(40, 128)
@@ -359,9 +649,6 @@ config = ExtResource("9_config")
 
 [node name="ManualSistema" parent="." instance=ExtResource("16_manual")]
 comandos = Array[String](["log", "status", "revert", "stash", "reset", "add", "commit"])
-
-[node name="PainelObjetivos" type="CanvasLayer" parent="."]
-script = ExtResource("7_objetivos")
 
 [node name="LinhaDoTempo" type="CanvasLayer" parent="."]
 script = ExtResource("8_tempo")

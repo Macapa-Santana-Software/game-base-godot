@@ -600,6 +600,21 @@ func formatar_log(resumido: bool = false) -> Dictionary:
 		if commit.has("autor"):
 			linhas.append("Author: %s" % str(commit["autor"]).replace("[", "[lb]"))
 		linhas.append("\n    %s\n" % str(commit["mensagem"]).replace("[", "[lb]"))
+	# Commits ÓRFÃOS (marcados "misterio"): existem no repositório, mas nenhuma branch aponta para eles.
+	var alcancaveis: Dictionary = {}
+	for commit in linha_do_tempo:
+		alcancaveis[str(commit["id"])] = true
+	for commit in commits:
+		if not commit.get("misterio", false) or alcancaveis.has(str(commit["id"])):
+			continue
+		var id_orfao := str(commit["id"])
+		if resumido:
+			linhas.append("[color=#FF2BD6]%s (órfão) %s[/color]" % [id_orfao, str(commit["mensagem"]).replace("[", "[lb]")])
+			continue
+		linhas.append("[color=#FF2BD6]commit %s (órfão: nenhuma branch aponta para ele)[/color]" % id_orfao)
+		if commit.has("autor"):
+			linhas.append("Author: %s" % str(commit["autor"]).replace("[", "[lb]"))
+		linhas.append("\n    %s\n" % str(commit["mensagem"]).replace("[", "[lb]"))
 	log_consultado.emit(branch_ativa)
 	return _resultado(true, "", "\n".join(linhas))
 

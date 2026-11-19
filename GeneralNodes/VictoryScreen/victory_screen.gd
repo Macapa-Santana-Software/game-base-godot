@@ -35,8 +35,8 @@ const RESUMOS := {
 	},
 }
 const MENSAGEM_GENERICA := "Objetivo cumprido. A realidade avança."
-const TITULO_FIM := "FIM DE JOGO"
-const MENSAGEM_FIM := "Você chegou ao fim desta jornada.\nObrigado por jogar!"
+const TITULO_FIM := "PONTO DE RETORNO"
+const MENSAGEM_FIM := "Um registro ficou para trás.\nNenhuma branch aponta para ele."
 
 @onready var raiz: Control = %Control
 @onready var titulo_label: Label = %TituloLabel

@@ -21,6 +21,9 @@ const ARQ_LANTERNA := "lanterna.map"
 const ARQ_PLANTA := "planta.map"
 const ARQ_EXPERIMENTO := "experimento.map"
 
+## O autor do commit fantasma, em base64 ("E." → "RS4="): a assinatura de Elian, codificada. A Fase 7 a decifra.
+const AUTOR_FANTASMA := "RS4="
+
 const MSG_RUIM := "Tábuas novas (ruins)"
 const MSG_PLANTA := "Planta apressada"
 const MSG_EXPERIMENTO := "Experimento arriscado"
@@ -67,7 +70,10 @@ static func guardar_id(chave: String, valor: String) -> void:
 static func construir() -> void:
 	if construido():
 		return
+	# As escolhas da história (ex.: como o jogador resolveu o conflito da Fase 5) atravessam este reset.
+	var escolhas := GameState.escolhas_historia.duplicate(true)
 	GameState.resetar_repositorio()
+	GameState.escolhas_historia = escolhas
 	GameState.progresso_tutoria[CHAVE] = {"flags": {}, "ids": {}}
 	GameState.git_inicializado = true
 	_commitar(ARQ_BASE, "Estrutura da ponte")
@@ -240,6 +246,7 @@ static func _criar_fantasma() -> void:
 		"pai": primeiro,
 		"pais": [] if primeiro.is_empty() else [primeiro],
 		"misterio": true,
+		"autor": AUTOR_FANTASMA,
 	})
 
 
