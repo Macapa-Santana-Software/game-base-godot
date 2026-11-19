@@ -1,5 +1,5 @@
 class_name RunaConflito extends Node2D
-## As runas da Fase 5, desenhadas por código (visual provisório, para validar a mecânica).
+## As runas da Fase 5: tabletes de grafite (arte em fases/fase_5/arte/) com a cor da versão pintada por dentro.
 ##
 ##   minha       selo.runa na MAIN (a sua versão: dourado)
 ##   deles       selo.runa na branch `ajuste` (a versão da outra equipe: azul)
@@ -15,6 +15,12 @@ const COR_AZUL := Color("3D7BFF")
 const COR_VERDE := Color("3DDB7B")
 const COR_PRATA := Color("B8C0CC")
 const COR_GLITCH := Color("FF2BD6")
+const COR_JANELA := Color("1F2023")
+const TABLETE: Texture2D = preload("res://fases/fase_5/arte/tablete_conflito.png")
+const GLIFOS: Texture2D = preload("res://fases/fase_5/arte/glifos_conflito.png")
+const MOLDURA := Rect2(-19.0, -19.0, 38.0, 38.0)
+const GLIFO_SELO := 0
+const GLIFO_PORTA := 1
 
 @export var papel: Papel = Papel.RESULTADO
 @export var rotulo: String = ""
@@ -45,22 +51,37 @@ func _draw() -> void:
 	match papel:
 		Papel.MINHA:
 			_quadrado(caixa, COR_DOURADO)
+			_glifo(GLIFO_SELO)
 		Papel.DELES:
 			_quadrado(caixa, COR_AZUL)
+			_glifo(GLIFO_SELO)
 		Papel.PORTA:
 			var viva := _modelo.porta_mesclada()
 			_quadrado(caixa, COR_VERDE if viva else COR_PRATA, 1.0 if viva else 0.4)
+			_glifo(GLIFO_PORTA, 1.0 if viva else 0.5)
 			if viva:
-				draw_rect(caixa.grow(2.0), COR_VERDE, false, 2.0)
+				draw_rect(MOLDURA, COR_VERDE, false, 2.0)
 		Papel.RESULTADO:
 			_desenhar_resultado(caixa)
 	_rotular()
 
 
 func _quadrado(caixa: Rect2, cor: Color, alfa: float = 1.0) -> void:
-	draw_rect(caixa, Color(COR_PRATA.r, COR_PRATA.g, COR_PRATA.b, alfa))
-	var cor_final := Color(cor.r, cor.g, cor.b, alfa)
-	draw_rect(caixa.grow(-5.0), cor_final)
+	_tablete(caixa, alfa)
+	draw_rect(caixa.grow(-5.0), Color(cor.r, cor.g, cor.b, alfa))
+
+
+## O tablete de grafite com a janela escura onde a cor é pintada.
+func _tablete(caixa: Rect2, alfa: float = 1.0) -> void:
+	draw_set_transform(Vector2(0, TAM / 2.0 + 3.0), 0.0, Vector2(1.0, 0.3))
+	draw_circle(Vector2.ZERO, TAM / 2.0 + 4.0, Color(0, 0, 0, 0.3 * alfa))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	draw_texture(TABLETE, Vector2(-18.0, -18.0), Color(1, 1, 1, alfa))
+	draw_rect(caixa, Color(COR_JANELA.r, COR_JANELA.g, COR_JANELA.b, alfa))
+
+
+func _glifo(indice: int, alfa: float = 1.0) -> void:
+	draw_texture_rect_region(GLIFOS, Rect2(-7.0, -7.0, 14.0, 14.0), Rect2(indice * 14.0, 0.0, 14.0, 14.0), Color(1, 1, 1, alfa))
 
 
 func _dividido(caixa: Rect2) -> void:
@@ -74,16 +95,17 @@ func _dividido(caixa: Rect2) -> void:
 
 
 func _desenhar_resultado(caixa: Rect2) -> void:
-	draw_rect(caixa, COR_PRATA)
+	_tablete(caixa)
 	var miolo := caixa.grow(-5.0)
 	match _modelo.estado():
 		ModeloConflito.PRE:
-			draw_rect(miolo, Color(0.2, 0.2, 0.26))
+			draw_rect(miolo, Color(0.12, 0.13, 0.15))
+			draw_string(ThemeDB.fallback_font, Vector2(-3.5, 4.5), "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, COR_PRATA)
 		ModeloConflito.CONFLITO:
 			var tremor := Vector2(sin(_tempo * 40.0), cos(_tempo * 33.0)) * 1.2
 			draw_set_transform(tremor)
 			_dividido(caixa)
-			draw_rect(caixa.grow(2.0), COR_GLITCH, false, 2.0)
+			draw_rect(MOLDURA, COR_GLITCH, false, 2.0)
 			draw_set_transform(Vector2.ZERO)
 		_:
 			match _modelo.escolha():
@@ -94,11 +116,11 @@ func _desenhar_resultado(caixa: Rect2) -> void:
 				_:
 					_dividido(caixa)
 			if _modelo.estado() == ModeloConflito.PREPARADO:
-				draw_rect(caixa.grow(2.0), Color("3DA9FF"), false, 2.0)
+				draw_rect(MOLDURA, Color("3DA9FF"), false, 2.0)
 			elif _modelo.estado() == ModeloConflito.CONCLUIDO:
-				draw_rect(caixa.grow(2.0), COR_VERDE, false, 2.0)
+				draw_rect(MOLDURA, COR_VERDE, false, 2.0)
 			else:
-				draw_rect(caixa.grow(2.0), Color("FF9A3D"), false, 2.0)
+				draw_rect(MOLDURA, Color("FF9A3D"), false, 2.0)
 
 
 func _rotular() -> void:

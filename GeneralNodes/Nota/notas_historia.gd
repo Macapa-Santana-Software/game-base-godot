@@ -97,6 +97,28 @@ As pontas foram seladas com precisão.
 		"autor": "",
 		"texto": "Corrigi a runa do mar. Azul não combinava com ela: era verde.\n\nNinguém vai registrar isto. Se você achar a runa certa, deixe-a como está.\n\n[i]Boa sorte.[/i]",
 	},
+	# ---- Fase 5 ----
+	&"f5_placa_selo": {
+		"fase": 5,
+		"tipo": "placa",
+		"titulo": "Selo da Passagem",
+		"autor": "",
+		"texto": "[b]SELO DA PASSAGEM[/b]\n\nDuas equipes, uma tinta.\nQuem pintou por último não é quem pintou certo.",
+	},
+	&"f5_carta_ler_as_duas": {
+		"fase": 5,
+		"tipo": "carta",
+		"titulo": "Carta sobre duas versões",
+		"autor": "E.",
+		"texto": "Quem diz que uma versão é falha raramente leu as duas.\n\nAntes de resolver, leia o que está dos dois lados dos marcadores.\n\n[i]Foi o que eu não fiz, uma vez.[/i]",
+	},
+	&"f5_ata_unificacao": {
+		"fase": 5,
+		"tipo": "ata",
+		"titulo": "Ata de Unificação nº 4",
+		"autor": "Conselho dos Codex",
+		"texto": "Em caso de divergência entre linhas, prevalece a versão da linha principal.\n\nNão é necessário examinar a outra.\n\n[b]Parecer: desnecessário.[/b]",
+	},
 	# EXEMPLO de formato (usado pelo teste das notas).
 	&"exemplo_carta": {
 		"fase": 0,

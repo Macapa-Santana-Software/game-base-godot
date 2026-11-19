@@ -83,6 +83,24 @@ bacia dourada. Obelisco, plataforma e portal foram recoloridos para ouro.
 
 **Arte:** `fases/fase_3/arte/`, gerada por `tools/gerar_arte_fase_3.gd` (`godot --headless --path . --script res://tools/gerar_arte_fase_3.gd`).
 
+## Fase 5 — Linhas Cruzadas: **Grafite neutro**
+Sala de metal escuro sem tom de cor, para as cores de **significado** brilharem: **dourado** (a sua linha), **azul** (a outra equipe), **magenta** (o glitch dos
+marcadores) e **verde-água** (a resolução "ambas", a cor do Walker, que volta no final). Prata só em filetes e detalhes.
+
+| Uso | Cor |
+|---|---|
+| Grafite (chão, paredões) | `#141517` · `#1F2023` · `#2E3033` · `#3D4045` · `#4A4D52` · `#62666C` |
+| Prata (filetes, rebites, taças) | `#6E737B` · `#8E939B` · `#B8BCC4` · `#DDE0E5` |
+| Verde-água (só nas fendas de "ambas") | `#2EE6C5` |
+
+**Cenário:** placas de grafite com rebites e veios de metal escovado, paredões com painéis e luzes de status, faixas de chão douradas (main) e azuis
+(ajuste), racks de servidor com luzes piscando, colunas de metal, restos de placa e emendas no chão. Runas = tabletes de grafite com glifo (selo, porta, "?").
+Cada pedestal tem uma gema da cor da escolha (dourada, azul ou as duas). Obelisco, plataforma e portal recoloridos para grafite/prata.
+
+**A parede:** barreira de glitch magenta. Nas escolhas "minha" e "deles" ela **treme e cai**; em "ambas" ela **racha de dentro para fora** com luz verde-água
+e então cai. Como a cena pausa durante o terminal e o diálogo do abalo, a animação toca depois que eles terminam.
+**Arte:** `fases/fase_5/arte/`, gerada por `tools/gerar_arte_fase_5.gd`.
+
 ## HUD recolhível (todas as fases)
 O estilo da HUD da Fase 4 vale para todas: painéis **recolhíveis** com uma aba na borda. Hoje: **Manual** (tecla M, esquerda) e **Quadro da IA**
 (tecla I, direita; Fases 1, 2, 3, 5 e 6), além dos painéis de Objetivos (O) e Conceitos (C) da Fase 4. O quadro da IA começa aberto e lembra a escolha

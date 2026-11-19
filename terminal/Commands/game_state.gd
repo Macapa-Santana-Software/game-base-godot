@@ -332,6 +332,20 @@ func resetar_repositorio() -> void:
 	branches.clear()
 	reflog.clear()
 	branch_ativa = BRANCH_PADRAO
+	escolhas_historia.clear()
+
+# ESCOLHAS DA HISTÓRIA: decisões do jogador que as fases seguintes lembram (ex.: como resolveu o conflito
+# da Fase 5). Diferente do progresso da fase, NÃO é apagado por reset_fase(); só some em resetar_repositorio()
+# (jogo novo) e volta ao que era ao reiniciar a fase (checkpoint).
+const ESCOLHA_CONFLITO := "conflito_selo"  # "minha" | "deles" | "ambas"
+var escolhas_historia: Dictionary = {}
+
+func registrar_escolha(chave: String, valor: String) -> void:
+	escolhas_historia[chave] = valor
+
+## O valor da escolha, ou `padrao` se o jogador ainda não decidiu.
+func escolha_historia(chave: String, padrao: String = "") -> String:
+	return str(escolhas_historia.get(chave, padrao))
 
 # CHECKPOINT DA FASE: foto do estado do jogo (Git, inventário, tutoria) no instante em que a fase
 # começa. Ao morrer e reiniciar, a tela de derrota restaura essa foto: a fase volta EXATAMENTE
@@ -352,6 +366,7 @@ func guardar_checkpoint() -> void:
 		"stash_pilha": stash_pilha.duplicate(true),
 		"branches": branches.duplicate(true),
 		"branch_ativa": branch_ativa,
+		"escolhas_historia": escolhas_historia.duplicate(true),
 	}
 
 func tem_checkpoint() -> bool:
@@ -373,6 +388,7 @@ func restaurar_checkpoint() -> void:
 	stash_pilha.assign(_checkpoint["stash_pilha"].duplicate(true))
 	branches = _checkpoint["branches"].duplicate(true)
 	branch_ativa = _checkpoint["branch_ativa"]
+	escolhas_historia = _checkpoint["escolhas_historia"].duplicate(true)
 
 func obter_status() -> String:
 	if not git_inicializado:

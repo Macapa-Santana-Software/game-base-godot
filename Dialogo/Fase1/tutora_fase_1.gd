@@ -18,6 +18,9 @@ const COR_IA := "#51CF66"
 const COR_CMD := "#FFE08A"
 const COR_CONCEITO := "#9AD1FF"
 const PREFIXO_TERMINAL := "[color=#51CF66][IA][/color] "
+## Segunda voz (o Eidolon, que acompanha o jogador a partir da Fase 5).
+const COR_EIDOLON := "#9BE7FF"
+const PREFIXO_EIDOLON := "[color=#9BE7FF][EIDOLON][/color] "
 
 const LARGURA_QUADRO := 130.0
 const LARGURA_ABA := 40.0
@@ -166,15 +169,15 @@ func _lista(nomes: Array) -> String:
 # ---------------------------------------------------------------------------
 
 # Adia a escrita para depois que o terminal imprimir a saída do próprio comando
-func _falar(linhas: Array) -> void:
-	_escrever_no_terminal.bind(linhas).call_deferred()
+func _falar(linhas: Array, prefixo: String = PREFIXO_TERMINAL) -> void:
+	_escrever_no_terminal.bind(linhas, prefixo).call_deferred()
 
 ## Último lote falado e o tamanho do histórico logo depois dele. O histórico do terminal não se apaga
 ## ao fechar: se o jogador reabre sem ter feito nada, repetir a mesma fala só duplicaria o texto.
 var _ultimo_lote: Array = []
 var _tamanho_apos_lote: int = -1
 
-func _escrever_no_terminal(linhas: Array) -> void:
+func _escrever_no_terminal(linhas: Array, prefixo: String = PREFIXO_TERMINAL) -> void:
 	var ui = get_tree().get_first_node_in_group("terminal_ui")
 	if ui == null:
 		return
@@ -185,7 +188,7 @@ func _escrever_no_terminal(linhas: Array) -> void:
 		novas = linhas.filter(func(l: Variant) -> bool: return not _ultimo_lote.has(l))
 		acumulado = _ultimo_lote + novas
 	for linha in novas:
-		ui.escrever_no_terminal(PREFIXO_TERMINAL + str(linha))
+		ui.escrever_no_terminal(prefixo + str(linha))
 	_ultimo_lote = acumulado
 	_tamanho_apos_lote = ui.historico.get_total_character_count()
 
@@ -577,10 +580,14 @@ func _montar_balao() -> void:
 	_balao.add_child(_texto_balao)
 
 func _dizer(texto: String) -> void:
+	_dizer_como("IA", COR_IA, texto)
+
+## Balão de fala de qualquer voz (IA, Eidolon...), na cor dela.
+func _dizer_como(quem: String, cor: String, texto: String) -> void:
 	# Com o terminal aberto, a fala vai para o histórico do terminal (não para o balão)
 	if _terminal_aberto or texto.is_empty():
 		return
-	_texto_balao.text = "[color=%s]IA:[/color] %s" % [COR_IA, texto]
+	_texto_balao.text = "[color=%s]%s:[/color] %s" % [cor, quem, texto]
 	_balao.modulate.a = 1.0
 	_balao.show()
 	if _balao_tween:
@@ -589,6 +596,22 @@ func _dizer(texto: String) -> void:
 	_balao_tween.tween_interval(maxf(DURACAO_MINIMA_BALAO, texto.length() / CARACTERES_POR_SEGUNDO))
 	_balao_tween.tween_property(_balao, "modulate:a", 0.0, 0.5)
 	_balao_tween.tween_callback(_balao.hide)
+
+## Uma conversa entre vozes: cada fala é { "quem": "IA" | "Eidolon", "texto": "..." }.
+## Com o terminal aberto, tudo vai de uma vez para o histórico dele; fora, em balões espaçados.
+func _conversar(falas: Array, intervalo: float = 4.5) -> void:
+	if _terminal_aberto:
+		for fala in falas:
+			var eidolon: bool = str(fala["quem"]) == "Eidolon"
+			_falar([str(fala["texto"])], PREFIXO_EIDOLON if eidolon else PREFIXO_TERMINAL)
+		return
+	for i in range(falas.size()):
+		var fala: Dictionary = falas[i]
+		var cor := COR_EIDOLON if str(fala["quem"]) == "Eidolon" else COR_IA
+		if i == 0:
+			_dizer_como(str(fala["quem"]), cor, str(fala["texto"]))
+		else:
+			get_tree().create_timer(intervalo * float(i)).timeout.connect(_dizer_como.bind(str(fala["quem"]), cor, str(fala["texto"])))
 
 func _texto_balao_para(estado: String) -> String:
 	match estado:

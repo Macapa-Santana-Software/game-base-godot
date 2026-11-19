@@ -31,7 +31,10 @@ func _ready() -> void:
 	_modelo.conflito_preparado.connect(_on_preparado)
 	_modelo.merge_concluido.connect(_on_concluido)
 	_modelo.merge_abortado.connect(_on_abortado)
-	_dizer.call_deferred(INTRO + " Abra o terminal no Obelisco (T).")
+	_conversar.call_deferred([
+		{"quem": "IA", "texto": INTRO + " Abra o terminal no Obelisco (T)."},
+		{"quem": "Eidolon", "texto": RoteiroConflito.ABERTURA_EIDOLON},
+	], 6.0)
 
 
 # ---------------------------------------------------------------------------
@@ -103,6 +106,9 @@ func _on_terminal_aberto() -> void:
 	if _primeira_vez("terminal"):
 		linhas.append(INTRO)
 		linhas.append("Na Fase 2 você viu um %s dar certo. Hoje ele vai dar errado, de propósito: um %s não é um defeito, é o Git pedindo que VOCÊ decida." % [_cmd("git merge"), _conceito("conflito")])
+		_falar(linhas)
+		_falar([RoteiroConflito.ABERTURA_EIDOLON], PREFIXO_EIDOLON)
+		linhas = []
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
@@ -127,6 +133,7 @@ func _on_merge_tentado() -> void:
 	GameState.progresso_tutoria["erros_consecutivos"] = 0
 	var linhas: Array = []
 	if _primeira_vez("conflito"):
+		linhas.append(RoteiroConflito.PARALISIA_IA)
 		linhas.append("Isto é um %s, e não um erro. O Git juntou sozinho o que pôde (%s), mas parou em %s: as duas linhas pintaram o mesmo selo de cores diferentes, e o Git não sabe qual vale." % [_conceito("conflito"), _cmd("porta.runa"), _cmd("selo.runa")])
 		linhas.append("Enquanto o conflito durar, você está \"no meio de um merge\". Nada se perdeu: a sua main continua como estava.")
 	else:
@@ -142,6 +149,9 @@ func _on_diff_conflito() -> void:
 	if _primeira_vez("diff_conflito"):
 		linhas.append("Os %s mostram as duas versões lado a lado: acima de %s está a SUA (%s, dourado); abaixo, a DELES (%s, azul)." % [_conceito("marcadores"), _cmd("======="), _cmd("HEAD"), _cmd("ajuste")])
 		linhas.append("Resolver um conflito é decidir o conteúdo final do arquivo: ficar com um lado, com o outro, ou juntar os dois.")
+		_falar(linhas)
+		_falar([RoteiroConflito.DIFF_EIDOLON], PREFIXO_EIDOLON)
+		linhas = []
 	linhas.append(_proximo_passo_terminal(_estado()))
 	_falar(linhas)
 	_atualizar_quadro()
@@ -159,7 +169,11 @@ func _on_escolha(lado: String) -> void:
 	var linhas: Array = ["Você %s. O arquivo não tem mais marcadores, mas isso só aconteceu na sua pasta. Quando mudar de ideia, escolha outro pedestal." % texto]
 	linhas.append(_proximo_passo_terminal(_estado()))
 	# Fora do terminal: balão curto. Dentro: no histórico (a escolha acontece com o terminal fechado).
-	_dizer("Escolha feita. Volte ao terminal (T) e marque como resolvido: git add selo.runa")
+	var falas: Array = []
+	if _primeira_vez("reacao_" + lado):
+		falas.append_array(RoteiroConflito.REACOES.get(lado, []))
+	falas.append({"quem": "IA", "texto": "Escolha feita. Volte ao terminal (T) e marque como resolvido: git add selo.runa"})
+	_conversar(falas)
 	_falar(linhas)
 	_atualizar_quadro()
 

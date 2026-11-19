@@ -175,7 +175,12 @@ func _testar_fase_5() -> void:
 	_ok("concluído" in saida_commit and modelo.estado() == ModeloConflito.CONCLUIDO, "commit fecha o merge")
 	_ok(GameState.commits.size() > 0 and GameState.commits.back()["mensagem"] == "junta as duas linhas", "o commit real foi registrado no GameState")
 	_ok(GameState.conteudo_em("selo.runa") == "cor: dourado + azul", "o conteúdo resolvido fica no commit (conteudo_em)")
-	_ok(parede.aberta and not portal.locked, "a parede cai e o portal abre")
+	_ok(not portal.locked, "o portal abre")
+	# A parede cai com uma animação (e o abalo do Eidolon abre um diálogo): fecha o diálogo e espera.
+	if fase.caixa_dialogo.visible:
+		fase.caixa_dialogo.finalizar()
+	await get_tree().create_timer(4.0).timeout
+	_ok(parede.aberta, "a parede cai")
 	_ok("Already up to date" in terminal.execute_command("git merge ajuste"), "merge depois de concluído: já está integrado")
 
 	# caminho curto: --abort depois de preparado volta ao início

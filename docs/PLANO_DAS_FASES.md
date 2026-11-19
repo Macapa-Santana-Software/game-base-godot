@@ -232,8 +232,11 @@ marcadores) e o `commit` fecha o merge. Dá para reescolher antes do `add` e par
 **Técnico.** `fases/fase_5/`: `ModeloConflito`, `RunaConflito`, `PedestalEscolha`, `TutoraConflito`. O commit final é gravado
 também no `GameState`. Teste: `test/fase_5_gamestate_test.tscn` (a Parte 2 joga a fase pelo terminal).
 
-**História possível.** Ligar ao Eidolon: a doutrina "não integrar" **falha** quando as duas linhas discordam. É o primeiro
-abalo real dele, que o plano original previa para esta fase e que ainda **não foi escrito**.
+**História (implementada).** O Eidolon acompanha o jogador pela voz (cor ciano, `[EIDOLON]`) e defende que uma versão deve prevalecer; a IA paralisa diante
+de "conflito"; cada escolha (minha/deles/ambas) tem uma reação; ao fechar o merge vem o **abalo do Eidolon**, um diálogo obrigatório que espera o terminal
+fechar. Três notas (placa, carta de "E.", ata do Conselho). Roteiro em `fases/fase_5/roteiro_conflito.gd`. A escolha fica em
+`GameState.escolhas_historia` (chave `GameState.ESCOLHA_CONFLITO`), que sobrevive a `reset_fase()`, para as Fases 6, 7 e 8 usarem.
+**Visual (implementado):** "Grafite neutro" (arte em PNG gerada por `tools/gerar_arte_fase_5.gd`); a parede racha com luz verde-água na escolha "ambas". Ver `docs/DESIGN_FASES.md`.
 
 **Ideias.** Cada escolha abrir um caminho diferente até o portal; um segundo conflito opcional, mais difícil; a parede
 rachar conforme o conflito é resolvido.

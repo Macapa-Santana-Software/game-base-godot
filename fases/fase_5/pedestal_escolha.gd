@@ -3,13 +3,13 @@ class_name PedestalEscolha extends Area2D
 ## a da outra equipe, ou junta as duas. Só funciona com o conflito aberto e antes do `git add`
 ## (depois do `merge --abort` volta a ficar inativo).
 ##
-## Estrutura esperada: filhos `Pedra` (ColorRect) e `Aviso` (Label).
+## Estrutura esperada: filhos `Pedra` (Sprite2D ou qualquer nó visual) e `Aviso` (Label).
 
 @export_enum("minha", "deles", "ambas") var lado: String = "minha"
 @export var texto_aviso: String = "ENTER: escolher"
 
 @onready var _aviso: Label = $Aviso
-@onready var _pedra: ColorRect = $Pedra
+@onready var _pedra: CanvasItem = $Pedra
 
 var _player_perto: bool = false
 

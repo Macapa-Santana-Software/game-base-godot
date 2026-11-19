@@ -536,7 +536,7 @@ Para um teste rápido dá para preencher `titulo`/`texto`/`autor` direto no nó 
 ### API
 
 `Diario.ler(id, dados)` · `Diario.abrir_diario()` · `Diario.fechar()` · `Diario.foi_lida(id)` · `Diario.entradas()` ·
-`Diario.limpar()` (novo jogo/testes). Abas da HUD recolhível: `AbaHud` (`GeneralNodes/UI/aba_hud.gd`). O menu de pausa tem **REINICIAR FASE** e a tela de derrota usa a mesma função (`FaseManager.reiniciar_fase_atual()`). Teste: `test/nota_diario_test.tscn` (34 verificações).
+`Diario.limpar()` (novo jogo/testes). **Escolhas da história:** `GameState.registrar_escolha(chave, valor)` / `GameState.escolha_historia(chave, padrao)` guardam decisões que as fases seguintes lembram (sobrevivem a `reset_fase()`, voltam ao reiniciar a fase, somem num jogo novo). **Segunda voz:** `TutoraFase1._conversar([{quem, texto}])` e `_falar(linhas, PREFIXO_EIDOLON)` fazem o Eidolon falar em qualquer fase que herde a tutora. Abas da HUD recolhível: `AbaHud` (`GeneralNodes/UI/aba_hud.gd`). O menu de pausa tem **REINICIAR FASE** e a tela de derrota usa a mesma função (`FaseManager.reiniciar_fase_atual()`). Teste: `test/nota_diario_test.tscn` (34 verificações).
 
 **Marca no mapa x Diário.** O Diário guarda tudo o que foi lido, para sempre. A *marca* do ícone no mapa (translúcido com visto) é separada:
 vale na tentativa atual da fase (`Diario.foi_marcada(id)`); se o jogador morre, a tela de derrota chama `Diario.descartar_tentativa()` e a nota volta

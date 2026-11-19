@@ -94,6 +94,15 @@ func _marcar(chave: String) -> void:
 	_estado["flags"][chave] = true
 
 
+## O abalo do Eidolon (diálogo obrigatório do fim da fase) já foi mostrado?
+func abalo_dito() -> bool:
+	return flag("abalo_dito")
+
+
+func marcar_abalo() -> void:
+	_marcar("abalo_dito")
+
+
 func em_merge() -> bool:
 	return estado() in [CONFLITO, RESOLVIDO, PREPARADO]
 
@@ -295,6 +304,8 @@ func commitar(args: Array[String]) -> String:
 	})
 	_estado["estado"] = CONCLUIDO
 	_marcar("concluido")
+	# A decisão vira história: as fases seguintes (e as falas) lembram como o jogador resolveu.
+	GameState.registrar_escolha(GameState.ESCOLHA_CONFLITO, escolha())
 	merge_concluido.emit()
 	mudou.emit()
 	return "[color=#3DFF9B]Merge '%s' concluído na main.[/color]\n%s" % [BRANCH, resposta]
